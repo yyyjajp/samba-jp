@@ -268,6 +268,16 @@
 			<para>
 <indexterm><primary>固定IPアドレス</primary></indexterm>
 <indexterm><primary>ネットワーククライアント</primary></indexterm>
+			もしも、固定IPアドレスを使いたいならば、<quote>次の IP アドレスを使う</quote>をクリックし、
+			IPアドレスとサブネットマスクとデフォルトゲートウェイのIPアドレスを所定の位置に入力する。
+			この例では、すべてのネットワーククライアントはDHCPで設定されていることを仮定している。
+			</para></step>
+
+			<step><para>
+			Click the <guimenu>Advanced</guimenu> button to proceed with TCP/IP configuration.
+			Refer to <link linkend="w2kp003"></link>.
+			<figure id="w2kp003"><title>Advanced Network Settings.</title><imagefile>w2kp003</imagefile></figure>
+			</para>
 			If it is necessary to provide a fixed IP address, click on <quote>Use the following IP address</quote> and enter the
 			IP Address, the subnet mask, and the default gateway address in the boxes provided.
 			For this example we are assuming that all network clients will be configured using DHCP.
