@@ -7,7 +7,7 @@
 	<manvolnum>8</manvolnum>
 	<refmiscinfo class="source">Samba</refmiscinfo>
 	<refmiscinfo class="manual">システム管理ツール</refmiscinfo>
-	<refmiscinfo class="version">4.4</refmiscinfo>
+	<refmiscinfo class="version">4.5</refmiscinfo>
 </refmeta>
 
 <refnamediv>
@@ -139,10 +139,6 @@
 	BUILTIN のような、内部バックエンド中で使用されうる
 	ローカル id 割り当てにとは競合しない、小さなレンジを確保することも
 	示す。</para>
-	<para>The following example shows how to retrieve id mappings
-	from a stand-alone LDAP server.  This example also shows how
-	to leave a small non conflicting range for local id allocation
-	that may be used in internal backends like BUILTIN.</para>
 
 	<programlisting>
 	[global]
@@ -173,8 +169,8 @@
 
 <refsect1>
 	<title>日本語訳</title>
-	<para>このマニュアルページは Samba 4.4.0 - 4.4.4 に対応する。</para>
-		<para>このドキュメントの Samba 4.1.0 - 4.4.4 対応の翻訳は
+	<para>このマニュアルページは Samba 4.4.0 - 4.5.0 に対応する。</para>
+		<para>このドキュメントの Samba 4.1.0 - 4.5.0 対応の翻訳は
 	<itemizedlist>
 	<listitem><para>太田俊哉(ribbon@samba.gr.jp)</para></listitem>
 	</itemizedlist>

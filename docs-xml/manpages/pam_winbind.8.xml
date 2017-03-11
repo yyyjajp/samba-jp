@@ -6,7 +6,7 @@
 	<refentrytitle>pam_winbind</refentrytitle>
 	<manvolnum>8</manvolnum>
 	<refmiscinfo class="source">Samba</refmiscinfo>
-	<refmiscinfo class="version">4.4</refmiscinfo>
+	<refmiscinfo class="version">4.5</refmiscinfo>
 	<refmiscinfo class="manual">8</refmiscinfo>
 </refmeta>
 
@@ -49,7 +49,7 @@
                             ...
                 </programlisting>
 
-		pam_winbind はセッション部分の最初のモジュールであるようにする。その他のモジュール
+		pam_winbind はセッション部分の最初のモジュールとする。その他のモジュール
 		で必要とされるkerberosチケットを検索しても良い。
         </para>
 </refsect1>
@@ -270,9 +270,9 @@
 </refsect1>
 <refsect1>
 	<title>日本語訳</title>
-	<para>このマニュアルページは Samba 3.3.6 - 4.4.4 に対応する。</para>
+	<para>このマニュアルページは Samba 3.3.6 - 4.5.0 に対応する。</para>
 	<para>Samba 3.0.23 - Samba 3.0.24 対応の翻訳は、たかはしもとのぶ (monyo@samba.gr.jp) によって行なわれた。</para>
-	<para>Samba 3.2.4 - 4.4.4 対応の翻訳は、太田俊哉 (ribbon@samba.gr.jp) によって行なわれた。</para>
+	<para>Samba 3.2.4 - 4.5.0 対応の翻訳は、太田俊哉 (ribbon@samba.gr.jp) によって行なわれた。</para>
 </refsect1>
 
 </refentry>

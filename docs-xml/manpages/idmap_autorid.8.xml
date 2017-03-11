@@ -7,7 +7,7 @@
 	<manvolnum>8</manvolnum>
 	<refmiscinfo class="source">Samba</refmiscinfo>
 	<refmiscinfo class="manual">システム管理ツール</refmiscinfo>
-	<refmiscinfo class="version">4.4</refmiscinfo>
+	<refmiscinfo class="version">4.5</refmiscinfo>
 </refmeta>
 
 
@@ -145,10 +145,8 @@
 <refsect1>
 	<title>設定例</title>
 	<para>
-		This example shows you the minimal configuration that will
-		work for the principial domain and 19 trusted domains.
-		この例はプリンシパルドメインと19の信頼されたドメイン / レンジ拡張 のために
-		動作する最低限の設定例である。
+	  この例はプリンシパルドメインと19の信頼されたドメイン / レンジ拡張 のために
+	  動作する最低限の設定例である。
 	</para>
 
 	<programlisting>
@@ -207,7 +205,7 @@
 
 <refsect1>
     <title>日本語訳</title>
-    <para>このマニュアルページは Samba 4.4.0 - 4.4.4 に対応する。</para>
+    <para>このマニュアルページは Samba 4.4.0 - 4.5.0 に対応する。</para>
         <para>このドキュメントの翻訳は
     <itemizedlist>
         <listitem><para>太田俊哉(ribbon@samba.gr.jp)</para></listitem>
