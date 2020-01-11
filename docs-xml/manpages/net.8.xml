@@ -10,7 +10,7 @@
 	<refmiscinfo class="manual">System Administration tools</refmiscinfo>
 -->
 	<refmiscinfo class="manual">システム管理ツール</refmiscinfo>
-	<refmiscinfo class="version">4.7</refmiscinfo>
+	<refmiscinfo class="version">&doc.version;</refmiscinfo>
 </refmeta>
 
 
@@ -33,6 +33,7 @@
 		<arg choice="opt">-w|--workgroup workgroup</arg>
 		<arg choice="opt">-W|--myworkgroup myworkgroup</arg>
 		<arg choice="opt">-U|--user user</arg>
+		<arg choice="opt">-A|--authentication-file authfile</arg>
 		<arg choice="opt">-I|--ipaddress ip-address</arg>
 		<arg choice="opt">-p|--port port</arg>
 		<arg choice="opt">-n myname</arg>
@@ -575,6 +576,21 @@
 		</para></listitem>
 		</varlistentry>
 
+<!-- Samba-4.11.0
+                <varlistentry>
+                <term>- -json</term>
+                <listitem><para>Report results in JSON format for
+                "net ads info" and "net ads lookup".
+                </para></listitem>
+                </varlistentry>
+-->
+                <varlistentry>
+                <term>--json</term>
+                <listitem><para>"net ads info" と "net ads lookup"
+                のために、結果を JSON 形式で出力する。
+                </para></listitem>
+                </varlistentry>
+
                 &stdarg.encrypt;
                 &popt.common.samba.client;
 
@@ -853,6 +869,15 @@ OLDJOIN オプションを使用すること。
 <para>Create specified group.</para>
 -->
 <para>指定したグループを作成する。</para>
+
+</refsect3>
+<refsect3>
+<title>[ADS] LOOKUP</title>
+
+<!-- Samba 4.9.0
+<para>Lookup the closest Domain Controller in our domain and retrieve server information about it.</para>
+-->
+<para>自ドメイン中でもっとも近いドメインコントローラを探し、そのサーバ情報を検索する。</para>
 
 </refsect3>
 </refsect2>
@@ -1221,6 +1246,42 @@ or workgroup. Defaults to local domain.</para>
 <para>指定した <replaceable>DOMAIN</replaceable> あるいはワークグループのマスターブラウザーの IP アドレスを検索する。
 既定値はローカルドメインである。</para>
 
+</refsect3>
+
+<refsect3>
+<title>LOOKUP NAME [<replaceable>NAME</replaceable>]</title>
+
+<!-- Samba-4.10.0
+<para>Lookup username's sid and type for specified <replaceable>NAME</replaceable>
+</para>
+-->
+<para>指定した <replaceable>NAME</replaceable> に対するユーザ名の SID とタイプを検索する。
+</para>
+
+</refsect3>
+
+<refsect3>
+<title>LOOKUP SID [<replaceable>SID</replaceable>]</title>
+
+<!-- Samba-4.10.0
+<para>Give sid's name and type for specified <replaceable>SID</replaceable>
+</para>
+-->
+<para>指定した <replaceable>SID</replaceable> に対する名前とタイプを表示する。
+</para>
+
+</refsect3>
+
+<refsect3>
+<title>LOOKUP DSGETDCNAME [<replaceable>NAME</replaceable>] [<replaceable>FLAGS</replaceable>] [<replaceable>SITENAME</replaceable>]</title>
+
+<!-- Samba-4.10.0
+<para>Give Domain Controller information for specified domain <replaceable>NAME</replaceable>
+</para>
+-->
+<para>指定したドメイン名 <replaceable>NAME</replaceable> に対するドメインコントローラ
+情報を表示する。
+</para>
 </refsect3>
 
 </refsect2>
@@ -2005,6 +2066,213 @@ DN は標準の LDAP DN であり、 attributes は結果中に表示する LDAP
 
 </refsect2>
 
+<!-- Samba 4.9.0
+<refsect2>
+<title>ADS KEYTAB <replaceable>CREATE</replaceable></title>
+
+<para>
+Creates a new keytab file if one doesn't exist with default entries. Default
+entries are kerberos principals created from the machinename of the
+client, the UPN (if it exists) and any Windows SPN(s) associated with the
+computer AD account for the client. If a keytab file already exists then only
+missing kerberos principals from the default entries are added. No changes
+are made to the computer AD account.
+</para>
+</refsect2>
+-->
+<refsect2>
+<title>ADS KEYTAB <replaceable>CREATE</replaceable></title>
+
+<para>
+既定値のエントリに存在していない場合に、新しい keytab ファイルを作成する。
+既定値のエントリは、クライアントのマシン名から作成された kerberos プリンシパル、
+(存在していれば) UPN と、クライアントのコンピュータ AD アカウントに関連づけられた
+任意の Windows SPN である。keytab ファイルがすでに存在している場合は、
+既定値のエントリから、欠けている kerberos プリンシパルのみが追加される。
+コンピュータ AD アカウントへの更新はない。
+</para>
+</refsect2>
+
+<refsect2>
+<title>ADS KEYTAB <replaceable>ADD</replaceable> <replaceable>(principal | machine | serviceclass | windows SPN</replaceable></title>
+
+<!-- Samba 4.9.0
+<para>
+Adds a new keytab entry, the entry can be either;
+  <variablelist>
+    <varlistentry><term>kerberos principal</term>
+    <listitem><para>
+      A kerberos principal (identified by the presence of '@') is just
+      added to the keytab file.
+    </para></listitem>
+    </varlistentry>
+    <varlistentry><term>machinename</term>
+    <listitem><para>
+      A machinename (identified by the trailing '$') is used to create a
+      a kerberos principal 'machinename@realm' which is added to the
+      keytab file.
+    </para></listitem>
+    </varlistentry>
+    <varlistentry><term>serviceclass</term>
+    <listitem><para>
+    A serviceclass (such as 'cifs', 'html' etc.) is used to create a pair
+    of kerberos principals 'serviceclass/fully_qualified_dns_name@realm' &amp;
+    'serviceclass/netbios_name@realm' which are added to the keytab file.
+    </para></listitem>
+    </varlistentry>
+    <varlistentry><term>Windows SPN</term>
+    <listitem><para>
+    A Windows SPN is of the format 'serviceclass/host:port', it is used to
+    create a kerberos principal 'serviceclass/host@realm' which will
+    be written to the keytab file.
+    </para></listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+
+<para>
+Unlike old versions no computer AD objects are modified by this command. To
+preserve the bevhaviour of older clients 'net ads keytab ad_update_ads' is
+available.
+</para>
+-->
+<para>
+新しい keytab エントリを追加する。エントリは以下のどれかである;
+  <variablelist>
+    <varlistentry><term>kerberos principal</term>
+    <listitem><para>
+      kerberos プリンシパル ('@'が存在することで識別)が keytab ファイルに
+      追加される。
+    </para></listitem>
+    </varlistentry>
+    <varlistentry><term>machinename</term>
+    <listitem><para>
+      keytab ファイルに追加される、 'machinename@realm' 形式の kerberos プリンシパルを
+      作成するために、マシン名 (末尾の '$' によって識別) が使われる。
+    </para></listitem>
+    </varlistentry>
+    <varlistentry><term>serviceclass</term>
+    <listitem><para>
+    keytab ファイルに追加される、kerberos プリンシパルのペア
+    'serviceclass/fully_qualified_dns_name@realm' と
+    'serviceclass/netbios_name@realm' を作成するために、サービスクラス
+    ('cifs', 'html' など) が使われる。
+    </para></listitem>
+    </varlistentry>
+    <varlistentry><term>Windows SPN</term>
+    <listitem><para>
+    keytab ファイルに書き込まれる kerberos プリンシパル
+    'serviceclass/host@realm' を作成するのに使われる、
+    'serviceclass/host:port' 形式の Windows SPN。
+    </para></listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+
+<para>
+古いバージョンとは異なり、このコマンドではコンピュータの AD オブジェクトは
+1つも変更されない。古いクライアントの動作にするには、
+'net ads keytab ad_update_ads' を使う。
+</para>
+</refsect2>
+
+<refsect2>
+<title>ADS KEYTAB <replaceable>ADD_UPDATE_ADS</replaceable> <replaceable>(principal | machine | serviceclass | windows SPN</replaceable></title>
+
+<para>
+<!-- Samba 4.9.0
+Adds a new keytab entry (see section for net ads keytab add). In addition to
+adding entries to the keytab file corrosponding Windows SPNs are created
+from the entry passed to this command. These SPN(s) added to the AD computer
+account object associated with the client machine running this command for
+the following entry types;
+-->
+新しい keytab エントリを追加する(net ads keytab add 節を参照)。
+keytab ファイルにエントリを追加する事に加えて、関連した Windows SPN は
+このコマンドに渡されたパスから生成される。SPN は、以下のエントリタイプに対して、
+このコマンドを実行しているクライアントマシンに関連づけられる、AD のコンピュータ アカウント
+オブジェクトに追加される。
+  <variablelist>
+    <varlistentry><term>serviceclass</term>
+    <listitem><para>
+<!-- Samba 4.9.0
+      A serviceclass (such as 'cifs', 'html' etc.) is used to create a
+    pair of Windows SPN(s) 'param/full_qualified_dns' &amp;
+    'param/netbios_name' which are added to the AD computer account object
+   for this client.
+-->
+     サービスクラス (たとえば 'cifs', 'html' など) は、このクライアント用に
+     AD コンピュータアカウントオブジェクトに追加される  Windows SPN ペア
+     'param/full_qualified_dns' と  'param/netbios_name' を作成するのに使われる。 
+   </para></listitem>
+    </varlistentry>
+    <varlistentry><term>Windows SPN</term>
+    <listitem><para>
+<!-- Samba 4.9.0
+    A Windows SPN is of the format 'serviceclass/host:port', it is
+    added as passed to the AD computer account object for this client.
+-->
+    Windows SPN の形式は 'serviceclass/host:port' であり、このクライアント用に、
+    AD コンピュータアカウントオブジェクトに渡されたとおりに追加される。
+    </para></listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</refsect2>
+
+<refsect2>
+<title>ADS setspn <replaceable>SETSPN LIST [machine]</replaceable></title>
+<!-- Samba 4.9.0
+<para>
+   Lists the Windows SPNs stored in the 'machine' Windows AD Computer object.
+   If 'machine' is not specified then computer account for this client is used
+   instead.
+</para>
+-->
+<para>
+   'machine' の Windows AD Computer オブジェクトに格納されている Windows SPN を一覧表示する。
+   'machine' が指定されていない場合は、このクライアントのコンピュータアカウントが代わりに
+   使われる。
+</para>
+</refsect2>
+
+<refsect2>
+<title>ADS setspn <replaceable>SETSPN ADD SPN [machine]</replaceable></title>
+
+<!-- Samba 4.9.0
+<para>
+   Adds the specified Windows SPN to the 'machine' Windows AD Computer object.
+   If 'machine' is not specified then computer account for this client is used
+   instead.
+</para>
+-->
+<para>
+   'machine' の Windows AD Computer object に、指定された Windows SPNを追加する。
+   'machine' が指定されていない場合は、このクライアントのコンピュータアカウントが代わりに
+   使われる。
+</para>
+</refsect2>
+
+
+<refsect2>
+<title>ADS setspn <replaceable>SETSPN DELETE SPN [machine]</replaceable></title>
+
+<!-- Samba 4.9.0
+<para>
+   DELETE the specified Window SPN from the 'machine' Windows AD Computer
+   object. If 'machine' is not specified then computer account for this
+   client is used
+   instead.
+</para>
+-->
+<para>
+   'machine' の Windows AD Computer オブジェクトから指定された Windows SPN を削除する。
+   'machine' が指定されていない場合は、このクライアントのコンピュータアカウントが代わりに
+   使われる。
+</para>
+
+</refsect2>
+
 <refsect2>
 <title>ADS WORKGROUP</title>
 
@@ -2247,7 +2515,7 @@ the rid and description is also provided for each account.
 </para>
 -->
 <para>
-名前による一まとまりのアカウントを表示する。もしも verbose が指定されていたら、
+名前によるひとまとまりのアカウントを表示する。もしも verbose が指定されていたら、
 rid と description も各々のアカウントに対して提供される。
 </para>
 
@@ -4437,7 +4705,7 @@ Dump the locking table of a certain global lock.
 </refsect1>
 <refsect1>
 	<title>日本語訳</title>
-	<para>このマニュアルページは Samba 4.6.2 - 4.7.6 に対応する。</para>
+	<para>このマニュアルページは Samba 4.11.0 - 4.11.0 に対応する。</para>
 
         <para>このドキュメントの Samba 3.0.0 対応の翻訳は
 	<itemizedlist>
@@ -4447,7 +4715,7 @@ Dump the locking table of a certain global lock.
        によって行なわれた。</para>
 
 	<para>Samba 3.0.23 - Samba 3.0.24 対応の翻訳は、たかはしもとのぶ (monyo@samba.gr.jp) によって行なわれた。</para>
-	<para>Samba 3.2.4 - 4.7.6 対応の翻訳は、
+	<para>Samba 3.2.4 - 4.11.0 対応の翻訳は、
 	  <itemizedlist>
 	    <listitem><para>太田俊哉 (ribbon@samba.gr.jp)</para></listitem>
 	    <listitem><para>matsuand(michio_matsuyama@yahoo.co.jp)</para></listitem>

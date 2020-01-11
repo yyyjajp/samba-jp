@@ -2,8 +2,24 @@
                  context="G"
 		 type="boolean"
 		 function="_lanman_auth"
+		 deprecated="1"
                  xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
 <description>
+<!-- Samba-4.11.0
+    <para>This parameter has been deprecated since Samba 4.11 and
+    support for LanMan (as distinct from NTLM, NTLMv2
+    or Kerberos authentication)
+    will be removed in a future Samba release.</para>
+    <para>That is, in the future, the current default of
+    <command>lanman auth = no</command>
+    will be the enforced behaviour.</para>
+-->
+    <para>このパラメータは Samba 4.11 から非推奨となり、
+    (NTLM, NTLMv2 または Kerberos 認証とは異なり) LanMan
+    は将来の Samba リリースでは削除される。</para>
+    <para>そのため、将来は、現在の既定値である <command>lanman auth = no</command>
+    が強制された動作となる。</para>
+
 <!-- 原文 samba-4.7.0
     <para>This parameter determines whether or not <citerefentry><refentrytitle>smbd</refentrytitle>
     <manvolnum>8</manvolnum></citerefentry> will attempt to
@@ -43,31 +59,34 @@
     lanman クライアントは、あとで lanman auth を再度有効にしたとしても認証できなくなる。
     </para>
 		
-<!-- 原文 samba-4.7.0
-    <para>Unlike the <command moreinfo="none">encrypt
-    passwords</command> option, this parameter cannot alter client
+<!-- 原文 samba-4.10.6
+    <para>Unlike the <parameter moreinfo="none">encrypt
+    passwords</parameter> option, this parameter cannot alter client
     behaviour, and the LANMAN response will still be sent over the
     network.  See the <command moreinfo="none">client lanman
     auth</command> to disable this for Samba's clients (such as smbclient)</para>
 -->
-    <para><command moreinfo="none">encypt
-    passwords</command> オプションとは異なり、このパラメーターはクライアントの挙動を制御するものではなく、
-    LANMAN レスポンスは以前としてネットワーク上を送信される。
+    <para><parameter moreinfo="none">encypt
+    passwords</parameter> オプションとは異なり、このパラメーターはクライアントの挙動を
+    制御するものではなく、 LANMAN レスポンスは依然としてネットワーク上を送信される。
     Samba のクライアント（smbclient など）で LANMAN レスポンスを無効にするには
     <command moreinfo="none">client lanman auth</command> を参照のこと。</para>
 
-<!-- 原文 samba-4.7.0
-    <para>If this option, and <command moreinfo="none">ntlm
-    auth</command> are both disabled, then only NTLMv2 logins will be
-    permited.  Not all clients support NTLMv2, and most will require
-    special configuration to use it.</para>
+<!-- 原文 samba-4.10.6
+    <para>This parameter is overriden by <parameter moreinfo="none">ntlm
+    auth</parameter>, so unless that it is also set to
+    <constant>ntlmv1-permitted</constant> or <constant>yes</constant>,
+    then only NTLMv2 logins will be permited and no LM hash will be
+    stored.  All modern clients support NTLMv2, and but some older
+    clients require special configuration to use it.</para>
 -->
-    <para>このパラメーターと <command moreinfo="none">ntlm
-    auth</command> の両方を無効にした場合、 NTLMv2 によるログインのみが可能となる。
-    クライアントのすべてが NTLMv2 をサポートしているわけではなく、ほとんどのクライアント
-    では NTLMv2 を使用するために明示的な設定を行なう必要がある。
-    </para>
-</description>
+    <para>このパラメータは <parameter moreinfo="none"> ntlm auth</parameter>
+    パラメータによって上書きされるため、<constant>ntlmv1-permitted</constant> または
+    <constant>yes</constant> が設定されてない限り、NTLMv2 ログインのみが許可され、
+    LM ハッシュは格納されない。最近のクライアントはすべて NTLMv2をサポートしている
+    が、いくつかのクライアントは特別な設定をすることが必要である。</para>
+
+  </description>
 
 <value type="default">no</value>
 </samba:parameter>
