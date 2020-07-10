@@ -7,7 +7,7 @@
 	<manvolnum>8</manvolnum>
 	<refmiscinfo class="source">Samba</refmiscinfo>
 	<refmiscinfo class="manual">システム管理ツール</refmiscinfo>
-	<refmiscinfo class="version">4.7</refmiscinfo>
+	<refmiscinfo class="version">&doc.version;</refmiscinfo>
 </refmeta>
 
 
@@ -42,7 +42,6 @@
         <member>chdir</member>
         <member>chflags</member>
         <member>chmod</member>
-        <member>chmod_acl</member>
         <member>chown</member>
         <member>close</member>
         <member>closedir</member>
@@ -52,7 +51,6 @@
         <member>disconnect</member>
         <member>disk_free</member>
         <member>fchmod</member>
-        <member>fchmod_acl</member>
         <member>fchown</member>
         <member>fget_nt_acl</member>
         <member>fgetxattr</member>
@@ -163,7 +161,7 @@
 		<listitem>
 		<para>LISTはVFSオペレーションのリストで、動作が成功したときに記録を残すものを表す。
 		オペレーションは上に示したリストにある名前で指定する。
-		名前の前に"!"を付けることで、操作から外せる。既定値はすべて動作させる。
+		名前の前に"!"を付けることで、操作から外せる。既定値は何も定義されていない。
 		</para>
 
 		</listitem>
@@ -174,7 +172,7 @@
 		<listitem>
 		<para>LISTはVFSオペレーションのリストで、動作が失敗したときに記録を残すものを表す。
 		オペレーションは上に示したリストにある名前で指定する。
-		名前の前に"!"を付けることで、操作から外せる。
+		名前の前に"!"を付けることで、操作から外せる。既定値は何も定義されていない。
 		</para>
 
 		</listitem>
@@ -248,7 +246,7 @@
 
 <refsect1>
 	<title>バージョン</title>
-	<para>このヘルプはSambaシステム　3.0.25(訳注:4.x?)に対応している
+	<para>このヘルプは Samba バージョン &doc.version; 用である。
 	</para>
 </refsect1>
 
@@ -263,7 +261,7 @@
 </refsect1>
 <refsect1>
 	<title>日本語訳</title>
-	<para>このドキュメントは、Samba 4.3.0 - 4.7.6 に対応する。</para>
+	<para>このドキュメントは、Samba 4.9.0 - 4.11.1 に対応する。</para>
     <para>このドキュメントの翻訳は
 	<itemizedlist>
 		<listitem><para>平田祥司 (shouji@microft.co.jp)</para></listitem>
