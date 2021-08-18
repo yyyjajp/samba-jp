@@ -1,7 +1,7 @@
 ## makefile for building samba-ja documentation
 ## ======================================================================
 
-TARFILE= 4.7.0
+TARFILE= 4.13.0
 
 SAMBA_DIR=@SAMBADIR@
 SAMBA_DOCS_XML_DIR=$(SAMBA_DIR)/docs-xml
@@ -14,7 +14,6 @@ SAMBA_DOCS_XML_HTML_COMMON_XSL=	xslt/html-common.xsl
 SAMBA_DOCS_XML_BUILD_FILES= \
 	htmldocs.html \
 	xslt/docbook2pearson.xsl \
-	xslt/extract-examples.xsl \
 	xslt/generate-attributions.xsl \
 	xslt/generate-dependencies.xsl \
 	xslt/html \
@@ -24,6 +23,8 @@ SAMBA_DOCS_XML_BUILD_FILES= \
 	xslt/latex.xsl \
 	xslt/latex.overrides.xml \
 	xslt/manpage-summary.xsl \
+	xslt/sambadoc2pearson.xsl \
+	xslt/smb.conf-html.xsl \
 	xslt/strip-references.xsl \
 	smbdotconf/generate-context.xsl \
 	smbdotconf/generate-file-list.sh \
@@ -33,6 +34,7 @@ SAMBA_DOCS_XML_BUILD_FILES= \
 #	xslt/sambadoc2pearson.xsl \
 #	xslt/smb.conf-html.xsl \
 #	xslt/yodl.xsl \
+#	xslt/extract-examples.xsl \
 
 ## ======================================================================
 

@@ -10,7 +10,7 @@
 	<refmiscinfo class="manual">System Administration tools</refmiscinfo>
 -->
 	<refmiscinfo class="manual">システム管理ツール</refmiscinfo>
-	<refmiscinfo class="version">4.7</refmiscinfo>
+	<refmiscinfo class="version">&doc.version;</refmiscinfo>
 </refmeta>
 
 
@@ -104,6 +104,27 @@
 	アクセスを要求するものである場合に、ACCESS_DENIED エラーが返ってしまうこと
 	を防ぐ。</para>
 
+<!-- Samba-4.14.0
+        <para>ZFS has mutiple dataset configuration parameters that determine ACL behavior.
+        Although the nuances of these parameters are outside the scope of this manpage, the
+        "aclmode" and "aclinherit" are of particular importance for samba shares.
+        For datasets that are intended solely as Samba shares, "aclmode = restricted"
+        and "aclinherit = passthrough" provide inheritance behavior most consistent with NTFS ACLs.
+        A "restricted" aclmode prevents chmod() on files that have a non-trivial ACL (one that
+        cannot be expressed as a POSIX mode without loss of information). Consult the relevant ZFS
+        manpages for further information.
+        </para>
+-->
+        <para>ZFS には ACL の動作を決める、複数のデータセット設定パラメータがある。
+        それらのパラメータの意味合いは、このマニュアルページの範囲外ではあるが、
+	"aclmode" と "aclinherit" は、Samba の共有にとって特に重要である。
+	Samba の共有としてのみのデータセットでは、"aclmode = restricted" と
+	"aclinherit = passthrough" は、NTFS ACL ともっとも一致した継承の動作を提供する。
+	"restricted" ACLモードは、重要な ACL があるファイルの chmod() を防ぐ
+	(情報の欠落なしに POSIX モードとして表現できないもの)。
+	詳細については ZFS のマニュアルページを参照のこと。
+        </para>
+	
 <!-- 原文 samba-4.7.0
 	<para>This module is stackable.</para>
 -->
@@ -180,8 +201,8 @@
 		<para>Following is the behaviour of Samba for different values :</para>
 		<itemizedlist>
 		<listitem><para><command>dontcare (default)</command> - copy the ACEs as they come</para></listitem>
-		<listitem><para><command>reject</command> - stop operation and exit with error on ACL set op</para></listitem>
-		<listitem><para><command>ignore</command> - don't include the second matching ACE</para></listitem>
+		<listitem><para><command>reject (deprecated)</command> - stop operation and exit with error on ACL set op</para></listitem>
+		<listitem><para><command>ignore (deprecated)</command> - don't include the second matching ACE</para></listitem>
 		<listitem><para><command>merge</command> - bitwise OR the 2 ace.flag fields and 2 ace.mask fields of the 2 duplicate ACEs into 1 ACE</para></listitem>
 		</itemizedlist>
 		</listitem>
@@ -189,8 +210,8 @@
 		<para>以下はそれぞれの値における Samba の動作である。</para>
 		<itemizedlist>
 		<listitem><para><command>dontcare（既定値）</command> - 指定された ACE をそのまま設定する</para></listitem>
-		<listitem><para><command>reject</command> - ACL 設定処理を中断しエラーを返す</para></listitem>
-		<listitem><para><command>ignore</command> - 重複するする ACE の二番目以降を無視する</para></listitem>
+		<listitem><para><command>reject (deprecated)</command> - ACL 設定処理を中断しエラーを返す</para></listitem>
+		<listitem><para><command>ignore (deprecated)</command> - 重複するする ACE の二番目以降を無視する</para></listitem>
 		<listitem><para><command>merge</command> - 重複する ACE のフラグとマスクをそれぞれ OR ビット演算して 1 つの ACE にする</para></listitem>
 		</itemizedlist>
 		</listitem>
@@ -232,7 +253,114 @@
 		</varlistentry>
 
 	</variablelist>
-</refsect1>
+<!-- Samba-4.12.0
+		<varlistentry>
+		<term>zfsacl:denymissingspecial = [yes|no]</term>
+		<listitem>
+		<para>Prevent users from setting an ACL that lacks NFSv4 special entries
+		(owner@, group@, everyone@). ZFS will automatically generate these these entries
+		when calculating the inherited ACL of new files if the ACL of the parent directory
+		lacks an inheriting special entry. This may result in user confusion and unexpected
+		change in permissions of files and directories as the inherited ACL is generated.</para>
+		<itemizedlist>
+		<listitem><para><command>yes</command></para></listitem>
+		<listitem><para><command>no (default)</command></para></listitem>
+		</itemizedlist>
+		</listitem>
+		</varlistentry>
+
+		<varlistentry>
+		<term>zfsacl:map_dacl_protected = [yes|no]</term>
+		<listitem>
+		<para>If enabled and the ZFS ACL on the underlying filesystem does not contain
+		any inherited access control entires, then set the SEC_DESC_DACL_PROTECTED flag
+		on the Security Descriptor returned to SMB clients.
+		This ensures correct Windows client behavior when disabling inheritance on
+		directories.</para>
+
+		<para>Following is the behaviour of Samba for different values : </para>
+		<itemizedlist>
+		<listitem><para><command>yes</command> - Enable mapping to
+		SEC_DESC_DACL_PROTECTED</para></listitem>
+		<listitem><para><command>no (default)</command></para></listitem>
+		</itemizedlist>
+		</listitem>
+		</varlistentry>
+-->
+		<varlistentry>
+		<term>zfsacl:denymissingspecial = [yes|no]</term>
+		<listitem>
+		<para>Prevent users from setting an ACL that lacks NFSv4 special entries
+		NFSv4 の特別なエントリ(owner@, group@, everyone@)がない ACL をユーザが設定できない
+		ようにする。 ZFS は、上位のディレクトリの ACL が 特別なディレクトリを継承していない場合、
+		新しいファイルに継承された ACL を設定するとき、自動的に前述の3つのエントリを生成する。
+		このオプションを使うと、ユーザが混乱し、ファイルとディレクトリのパーミッションに
+		継承された ACL が生成されることにより、予期しない変更が発生することがある。</para>
+		<itemizedlist>
+		<listitem><para><command>yes</command></para></listitem>
+		<listitem><para><command>no (既定値)</command></para></listitem>
+		</itemizedlist>
+		</listitem>
+		</varlistentry>
+<!-- Samba-4.13.2
+		<varlistentry>
+		<term>zfsacl:block_special = [yes|no]</term>
+		<listitem>
+		<para>Prevent ZFS from automatically adding NFSv4 special
+		entries (owner@, group@, everyone@).  ZFS will automatically
+		generate these these entries when calculating the inherited ACL
+		of new files if the ACL of the parent directory lacks an
+		inheriting special entry. This may result in user confusion and
+		unexpected change in permissions of files and directories as the
+		inherited ACL is generated. Blocking this behavior is achieved
+		by setting an inheriting everyone@ that grants no permissions
+		and not adding the entry to the file's Security
+		Descriptor</para>
+		<itemizedlist>
+		<listitem><para><command>yes (default)</command></para></listitem>
+		<listitem><para><command>no</command></para></listitem>
+		</itemizedlist>
+		</listitem>
+		</varlistentry>
+-->
+		<varlistentry>
+		<term>zfsacl:block_special = [yes|no]</term>
+		<listitem>
+		<para>ZFS が、NFSv4 の特別なエントリ (owner@, group@, everyone@) を
+		自動的に追加しないようにする。ZFS は、新しいファイルの継承された
+		ACLを計算するとき、親ディレクトリの ACL に継承された特別なエントリが
+		欠けている場合、自動的にこの3つのエントリを生成する。これにより、
+		継承された ACL が生成されるとき、ユーザは混乱した結果を得たり、
+		ファイルとディレクトリのパーミッションで予期しない変更を受け取る
+		可能性がある。この動作を抑制するために、何のパーミッションも許可しない
+		everyone@ の継承を設定し、ファイルのセキュリティディスクリプタに
+		エントリを追加しないようにする。</para>
+		<itemizedlist>
+		<listitem><para><command>yes (既定値)</command></para></listitem>
+		<listitem><para><command>no</command></para></listitem>
+		</itemizedlist>
+		</listitem>
+		</varlistentry>
+
+		<varlistentry>
+		<term>zfsacl:map_dacl_protected = [yes|no]</term>
+		<listitem>
+		<para>ベースとなるファイルシステムの ZFS ACLが、継承されたアクセスコントロールエントリを
+		含んでいない時に有効にした場合、SMB クライアントに返される
+		セキュリティディスクリプタに SEC_DESC_DACL_PROTECTED フラグを設定する。
+		これは、ディレクトリの継承を無効にした Windows クライアントの動作を修正する。
+		</para>
+
+		<para>以下は、異なった値に対する Samba の動作である : </para>
+		<itemizedlist>
+		<listitem><para><command>yes</command> - SEC_DESC_DACL_PROTECTED のマッピングを有効にする。
+		</para></listitem>
+		<listitem><para><command>no (既定値)</command></para></listitem>
+		</itemizedlist>
+		</listitem>
+		</varlistentry>
+
+      </refsect1>
 
 <refsect1>
 <!-- 原文 samba-4.7.0
@@ -249,7 +377,7 @@
         <smbconfsection name="[samba_zfs_share]"/>
 	<smbconfoption name="vfs objects">zfsacl</smbconfoption>
 	<smbconfoption name="path">/test/zfs_mount</smbconfoption>
-	<smbconfoption name="nfs4: mode">special</smbconfoption>
+	<smbconfoption name="nfs4: mode">simple</smbconfoption>
 	<smbconfoption name="nfs4: acedup">merge</smbconfoption>
 </programlisting>
 </refsect1>
@@ -287,7 +415,7 @@
 </refsect1>
 <refsect1>
 	<title>日本語訳</title>
-	<para>このドキュメントは、Samba 4.1.0 - 4.7.6 に対応する。</para>
+	<para>このドキュメントは、Samba 4.14.0 - 4.14.5 に対応する。</para>
 	<para>このドキュメントの翻訳は
 		<itemizedlist>
 			<listitem><para>太田俊哉 (ribbon@samba.gr.jp)</para></listitem>
