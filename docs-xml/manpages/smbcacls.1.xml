@@ -10,7 +10,7 @@
 	<refmiscinfo class="manual">User Commands</refmiscinfo>
 -->
 	<refmiscinfo class="manual">ユーザーコマンド</refmiscinfo>
-	<refmiscinfo class="version">4.7</refmiscinfo>
+	<refmiscinfo class="version">&doc.version;</refmiscinfo>
 </refmeta>
 
 
@@ -25,25 +25,52 @@
 <refsynopsisdiv>
 	<cmdsynopsis>
 		<command>smbcacls</command>
-		<arg choice="req">//server/share</arg>
-		<arg choice="req">/filename</arg>
-		<arg choice="opt">-D|--delete acl</arg>
-		<arg choice="opt">-M|--modify acl</arg>
-		<arg choice="opt">-a|--add acl</arg>
-		<arg choice="opt">-S|--set acl</arg>
-		<arg choice="opt">-C|--chown name</arg>
-		<arg choice="opt">-G|--chgrp name</arg>
-		<arg choice="opt">-I allow|remove|copy</arg>
-		<arg choice="opt">--numeric</arg>
-		<arg choice="opt">-t</arg>
-		<arg choice="opt">-U username</arg>
-		<arg choice="opt">-d</arg>
-                <arg choice="opt">-e</arg>
-                <arg choice="opt">-m|--max-protocol LEVEL</arg>
-		<arg choice="opt">--query-security-info FLAGS</arg>
-		<arg choice="opt">--set-security-info FLAGS</arg>
-		<arg choice="opt">--sddl</arg>
-		<arg choice="opt">--domain-sid SID</arg>
+                <arg choice="req">//server/share</arg>
+                <arg choice="req">/filename</arg>
+
+                <arg choice="opt">-D|--delete=ACL</arg>
+                <arg choice="opt">-M|--modify=ACL</arg>
+                <arg choice="opt">-a|--add=ACL</arg>
+                <arg choice="opt">-S|--set=ACLS</arg>
+                <arg choice="opt">-C|--chown=USERNAME</arg>
+                <arg choice="opt">-G|--chgrp=GROUPNAME</arg>
+                <arg choice="opt">-I|--inherit=STRING</arg>
+                <arg choice="opt">--propagate-inheritance</arg>
+                <arg choice="opt">--numeric</arg>
+                <arg choice="opt">--sddl</arg>
+                <arg choice="opt">--query-security-info=INT</arg>
+                <arg choice="opt">--set-security-info=INT</arg>
+                <arg choice="opt">-t|--test-args</arg>
+                <arg choice="opt">--domain-sid=SID</arg>
+                <arg choice="opt">-x|--maximum-access</arg>
+                <arg choice="opt">-?|--help</arg>
+                <arg choice="opt">--usage</arg>
+                <arg choice="opt">-d|--debuglevel=DEBUGLEVEL</arg>
+                <arg choice="opt">--debug-stdout</arg>
+                <arg choice="opt">--configfile=CONFIGFILE</arg>
+                <arg choice="opt">--option=name=value</arg>
+                <arg choice="opt">-l|--log-basename=LOGFILEBASE</arg>
+                <arg choice="opt">--leak-report</arg>
+                <arg choice="opt">--leak-report-full</arg>
+                <arg choice="opt">-R|--name-resolve=NAME-RESOLVE-ORDER</arg>
+                <arg choice="opt">-O|--socket-options=SOCKETOPTIONS</arg>
+                <arg choice="opt">-m|--maxprotocol=MAXPROTOCOL</arg>
+                <arg choice="opt">-n|--netbiosname=NETBIOSNAME</arg>
+                <arg choice="opt">--netbios-scope=SCOPE</arg>
+                <arg choice="opt">-W|--workgroup=WORKGROUP</arg>
+                <arg choice="opt">--realm=REALM</arg>
+                <arg choice="opt">-U|--user=[DOMAIN/]USERNAME[%PASSWORD]</arg>
+                <arg choice="opt">-N|--no-pass</arg>
+                <arg choice="opt">--password=STRING</arg>
+                <arg choice="opt">--pw-nt-hash</arg>
+                <arg choice="opt">-A|--authentication-file=FILE</arg>
+                <arg choice="opt">-P|--machine-pass</arg>
+                <arg choice="opt">--simple-bind-dn=DN</arg>
+                <arg choice="opt">--use-kerberos=desired|required|off</arg>
+                <arg choice="opt">--use-krb5-ccache=CCACHE</arg>
+                <arg choice="opt">--use-winbind-ccache</arg>
+                <arg choice="opt">--client-protection=sign|encrypt|off</arg>
+                <arg choice="opt">-V|--version</arg>
 	</cmdsynopsis>
 </refsynopsisdiv>
 
@@ -183,12 +210,12 @@
 		
                 <varlistentry>
                 <term>-I|--inherit allow|remove|copy</term>
-<!-- 原文 samba-4.7.0
+<!-- 原文 samba-4.14.0
 		<listitem><para>Set or unset the windows "Allow inheritable
 		permissions" check box using the <parameter>-I</parameter>
 		option.  To set the check box pass allow. To unset the check
 		box pass either remove or copy. Remove will remove all
-		inherited acls. Copy will copy all the inherited acls.
+		inherited ACEs. Copy will copy all the inherited ACEs.
 		</para></listitem>
 -->
 		<listitem><para>
@@ -196,12 +223,29 @@
 		"Allow inheritable permissions" チェックボックスの設定/解除を
 		行う。設定するとチェックボックスに許可が渡される。解除すると
 		チェックボックスには削除かコピーのどちらかが渡される。削除は
-		すべての継承された ACL を削除するコピーの場合には、すべての
-		継承された ACL がコピーされる。
+		すべての継承された ACE を削除するコピーの場合には、すべての
+		継承された ACE がコピーされる。
 		</para></listitem>
 		</varlistentry>
 
-		<varlistentry>
+<!-- Samba-4.14.0
+                <varlistentry>
+                <term>- -propagate-inheritance</term>
+                <listitem><para>Add, modify, delete or set ACEs on an entire
+                directory tree according to the inheritance flags. Refer to the
+                INHERITANCE section for details.
+                </para></listitem>
+                </varlistentry>
+-->
+                <varlistentry>
+                <term>--propagate-inheritance</term>
+                <listitem><para>inheritance フラグが付いているディレクトリツリー
+                全体に対して、ACE の追加、変更削除または設定を行う。詳細については
+		INHERITANCE 節を参照のこと。
+                </para></listitem>
+                </varlistentry>
+
+                <varlistentry>
 		<term>--numeric</term>
 <!-- 原文 samba-4.7.0
 		<listitem><para>This option displays all ACL information in numeric 
@@ -288,12 +332,28 @@
 		</para></listitem>
 		</varlistentry>
 
-		&stdarg.server.debug;
-		&popt.common.samba;
-		&popt.common.credentials;
-		&popt.common.connection;
+<!-- Samba-4.11.0
+                <varlistentry>
+                <term>-x|- -maximum-access</term>
+                <listitem><para>When displaying an ACL additionally query
+                the server for effective maximum permissions. Note that this
+                is only supported with SMB protocol version 2 or higher.
+                </para></listitem>
+		</varlistentry>
+-->
+                <varlistentry>
+                <term>-x|--maximum-access</term>
+                <listitem><para>ACLを追加で表示する場合、有効な最大パーミッションを
+		得るためにサーバに問合せする。これは、 SMB プロトコルバージョン 2 以降
+		でのみサポートされていることに注意。
+                </para></listitem>
+		</varlistentry>
+
 		&popt.autohelp;
-	</variablelist>
+                &cmdline.common.samba.client;
+                &cmdline.common.connection;
+                &cmdline.common.credentials;
+	      </variablelist>
 </refsect1>
 
 
@@ -316,7 +376,52 @@ OWNER:&lt;sid or name&gt;
 GROUP:&lt;sid or name&gt;
 ACL:&lt;sid or name&gt;:&lt;type&gt;/&lt;flags&gt;/&lt;mask&gt;
 </programlisting></para>
-  
+
+<!-- Samba-4.14.5
+        <para>Control bits related to automatic inheritance</para>
+
+
+        <itemizedlist>
+                <listitem><para><emphasis>OD</emphasis> - "Owner Defaulted" - Indicates that the SID of the owner of the security descriptor was provided by a default mechanism.</para></listitem>
+                <listitem><para><emphasis>GD</emphasis> - "Group Defaulted" - Indicates that the SID of the security descriptor group was provided by a default mechanism.</para></listitem>
+                <listitem><para><emphasis>DP</emphasis> - "DACL Present" - Indicates a security descriptor that has a discretionary access control list (DACL).</para></listitem>
+                <listitem><para><emphasis>DD</emphasis> - "DACL Defaulted" - Indicates a security descriptor with a default DACL.</para></listitem>
+                <listitem><para><emphasis>SP</emphasis> - "SACL Present" - Indicates a security descriptor that has a system access control list (SACL).</para></listitem>
+                <listitem><para><emphasis>SD</emphasis> - "SACL Defaulted" - A default mechanism, rather than the original provider of the security descriptor, provided the SACL.</para></listitem>
+                <listitem><para><emphasis>DT</emphasis> - "DACL Trusted"</para></listitem>
+                <listitem><para><emphasis>SS</emphasis> - "Server Security"</para></listitem>
+                <listitem><para><emphasis>DR</emphasis> - "DACL Inheritance Required" - Indicates a required security descriptor in which the DACL is set up to support automatic propagation of inheritable access control entries (ACEs) to existing child objects.</para></listitem>
+                <listitem><para><emphasis>SR</emphasis> - "SACL Inheritance Required" - Indicates a required security descriptor in which the SACL is set up to support automatic propagation of inheritable ACEs to existing child objects.</para></listitem>
+                <listitem><para><emphasis>DI</emphasis> - "DACL Auto Inherited" - Indicates a security descriptor in which the DACL is set up to support automatic propagation of inheritable access control entries (ACEs) to existing child objects.</para></listitem>
+                <listitem><para><emphasis>SI</emphasis> - "SACL Auto Inherited" - Indicates a security descriptor in which the SACL is set up to support automatic propagation of inheritable ACEs to existing child objects.</para></listitem>
+                <listitem><para><emphasis>PD</emphasis> - "DACL Protected" - Prevents the DACL of the security descriptor from being modified by inheritable ACEs.</para></listitem>
+                <listitem><para><emphasis>PS</emphasis> - "SACL Protected" - Prevents the SACL of the security descriptor from being modified by inheritable ACEs.</para></listitem>
+                <listitem><para><emphasis>RM</emphasis> - "RM Control Valid" - Indicates that the resource manager control is valid.</para></listitem>
+                <listitem><para><emphasis>SR</emphasis> - "Self Relative" - Indicates a self-relative security descriptor.</para></listitem>
+        </itemizedlist>
+-->
+        <para>Control bits related to automatic inheritance</para>
+
+
+        <itemizedlist>
+                <listitem><para><emphasis>OD</emphasis> - "Owner Defaulted" - セキュリティ記述子の所有者の SID が、既定のメカニズムによって提供されたことを示す。</para></listitem>
+                <listitem><para><emphasis>GD</emphasis> - "Group Defaulted" - セキュリティ記述子グループの SID が、既定のメカニズムによって、提供されたことを示す。</para></listitem>
+                <listitem><para><emphasis>DP</emphasis> - "DACL Present" - discretionary access control list (DACL) を持っているセキュリティ記述子を示す。</para></listitem>
+                <listitem><para><emphasis>DD</emphasis> - "DACL Defaulted" - 既定の DACL を持つセキュリティ記述子を示す。</para></listitem>
+                <listitem><para><emphasis>SP</emphasis> - "SACL Present" - system access control list (SACL) を持つセキュリティ記述子を示す。</para></listitem>
+                <listitem><para><emphasis>SD</emphasis> - "SACL Defaulted" - セキュリティ記述子の元のプロバイダではなく、既定のメカニズムが SASL を提供した。</para></listitem>
+                <listitem><para><emphasis>DT</emphasis> - "DACL Trusted"</para></listitem>
+                <listitem><para><emphasis>SS</emphasis> - "Server Security"</para></listitem>
+                <listitem><para><emphasis>DR</emphasis> - "DACL Inheritance Required" - 継承可能なアクセス制御エントリ(ACE)の既存の子オブジェクトへの自動継承をサポートするように、DACL が設定されている必須のセキュリティ記述子を示す。</para></listitem>
+                <listitem><para><emphasis>SR</emphasis> - "SACL Inheritance Required" - 継承可能なアクセス制御エントリ(ACE)の既存の子オブジェクトへの自動継承をサポートするように、SACL が設定されている必須のセキュリティ記述子を示す。</para></listitem>
+                <listitem><para><emphasis>DI</emphasis> - "DACL Auto Inherited" - 継承可能なアクセス制御エントリ(ACE)の既存の子オブジェクトへの自動継承をサポートするように、DACL が設定されているセキュリティ記述子を示す。</para></listitem>
+                <listitem><para><emphasis>SI</emphasis> - "SACL Auto Inherited" - 継承可能な ACE の既存の子オブジェクトへの自動継承をサポートするように、SACL が設定されているセキュリティ記述子を示す。Indicates a security descriptor in which the SACL is set up to support automatic propagation of inheritable ACEs to existing child objects.</para></listitem>
+                <listitem><para><emphasis>PD</emphasis> - "DACL Protected" - 継承可能な ACL によって、セキュリティ記述子の DACL が変更されないようにする。</para></listitem>
+                <listitem><para><emphasis>PS</emphasis> - "SACL Protected" - 継承可能な ACL によって、セキュリティ記述子の SACL が変更されないようにする。</para></listitem>
+                <listitem><para><emphasis>RM</emphasis> - "RM Control Valid" - リソースマネージャ制御が有効であることを示す。</para></listitem>
+                <listitem><para><emphasis>SR</emphasis> - "Self Relative" - 自己相対セキュリティ記述子であることを示す。</para></listitem>
+        </itemizedlist>
+
 <!-- 原文 samba-4.7.0
 	<para>The revision of the ACL specifies the internal Windows 
 	NT ACL revision for the security descriptor.  
@@ -352,29 +457,36 @@ ACL:&lt;sid or name&gt;:&lt;type&gt;/&lt;flags&gt;/&lt;mask&gt;
 	の値は、SID に対して与えられたアクセスの種類を指定する。</para>
 
 <!-- 原文 samba-4.7.0
-	<para>The type can be either ALLOWED or	DENIED to allow/deny access 
-	to the SID. The flags values are generally zero for file ACEs and
-	either 9 or 2 for directory ACEs.  Some common flags are: </para>
+        <para>The type can be either ALLOWED or DENIED to allow/deny access
+        to the SID.</para>
+
+        <para>The flags field defines how the ACE should be considered when
+        performing inheritance. <command>smbcacls</command> uses these flags
+        when run with <parameter>- -propagate-inheritance</parameter>.</para>
+
+        <para>Flags can be specified as decimal or hexadecimal values, or with
+        the respective (XX) aliases, separated by a vertical bar "|".</para>
 -->
 	<para>
-	typeは SID に対する許可および拒否に対応する(訳注: 実際は type は ALLOWED か DENIED を指定し、それぞれ SID に対するアクセス許可および拒否に対応する、が正しい(fumiya))。
-	flag の値はファイルの ACE の場合通常 0 であり、ディレクトリの ACE の場合は通常
-	9 か 2 である。 共通的な flags は以下の通りである。</para>
+	typeは ALLOWED か DENIED のどちらかで、SID に対する許可および拒否に
+	対応する。</para>
 
-	<itemizedlist> 
-		<listitem><para><constant>#define SEC_ACE_FLAG_OBJECT_INHERIT     	0x1</constant></para></listitem>
-		<listitem><para><constant>#define SEC_ACE_FLAG_CONTAINER_INHERIT  	0x2</constant></para></listitem>
-		<listitem><para><constant>#define SEC_ACE_FLAG_NO_PROPAGATE_INHERIT     0x4</constant></para></listitem>
-		<listitem><para><constant>#define SEC_ACE_FLAG_INHERIT_ONLY       	0x8</constant></para></listitem>
- 	</itemizedlist>
+	<para>フラグフィールドは、継承を実行するときに、どのように ACE を考慮
+	するかを定義する。<command>smbcacls</command> は、
+	<parameter>- -propagate-inheritance</parameter> が指定されて実行された
+	時にこれらのフラグを使う。</para>
+
+	<para>flag の値は 10進又は16進値か、縦棒 "|" で区切られた それぞれの
+	(XX) 別名で指定できる。</para>
+
+        <itemizedlist>
+                <listitem><para><emphasis>(OI)</emphasis> Object Inherit        0x1</para></listitem>
+                <listitem><para><emphasis>(CI)</emphasis> Container Inherit     0x2</para></listitem>
+                <listitem><para><emphasis>(NP)</emphasis> No Propagate Inherit  0x4</para></listitem>
+                <listitem><para><emphasis>(IO)</emphasis> Inherit Only          0x8</para></listitem>
+		<listitem><para><emphasis>(I)</emphasis> ACE was inherited     0x10</para></listitem>
+        </itemizedlist>
   
-<!-- 原文 samba-4.7.0
-	<para>At present, flags can only be specified as decimal or
-	hexadecimal values.</para>
--->
-	<para>現在のところ flag の値は 10 進数もしくは 16
-	進数でのみ指定することができる。</para>
- 
 <!-- 原文 samba-4.7.0
 	<para>The mask is a value which expresses the access right 
 	granted to the SID. It can be given as a decimal or hexadecimal value, 
@@ -429,6 +541,165 @@ ACL:&lt;sid or name&gt;:&lt;type&gt;/&lt;flags&gt;/&lt;mask&gt;
 	</refsect1>
 
 <refsect1>
+
+<!-- Samba-4.14.0
+<refsect1>
+        <title>INHERITANCE</title>
+
+        <para>Per-ACE inheritance flags can be set in the ACE flags field. By
+        default, inheritable ACEs e.g. those marked for object inheritance (OI)
+        or container inheritance (CI), are not propagated to sub-files or
+        folders. However, with the
+        <parameter>- -propagate-inheritance</parameter> argument specified, such
+        ACEs are automatically propagated according to some inheritance
+        rules.
+        <itemizedlist>
+                <listitem><para>Inheritable (OI)(OI) ACE flags can only be
+                applied to folders. </para></listitem>
+                <listitem><para>Any inheritable ACEs applied to sub-files or
+                folders are marked with the inherited (I) flag. Inheritable
+                ACE(s) are applied to folders unless the no propagation (NP)
+                flag is set. </para>
+                </listitem>
+                <listitem><para>When an ACE with the (OI) flag alone set is
+                progagated to a child folder the inheritance only flag (IO) is
+                also applied. This indicates the permissions associated with
+                the ACE don't apply to the folder itself (only to it's
+                child files). When applying the ACE to a child file the ACE is
+                inherited as normal.</para></listitem>
+                <listitem><para>When an ace with the (CI) flag alone set is
+                propagated to a child file there is no effect, when propagated
+                to a child folder it is inherited as normal.
+                </para></listitem>
+                <listitem><para>When an ACE that has both (OI) &amp; (CI) flags
+                set the ACE is inherited as normal by both folders and
+                files.</para></listitem>
+        </itemizedlist></para>
+<para>(OI)(READ) added to parent folder</para>
+<para><programlisting>
++-parent/        (OI)(READ)
+| +-file.1       (I)(READ)
+| +-nested/      (OI)(IO)(I)(READ)
+  |   +-file.2   (I)(READ)
+</programlisting></para>
+<para>(CI)(READ) added to parent folder</para>
+<para><programlisting>
++-parent/        (CI)(READ)
+| +-file.1
+| +-nested/      (CI)(I)(READ)
+  |   +-file.2
+</programlisting></para>
+<para>(OI)(CI)(READ) added to parent folder</para>
+<para><programlisting>
++-parent/        (OI)(CI)(READ)
+| +-file.1       (I)(READ)
+| +-nested/      (OI)(CI)(I)(READ)
+  |   +-file.2   (I)(READ)
+</programlisting></para>
+<para>(OI)(NP)(READ) added to parent folder</para>
+<para><programlisting>
++-oi_dir/        (OI)(NP)(READ)
+| +-file.1       (I)(READ)
+| +-nested/
+|   +-file.2
+</programlisting></para>
+<para>(CI)(NP)(READ) added to parent folder</para>
+<para><programlisting>
++-oi_dir/        (CI)(NP)(READ)
+| +-file.1
+| +-nested/      (I)(READ)
+|   +-file.2
+</programlisting></para>
+<para>(OI)(CI)(NP)(READ) added to parent folder</para>
+<para><programlisting>
++-parent/        (CI)(OI)(NP)(READ)
+| +-file.1       (I)(READ)
+| +-nested/      (I)(READ)
+|   +-file.2
+</programlisting></para>
+        <para>Files and folders with protected ACLs do not allow inheritable
+        permissions (set with <parameter>-I</parameter>). Such objects will
+        not receive ACEs flagged for inheritance with (CI) or (OI).</para>
+
+</refsect1>
+-->
+<refsect1>
+        <title>継承</title>
+
+        <para>ACE 毎の継承フラグは ACE フラグフィールド中で設定できる。既定では、
+        inheritable ACEs、すなわち、オブジェクト継承 (OI) またはコンテナ継承 (CI) としてマークされたもの
+	で、これらはサブファイル又はフォルダには伝搬しない。しかし、
+	<parameter>--propagate-inheritance</parameter> 引数を指定すると、
+	このような ACE は自動的にいくつかの継承ルールによって伝搬される。
+        <itemizedlist>
+                <listitem><para>Inheritable (OI)(OI) ACE フラグはフォルダにのみ
+                適用される。</para></listitem>
+                <listitem><para>サブフォルダ又はフォルダに適用される任意の
+		inheritable ACE は、inherited (I) フラグが付けられる。Inheritable
+                ACE は、no propagation (NP) フラグが設定されていたとしてもフォルダに
+		適用される。</para>
+                </listitem>
+                <listitem><para>(OI) フラグのみが設定された ACE が、子のフォルダに
+                伝搬された時は、inheritance only フラグ (IO) も設定される。
+                これは、 ACE に関連づけられたパーミッションはフォルダそれ自身に
+		適用されない(その子のファイルにのみ)と言うことを示している。
+                子に ACE を適用する場合、ACE は通常通り伝搬される。</para></listitem>
+                <listitem><para>(CI) フラグのみが設定された ACE が子のファイルに
+		伝搬されたときは、特に何も影響はなく、このフォルダに伝搬されたときは、
+                通常通り継承する。
+                </para></listitem>
+                <listitem><para>(OI) &amp; (CI) とフラグ両方が設定された ACE は、
+                フォルダとファイル両方に対して通常通り伝搬される。</para></listitem>
+        </itemizedlist></para>
+<para>(OI)(READ) を親フォルダに追加r</para>
+<para><programlisting>
++-parent/        (OI)(READ)
+| +-file.1       (I)(READ)
+| +-nested/      (OI)(IO)(I)(READ)
+  |   +-file.2   (I)(READ)
+</programlisting></para>
+<para>(CI)(READ) を親フォルダに追加r</para>
+<para><programlisting>
++-parent/        (CI)(READ)
+| +-file.1
+| +-nested/      (CI)(I)(READ)
+  |   +-file.2
+</programlisting></para>
+<para>(OI)(CI)(READ) を親フォルダに追加r</para>
+<para><programlisting>
++-parent/        (OI)(CI)(READ)
+| +-file.1       (I)(READ)
+| +-nested/      (OI)(CI)(I)(READ)
+  |   +-file.2   (I)(READ)
+</programlisting></para>
+<para>(OI)(NP)(READ) を親フォルダに追加r</para>
+<para><programlisting>
++-oi_dir/        (OI)(NP)(READ)
+| +-file.1       (I)(READ)
+| +-nested/
+|   +-file.2
+</programlisting></para>
+<para>(CI)(NP)(READ) を親フォルダに追加r</para>
+<para><programlisting>
++-oi_dir/        (CI)(NP)(READ)
+| +-file.1
+| +-nested/      (I)(READ)
+|   +-file.2
+</programlisting></para>
+<para>(OI)(CI)(NP)(READ) を親フォルダに追加</para>
+<para><programlisting>
++-parent/        (CI)(OI)(NP)(READ)
+| +-file.1       (I)(READ)
+| +-nested/      (I)(READ)
+|   +-file.2
+</programlisting></para>
+        <para>保護された ACL があるファイルとフォルダは、inheritable な
+        パーミッション(<parameter>-I</parameter>で設定)を許可しない。そのような
+	オブジェクトは、(CI) 又は (OI) がある継承用に ACE にフラグが付いている
+	ものを受け取らない。</para>
+
+</refsect1>
+
 <!-- 原文 samba-4.7.0
 	<title>EXIT STATUS</title>
 -->
@@ -462,10 +733,10 @@ ACL:&lt;sid or name&gt;:&lt;type&gt;/&lt;flags&gt;/&lt;mask&gt;
 -->
 	<title>バージョン</title>
 
-<!-- 原文 samba-4.7.0
-	<para>This man page is correct for version 4 of the Samba suite.</para>
+<!-- 原文 samba-4.8.0
+	<para>This man page is correct for version &doc.version; of the Samba suite.</para>
 -->
-	<para>このマニュアルページは Samba バージョン 4 用である。</para>
+	<para>このマニュアルページは Samba バージョン &doc.version; 用である。</para>
 </refsect1>
 
 <refsect1>
@@ -504,8 +775,8 @@ ACL:&lt;sid or name&gt;:&lt;type&gt;/&lt;flags&gt;/&lt;mask&gt;
 
 <refsect1>
 	<title>日本語訳</title>
-	<para>このマニュアルページは Samba 4.2.0 - 4.7.6 に対応する。</para>
-        <para>このドキュメントの Samba 3.0.0 - 4.7.6 対応の翻訳は
+	<para>このマニュアルページは Samba 4.15.0 - 4.15.0 に対応する。</para>
+        <para>このドキュメントの Samba 3.0.0 - 4.15.0 対応の翻訳は
 	<itemizedlist>
 		<listitem><para>たかはしもとのぶ (monyo@samba.gr.jp)</para></listitem>
 		<listitem><para>山田 史朗 (shiro@miraclelinux.com)</para></listitem>
