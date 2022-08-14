@@ -10,7 +10,7 @@
 	<refmiscinfo class="manual">System Administration tools</refmiscinfo>
 -->
 	<refmiscinfo class="manual">システム管理ツール</refmiscinfo>
-	<refmiscinfo class="version">4.7</refmiscinfo>
+	<refmiscinfo class="version">&doc.version;</refmiscinfo>
 </refmeta>
 
 
@@ -30,24 +30,43 @@
 		<command>net</command>
 		<arg choice="req">&lt;ads|rap|rpc&gt;</arg>
 		<arg choice="opt">-h|--help</arg>
-		<arg choice="opt">-w|--workgroup workgroup</arg>
-		<arg choice="opt">-W|--myworkgroup myworkgroup</arg>
-		<arg choice="opt">-U|--user user</arg>
+		<arg choice="opt">-d|--debuglevel=DEBUGLEVEL</arg>
+		<arg choice="opt">--debug-stdout</arg>
+		<arg choice="opt">--configfile=CONFIGFILE</arg>
+		<arg choice="opt">--option=name=value</arg>
+		<arg choice="opt">-l|--log-basename=LOGFILEBASE</arg>
+		<arg choice="opt">--leak-report</arg>
+		<arg choice="opt">--leak-report-full</arg>
+		<arg choice="opt">-R|--name-resolve=NAME-RESOLVE-ORDER</arg>
+		<arg choice="opt">-O|--socket-options=SOCKETOPTIONS</arg>
+		<arg choice="opt">-m|--maxprotocol=MAXPROTOCOL</arg>
+		<arg choice="opt">-n|--netbiosname=NETBIOSNAME</arg>
+		<arg choice="opt">--netbios-scope=SCOPE</arg>
+		<arg choice="opt">-W|--workgroup=WORKGROUP</arg>
+		<arg choice="opt">--realm=REALM</arg>
+		<arg choice="opt">-U|--user=[DOMAIN/]USERNAME[%PASSWORD]</arg>
+		<arg choice="opt">-N|--no-pass</arg>
+		<arg choice="opt">--password=STRING</arg>
+		<arg choice="opt">--pw-nt-hash</arg>
+		<arg choice="opt">-A|--authentication-file=FILE</arg>
+		<arg choice="opt">-P|--machine-pass</arg>
+		<arg choice="opt">--simple-bind-dn=DN</arg>
+		<arg choice="opt">--use-kerberos=desired|required|off</arg>
+		<arg choice="opt">--use-krb5-ccache=CCACHE</arg>
+		<arg choice="opt">--use-winbind-ccache</arg>
+		<arg choice="opt">--client-protection=sign|encrypt|off</arg>
+		<arg choice="opt">-V|--version</arg>
+		<arg choice="opt">-w|--target-workgroup workgroup</arg>
 		<arg choice="opt">-I|--ipaddress ip-address</arg>
 		<arg choice="opt">-p|--port port</arg>
-		<arg choice="opt">-n myname</arg>
-		<arg choice="opt">-s conffile</arg>
+                <arg choice="opt">--myname</arg>
 		<arg choice="opt">-S|--server server</arg>
-		<arg choice="opt">-l|--long</arg>
+                <arg choice="opt">--long</arg>
 		<arg choice="opt">-v|--verbose</arg>
 		<arg choice="opt">-f|--force</arg>
-		<arg choice="opt">-P|--machine-pass</arg>
-		<arg choice="opt">-d debuglevel</arg>
-		<arg choice="opt">-V</arg>
 		<arg choice="opt">--request-timeout seconds</arg>
 		<arg choice="opt">-t|--timeout seconds</arg>
 		<arg choice="opt">-i|--stdin</arg>
-		<arg choice="opt">--tallocreport</arg>
 	</cmdsynopsis>
 </refsynopsisdiv>
 
@@ -92,11 +111,8 @@
 	<title>オプション</title>
 
 	<variablelist>
-		&stdarg.help;
-		&stdarg.kerberos;
-		
 		<varlistentry>
-		<term>-w|--workgroup target-workgroup</term>
+		 <term>-w|--target-workgroup target-workgroup</term>
 		<listitem><para>
 <!-- 原文 samba-4.6.7
 		Sets target workgroup or domain. You have to specify 
@@ -104,26 +120,6 @@
 -->
 		操作対象とするワークグループやドメインを指定する。
 		このオプション、サーバーの IP アドレス、名前のいずれかは指定する必要がある。
-		</para></listitem>
-		</varlistentry>
-
-		<varlistentry>
-		<term>-W|--myworkgroup workgroup</term>
-		<listitem><para>
-<!-- 原文 samba-4.6.7
-		Sets client workgroup or domain
--->
-		クライアントのワークグループやドメインを指定する。
-		</para></listitem>
-		</varlistentry>
-
-		<varlistentry>
-		<term>-U|--user user</term>
-		<listitem><para>
-<!-- 原文 samba-4.6.7
-		User name to use
--->
-		アクセスを行なうユーザー名を指定する。
 		</para></listitem>
 		</varlistentry>
 
@@ -152,8 +148,6 @@
 		既定値ではまず 445 を試行し、ついで 139 を試行する。
 		</para></listitem>
 		</varlistentry>
-
-		&stdarg.netbios.name;
 
 		<varlistentry>
 		<term>-S server</term>
@@ -198,16 +192,6 @@
                 </varlistentry>
 
 		<varlistentry>
-		<term>-P</term>
-		<listitem><para>
-<!-- 原文 samba-4.6.7
-		Make queries to the external server using the machine account of the local server.
--->
-		ローカルサーバーのコンピューターアカウントを用いて別のサーバーに対する問い合わせを行なう。
-		</para></listitem>
-		</varlistentry>
-
-		<varlistentry>
                 <term>--request-timeout 30</term>
                 <listitem><para>
 <!-- 原文 samba-4.6.7
@@ -229,33 +213,12 @@
                 </varlistentry>
 
                 <varlistentry>
-                <term>--use-ccache</term>
-                <listitem><para>
-<!-- 原文 samba-4.6.7
-		Try to use the credentials cached by winbind.
--->
-		winbind によってキャッシュされた認証情報を使う事を試みる。
-                </para></listitem>
-                </varlistentry>
-
-                <varlistentry>
                 <term>-i|--stdin</term>
                 <listitem><para>
 <!-- 原文 samba-4.6.7
 				Take input for net commands from standard input.
 -->
                 標準入力から net コマンドの入力を受ける。
-                </para></listitem>
-                </varlistentry>
-
-                <varlistentry>
-                <term>--tallocreport</term>
-                <listitem><para>
-<!-- 原文 samba-4.6.7
-				Generate a talloc report while processing a net
-				command.
--->
-                net コマンド実行中に talloc の状況を生成する。
                 </para></listitem>
                 </varlistentry>
 
@@ -290,7 +253,7 @@
                 </varlistentry>
 
                 <varlistentry>
-                <term>-n|--myname MYNAME</term>
+		 <term>--myname MYNAME</term>
 <!-- 原文 samba-4.6.7
 		<listitem><para>Use MYNAME as a requester name for a net subcommand.
 -->
@@ -504,7 +467,7 @@
                 </varlistentry>
 
                 <varlistentry>
-                <term>-R|--rid RID</term>
+		 <term>--rid RID</term>
 <!-- 原文 samba-4.6.7
 		<listitem><para>Sets the rid of a group mapping
 				(used in "net groupmap set").
@@ -575,9 +538,63 @@
 		</para></listitem>
 		</varlistentry>
 
-                &stdarg.encrypt;
-                &popt.common.samba.client;
+<!-- Samba-4.11.0
+                <varlistentry>
+                <term>- -json</term>
+                <listitem><para>Report results in JSON format for
+                "net ads info" and "net ads lookup".
+                </para></listitem>
+                </varlistentry>
+-->
+                <varlistentry>
+                <term>--json</term>
+                <listitem><para>"net ads info" と "net ads lookup"
+                のために、結果を JSON 形式で出力する。
+                </para></listitem>
+                </varlistentry>
 
+                <!-- Options for net vfs stream2abouble -->
+ 
+<!-- Samba-4.12.0
+                <varlistentry>
+                <term>- -recursive</term>
+                <listitem><para>Traverse a directory
+                hierarchy.</para></listitem>
+                </varlistentry>
+ 
+                <varlistentry>
+                <term>- -continue</term>
+                <listitem><para>Continue traversing a directory hierarchy in
+                case conversion of one file fails.</para></listitem>
+                </varlistentry>
+ 
+                <varlistentry>
+                <term>- -follow-symlinks</term>
+                <listitem><para>Follow symlinks encountered while traversing a
+                directory.</para></listitem>
+                </varlistentry>
+ -->
+                <varlistentry>
+                <term>--recursive</term>
+                <listitem><para>再帰検索を行う。
+                </para></listitem>
+                </varlistentry>
+ 
+                <varlistentry>
+                <term>--continue</term>
+                <listitem><para>ファイル名の大文字小文字変換が失敗しても、再帰検索を継続する。
+                </para></listitem>
+                </varlistentry>
+ 
+                <varlistentry>
+                <term>--follow-symlinks</term>
+                <listitem><para>ディレクトリ検索中に、シンボリックリンクをたどる。
+                </para></listitem>
+                </varlistentry>
+
+                &cmdline.common.samba.client;
+                &cmdline.common.connection;
+                &cmdline.common.credentials;
 	</variablelist>
 </refsect1>
 
@@ -678,7 +695,7 @@ The remote server must be specified with the -S option.
 
 <refsect2>
 <title>[RPC|ADS] JOIN [TYPE] [--no-dns-updates] [-U username[%password]]
-[createupn=UPN] [createcomputer=OU] [machinepass=PASS]
+[dnshostname=FQDN][createupn=UPN] [createcomputer=OU] [machinepass=PASS]
 [osName=string osVer=string] [options]</title>
 
 <!-- 原文 samba-4.6.7
@@ -707,12 +724,21 @@ joining the domain.
 PDC、BDC、MEMBER のいずれかの値をとる。
 </para>
 
-<!-- 原文 samba-4.6.7
+<!-- 原文 samba-4.13.0
+[FQDN] (ADS only) set the dnsHostName attribute during the join.
+The default format is netbiosname.dnsdomain.
+</para>
+
 <para>
 [UPN] (ADS only) set the principalname attribute during the join.  The default
 format is host/netbiosname@REALM.
 </para>
 -->
+<para>
+[FQDN] (ADSのみ) join の際に  dnsHostName 属性を設定する。規定の形式は
+netbiosname.dnsdomain である。  
+</para>
+
 <para>
 [UPN] （ADS のみ）ドメインに参加する時のプリンシパル名属性を設定する。既定値の形式は
 host/netbiosname@REALM である。
@@ -853,6 +879,15 @@ OLDJOIN オプションを使用すること。
 <para>Create specified group.</para>
 -->
 <para>指定したグループを作成する。</para>
+
+</refsect3>
+<refsect3>
+<title>[ADS] LOOKUP</title>
+
+<!-- Samba 4.9.0
+<para>Lookup the closest Domain Controller in our domain and retrieve server information about it.</para>
+-->
+<para>自ドメイン中でもっとも近いドメインコントローラを探し、そのサーバ情報を検索する。</para>
 
 </refsect3>
 </refsect2>
@@ -1221,6 +1256,42 @@ or workgroup. Defaults to local domain.</para>
 <para>指定した <replaceable>DOMAIN</replaceable> あるいはワークグループのマスターブラウザーの IP アドレスを検索する。
 既定値はローカルドメインである。</para>
 
+</refsect3>
+
+<refsect3>
+<title>LOOKUP NAME [<replaceable>NAME</replaceable>]</title>
+
+<!-- Samba-4.10.0
+<para>Lookup username's sid and type for specified <replaceable>NAME</replaceable>
+</para>
+-->
+<para>指定した <replaceable>NAME</replaceable> に対するユーザ名の SID とタイプを検索する。
+</para>
+
+</refsect3>
+
+<refsect3>
+<title>LOOKUP SID [<replaceable>SID</replaceable>]</title>
+
+<!-- Samba-4.10.0
+<para>Give sid's name and type for specified <replaceable>SID</replaceable>
+</para>
+-->
+<para>指定した <replaceable>SID</replaceable> に対する名前とタイプを表示する。
+</para>
+
+</refsect3>
+
+<refsect3>
+<title>LOOKUP DSGETDCNAME [<replaceable>NAME</replaceable>] [<replaceable>FLAGS</replaceable>] [<replaceable>SITENAME</replaceable>]</title>
+
+<!-- Samba-4.10.0
+<para>Give Domain Controller information for specified domain <replaceable>NAME</replaceable>
+</para>
+-->
+<para>指定したドメイン名 <replaceable>NAME</replaceable> に対するドメインコントローラ
+情報を表示する。
+</para>
 </refsect3>
 
 </refsect2>
@@ -1903,6 +1974,100 @@ against an NT4 Domain Controller.
 
 </refsect2>
 
+<!-- Samba-4.12.0
+<refsect2>
+
+<title>ADS GPO</title>
+<refsect3>
+<title>ADS GPO APPLY &lt;USERNAME|MACHINENAME&gt; </title>
+<para>Apply GPOs for a username or machine name. Either username or machine name should be provided to the command, not both. </para>
+</refsect3>
+
+<refsect3>
+<title>ADS GPO GETGPO [<replaceable>GPO</replaceable>]</title>
+<para>List specified GPO.</para>
+</refsect3>
+
+<refsect3>
+<title>ADS GPO LINKADD [<replaceable>LINKDN</replaceable>] [<replaceable>GPODN</replaceable>]</title>
+<para>Link a container to a GPO. <replaceable>LINKDN</replaceable> Container to link to a GPO. <replaceable>GPODN</replaceable> GPO to link container to. DNs must be provided properly escaped. See RFC 4514 for details.</para>
+</refsect3>
+
+<refsect3>
+<title>ADS GPO LINKGET [<replaceable>CONTAINER</replaceable>]</title>
+<para>Lists gPLink of a containter.</para>
+</refsect3>
+
+<refsect3>
+<title>ADS GPO LIST &lt;USERNAME|MACHINENAME&gt; </title>
+<para>Lists all GPOs for a username or machine name. Either username or machine name should be provided to the command, not both. </para>
+</refsect3>
+
+<refsect3>
+<title>ADS GPO LISTALL</title>
+<para>Lists all GPOs on a DC.</para>
+</refsect3>
+
+<refsect3>
+<title>ADS GPO REFRESH [<replaceable>USERNAME</replaceable>] [<replaceable>MACHINENAME</replaceable>]</title>
+<para>Lists all GPOs assigned to an account and download them. <replaceable>USERNAME</replaceable> User to refresh GPOs for. <replaceable>MACHINENAME</replaceable> Machine to refresh GPOs for.</para>
+</refsect3>
+
+</refsect2>
+
+-->
+<refsect2>
+
+<title>ADS GPO</title>
+<refsect3>
+<title>ADS GPO APPLY &lt;USERNAME|MACHINENAME&gt; </title>
+<para>ユーザ名とマシン名に対して GPO を適用する。両方ではなく、ユーザ名かマシン名のどちらかはコマンドに指定する必要がある。</para>
+</refsect3>
+
+<refsect3>
+<title>ADS GPO GETGPO [<replaceable>GPO</replaceable>]</title>
+<para>指定された GPO を一覧表示する。</para>
+</refsect3>
+
+<refsect3>
+<title>ADS GPO LINKADD [<replaceable>LINKDN</replaceable>] [<replaceable>GPODN</replaceable>]</title>
+<para>GPO にコンテナをリンクする。<replaceable>LINKDN</replaceable> GPO にリンクするコンテナ。<replaceable>GPODN</replaceable> コンテナにリンクする GPO 。DN は適切にエスケープして提供されねばならない。詳細は  RFC 4514 を参照のこと。</para>
+</refsect3>
+
+<refsect3>
+<title>ADS GPO LINKGET [<replaceable>CONTAINER</replaceable>]</title>
+<para>コンテナの gPLink を一覧表示する。</para>
+</refsect3>
+
+<refsect3>
+<title>ADS GPO LIST &lt;USERNAME|MACHINENAME&gt; </title>
+<para>ユーザ名とマシン名の、すべての GPO を一覧表示する。両方ではなく、ユーザ名かマシン名のどちらかはコマンドに指定する必要がある。</para>
+</refsect3>
+
+<refsect3>
+<title>ADS GPO LISTALL</title>
+<para>DC 中のすべての GPO を一覧表示する。</para>
+</refsect3>
+
+<refsect3>
+<title>ADS GPO REFRESH [<replaceable>USERNAME</replaceable>] [<replaceable>MACHINENAME</replaceable>]</title>
+<para>アカウントに割り当てられたすべての GPO を一覧表示し、それをダウンロードする。<replaceable>USERNAME</replaceable>GPO をリフレッシュするためのユーザ名。<replaceable>MACHINENAME</replaceable> GPO をリフレッシュするためのマシン名。</para>
+</refsect3>
+
+</refsect2>
+
+<title>ADS DNS</title>
+
+<refsect3>
+<title>ADS DNS REGISTER [HOSTNAME [IP [IP.....]]]</title>
+<para>ホスト DNS エントリを Active Directory に追加する。</para>
+</refsect3>
+
+<refsect3>
+<title>ADS DNS UNREGISTER &lt;HOSTNAME&gt;</title>
+<para>ホスト DNS エントリを Active Directory から取り去る。</para>
+</refsect3>
+
 <refsect2>
 <title>ADS LEAVE</title>
 
@@ -2002,6 +2167,213 @@ DN は標準の LDAP DN であり、 attributes は結果中に表示する LDAP
 <para>Example: <userinput>net ads dn 'CN=administrator,CN=Users,DC=my,DC=domain' SAMAccountName</userinput></para>
 -->
 <para>設定例: <userinput>net ads dn 'CN=administrator,CN=Users,DC=my,DC=domain' SAMAccountName</userinput></para>
+
+</refsect2>
+
+<!-- Samba 4.9.0
+<refsect2>
+<title>ADS KEYTAB <replaceable>CREATE</replaceable></title>
+
+<para>
+Creates a new keytab file if one doesn't exist with default entries. Default
+entries are kerberos principals created from the machinename of the
+client, the UPN (if it exists) and any Windows SPN(s) associated with the
+computer AD account for the client. If a keytab file already exists then only
+missing kerberos principals from the default entries are added. No changes
+are made to the computer AD account.
+</para>
+</refsect2>
+-->
+<refsect2>
+<title>ADS KEYTAB <replaceable>CREATE</replaceable></title>
+
+<para>
+既定値のエントリに存在していない場合に、新しい keytab ファイルを作成する。
+既定値のエントリは、クライアントのマシン名から作成された kerberos プリンシパル、
+(存在していれば) UPN と、クライアントのコンピュータ AD アカウントに関連づけられた
+任意の Windows SPN である。keytab ファイルがすでに存在している場合は、
+既定値のエントリから、欠けている kerberos プリンシパルのみが追加される。
+コンピュータ AD アカウントへの更新はない。
+</para>
+</refsect2>
+
+<refsect2>
+<title>ADS KEYTAB <replaceable>ADD</replaceable> <replaceable>(principal | machine | serviceclass | windows SPN</replaceable></title>
+
+<!-- Samba 4.9.0
+<para>
+Adds a new keytab entry, the entry can be either;
+  <variablelist>
+    <varlistentry><term>kerberos principal</term>
+    <listitem><para>
+      A kerberos principal (identified by the presence of '@') is just
+      added to the keytab file.
+    </para></listitem>
+    </varlistentry>
+    <varlistentry><term>machinename</term>
+    <listitem><para>
+      A machinename (identified by the trailing '$') is used to create a
+      a kerberos principal 'machinename@realm' which is added to the
+      keytab file.
+    </para></listitem>
+    </varlistentry>
+    <varlistentry><term>serviceclass</term>
+    <listitem><para>
+    A serviceclass (such as 'cifs', 'html' etc.) is used to create a pair
+    of kerberos principals 'serviceclass/fully_qualified_dns_name@realm' &amp;
+    'serviceclass/netbios_name@realm' which are added to the keytab file.
+    </para></listitem>
+    </varlistentry>
+    <varlistentry><term>Windows SPN</term>
+    <listitem><para>
+    A Windows SPN is of the format 'serviceclass/host:port', it is used to
+    create a kerberos principal 'serviceclass/host@realm' which will
+    be written to the keytab file.
+    </para></listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+
+<para>
+Unlike old versions no computer AD objects are modified by this command. To
+preserve the bevhaviour of older clients 'net ads keytab ad_update_ads' is
+available.
+</para>
+-->
+<para>
+新しい keytab エントリを追加する。エントリは以下のどれかである;
+  <variablelist>
+    <varlistentry><term>kerberos principal</term>
+    <listitem><para>
+      kerberos プリンシパル ('@'が存在することで識別)が keytab ファイルに
+      追加される。
+    </para></listitem>
+    </varlistentry>
+    <varlistentry><term>machinename</term>
+    <listitem><para>
+      keytab ファイルに追加される、 'machinename@realm' 形式の kerberos プリンシパルを
+      作成するために、マシン名 (末尾の '$' によって識別) が使われる。
+    </para></listitem>
+    </varlistentry>
+    <varlistentry><term>serviceclass</term>
+    <listitem><para>
+    keytab ファイルに追加される、kerberos プリンシパルのペア
+    'serviceclass/fully_qualified_dns_name@realm' と
+    'serviceclass/netbios_name@realm' を作成するために、サービスクラス
+    ('cifs', 'html' など) が使われる。
+    </para></listitem>
+    </varlistentry>
+    <varlistentry><term>Windows SPN</term>
+    <listitem><para>
+    keytab ファイルに書き込まれる kerberos プリンシパル
+    'serviceclass/host@realm' を作成するのに使われる、
+    'serviceclass/host:port' 形式の Windows SPN。
+    </para></listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+
+<para>
+古いバージョンとは異なり、このコマンドではコンピュータの AD オブジェクトは
+1つも変更されない。古いクライアントの動作にするには、
+'net ads keytab ad_update_ads' を使う。
+</para>
+</refsect2>
+
+<refsect2>
+<title>ADS KEYTAB <replaceable>ADD_UPDATE_ADS</replaceable> <replaceable>(principal | machine | serviceclass | windows SPN</replaceable></title>
+
+<para>
+<!-- Samba 4.9.0
+Adds a new keytab entry (see section for net ads keytab add). In addition to
+adding entries to the keytab file corrosponding Windows SPNs are created
+from the entry passed to this command. These SPN(s) added to the AD computer
+account object associated with the client machine running this command for
+the following entry types;
+-->
+新しい keytab エントリを追加する(net ads keytab add 節を参照)。
+keytab ファイルにエントリを追加する事に加えて、関連した Windows SPN は
+このコマンドに渡されたパスから生成される。SPN は、以下のエントリタイプに対して、
+このコマンドを実行しているクライアントマシンに関連づけられる、AD のコンピュータ アカウント
+オブジェクトに追加される。
+  <variablelist>
+    <varlistentry><term>serviceclass</term>
+    <listitem><para>
+<!-- Samba 4.9.0
+      A serviceclass (such as 'cifs', 'html' etc.) is used to create a
+    pair of Windows SPN(s) 'param/full_qualified_dns' &amp;
+    'param/netbios_name' which are added to the AD computer account object
+   for this client.
+-->
+     サービスクラス (たとえば 'cifs', 'html' など) は、このクライアント用に
+     AD コンピュータアカウントオブジェクトに追加される  Windows SPN ペア
+     'param/full_qualified_dns' と  'param/netbios_name' を作成するのに使われる。 
+   </para></listitem>
+    </varlistentry>
+    <varlistentry><term>Windows SPN</term>
+    <listitem><para>
+<!-- Samba 4.9.0
+    A Windows SPN is of the format 'serviceclass/host:port', it is
+    added as passed to the AD computer account object for this client.
+-->
+    Windows SPN の形式は 'serviceclass/host:port' であり、このクライアント用に、
+    AD コンピュータアカウントオブジェクトに渡されたとおりに追加される。
+    </para></listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</refsect2>
+
+<refsect2>
+<title>ADS setspn <replaceable>SETSPN LIST [machine]</replaceable></title>
+<!-- Samba 4.9.0
+<para>
+   Lists the Windows SPNs stored in the 'machine' Windows AD Computer object.
+   If 'machine' is not specified then computer account for this client is used
+   instead.
+</para>
+-->
+<para>
+   'machine' の Windows AD Computer オブジェクトに格納されている Windows SPN を一覧表示する。
+   'machine' が指定されていない場合は、このクライアントのコンピュータアカウントが代わりに
+   使われる。
+</para>
+</refsect2>
+
+<refsect2>
+<title>ADS setspn <replaceable>SETSPN ADD SPN [machine]</replaceable></title>
+
+<!-- Samba 4.9.0
+<para>
+   Adds the specified Windows SPN to the 'machine' Windows AD Computer object.
+   If 'machine' is not specified then computer account for this client is used
+   instead.
+</para>
+-->
+<para>
+   'machine' の Windows AD Computer object に、指定された Windows SPNを追加する。
+   'machine' が指定されていない場合は、このクライアントのコンピュータアカウントが代わりに
+   使われる。
+</para>
+</refsect2>
+
+
+<refsect2>
+<title>ADS setspn <replaceable>SETSPN DELETE SPN [machine]</replaceable></title>
+
+<!-- Samba 4.9.0
+<para>
+   DELETE the specified Window SPN from the 'machine' Windows AD Computer
+   object. If 'machine' is not specified then computer account for this
+   client is used
+   instead.
+</para>
+-->
+<para>
+   'machine' の Windows AD Computer オブジェクトから指定された Windows SPN を削除する。
+   'machine' が指定されていない場合は、このクライアントのコンピュータアカウントが代わりに
+   使われる。
+</para>
 
 </refsect2>
 
@@ -2247,7 +2619,7 @@ the rid and description is also provided for each account.
 </para>
 -->
 <para>
-名前による一まとまりのアカウントを表示する。もしも verbose が指定されていたら、
+名前によるひとまとまりのアカウントを表示する。もしも verbose が指定されていたら、
 rid と description も各々のアカウントに対して提供される。
 </para>
 
@@ -3035,10 +3407,11 @@ to restart smbd on adding, deleting or changing a user defined share.
 オプションの "guest_ok" パラメーターは、smb.conf 中の同名のパラメーターと同じ意味を持ち、該当のユーザー定義共有に対するゲストアクセスを許可する。
 このパラメーターは、 smb.conf 中でグローバルパラメーターの "usershare allow guests" が有効になっている時のみ設定できる。
 </para>
-
+<para>
 既存のユーザー定義共有を修正するコマンドは個別に用意されておらず、
 "net usershare add [sharename]" コマンドを用いて、sharename 共有を新規のオプションを指定して上書き変更することになる。
 Samba の smbd デーモンは、接続のあったタイミングでユーザー定義共有の変更を検知するのため、変更は即座に反映される。ユーザー定義共有の追加、削除、変更により、smbd の再起動を行なう必要はない。
+</para>
 </refsect3>
 
 <refsect3>
@@ -3883,9 +4256,9 @@ string.sddl形式文字列でセキュリティ識別子を設定する。</memb
 
    <varlistentry><term>--reg-version={1,2,3}</term>
       <listitem><para>
-<!-- 原文 samba-4.6.7
+<!-- 原文 samba-4.12.0
 	Specify the format of the registry database. If not given it defaults to
-	the value of the binary or, if an registry.tdb is explizitly stated at
+	the value of the binary or, if an registry.tdb is explicitly stated at
 	the commandline, to the value found in the INFO/version record.
 -->
 	レジストリデータベースの形式を指定する。指定されなかった場合、
@@ -4388,6 +4761,243 @@ Dump the locking table of a certain global lock.
 	</refsect3>
 </refsect2>
 
+<!-- Samba 4.12.0
+<refsect2>
+  <title>vfs</title>
+  <para>Access shared filesystem through the VFS.</para>
+
+  <refsect3>
+    <title>vfs stream2abouble [- -recursive] [- -verbose] [- -continue] [- -follow-symlinks] <replaceable>share</replaceable> <replaceable>path</replaceable></title>
+
+    <para>Convert file streams to AppleDouble files.</para>
+    <itemizedlist>
+      <listitem>
+	<para><replaceable>share</replaceable>
+	A Samba share.</para>
+      </listitem>
+    </itemizedlist>
+    <itemizedlist>
+      <listitem>
+	<para><replaceable>path</replaceable> A relative path of something in
+	the Samba share. "." can be used for the root directory of the
+	share.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Options:</para>
+    <variablelist>
+      <varlistentry>
+	<term>- -recursive</term>
+	<listitem><para>Traverse a directory hierarchy.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>- -verbose</term>
+	<listitem><para>Verbose output.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>- -continue</term>
+	<listitem><para>Continue traversing a directory hierarchy if a single
+	conversion fails.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>- -follow-symlinks</term>
+	<listitem><para>Follow symlinks encountered while traversing a
+	directory.</para></listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect3>
+
+  <refsect3>
+    <title>vfs getntacl <replaceable>share</replaceable> <replaceable>path</replaceable></title>
+
+    <para>Display the security descriptor of a file or directory.</para>
+    <itemizedlist>
+      <listitem>
+	<para><replaceable>share</replaceable>
+	A Samba share.</para>
+      </listitem>
+    </itemizedlist>
+    <itemizedlist>
+      <listitem>
+	<para><replaceable>path</replaceable> A relative path of something in
+	the Samba share. "." can be used for the root directory of the
+	share.</para>
+      </listitem>
+    </itemizedlist>
+  </refsect3>
+
+</refsect2>
+-->  
+<refsect2>
+  <title>vfs</title>
+  <para>VFS 経由で共有ファイルシステムにアクセスする。</para>
+
+  <refsect3>
+    <title>vfs stream2abouble [--recursive] [--verbose] [--continue] [--follow-symlinks] <replaceable>share</replaceable> <replaceable>path</replaceable></title>
+
+    <para>ファイルストリームを AppleDouble ファイルに変換する。</para>
+    <itemizedlist>
+      <listitem>
+	<para><replaceable>share</replaceable>
+	Samba の共有。</para>
+      </listitem>
+    </itemizedlist>
+    <itemizedlist>
+      <listitem>
+	<para><replaceable>path</replaceable> Samba 共有中のファイルに対する相対パス。
+	"." は共有におけるルートディレクトリとして使われる。
+	</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>オプション:</para>
+    <variablelist>
+      <varlistentry>
+	<term>--recursive</term>
+	<listitem><para>ディレクトリ階層をたどる。</para></listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>--verbose</term>
+	<listitem><para>詳細出力。</para></listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>--continue</term>
+	<listitem><para>ある変換作業に失敗しても、引き続きディレクトリ階層をたどる。
+	</para></listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>--follow-symlinks</term>
+	<listitem><para>ディレクトリ階層をたどっているとき、シンボリックリンクもだどる。
+	</para></listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect3>
+
+  <refsect3>
+    <title>vfs getntacl <replaceable>share</replaceable> <replaceable>path</replaceable></title>
+
+    <para>ファイルまたはディレクトリのセキュリティ識別子を表示する。</para>
+    <itemizedlist>
+      <listitem>
+	<para><replaceable>share</replaceable>
+	Samba の共有。</para>
+      </listitem>
+    </itemizedlist>
+    <itemizedlist>
+      <listitem>
+	<para><replaceable>path</replaceable> Samba 共有中のファイルに対する相対パス。
+        "." は共有におけるルートディレクトリとして使われる。
+	</para>
+      </listitem>
+    </itemizedlist>
+  </refsect3>
+
+</refsect2>
+
+<refsect2>
+<title>OFFLINEJOIN</title>
+
+<!-- Samba-4.15.0
+<para>Starting with version 4.15 Samba has support for offline join APIs. Windows supports offline join capabilities since Windows 7 and Windows 2008 R2.
+</para>
+-->
+<para>バージョン 4.15 のSamba から、offline join API をサポートするようになった。Windows では Windows 7 と Windows 2008 R2 から offline join 機能をサポートしている。
+</para>
+
+<!-- Samba-4.15.0
+<para>The following offline commands are implemented:
+-->
+<para>以下のオフラインコマンドが実装されている:
+<simplelist>
+<member>net offlinejoin provision - Provisions a machine account in AD.</member>
+<member>net offlinejoin requestodj - Requests a domain offline join.</member>
+</simplelist>
+</para>
+
+<refsect3>
+	<title>OFFLINEJOIN PROVISION <replaceable>domain=DOMAIN</replaceable> <replaceable>machine_name=MACHINE_NAME</replaceable> <replaceable>machine_account_ou=MACHINE_ACCOUNT_OU</replaceable> <replaceable>dcname=DCNAME</replaceable> <replaceable>defpwd</replaceable> <replaceable>reuse</replaceable> <replaceable>savefile=FILENAME</replaceable> <replaceable>printblob</replaceable></title>
+
+<!-- Samba-4.15.0
+Provisions a machine account in AD. This command needs network connectivity to the domain controller to succeed. This command supports the following additional parameters:
+-->
+<para>
+AD 内でマシンアカウントをプロビジョンする。このコマンドは、処理が成功するために、ドメインコントローラに対するネットワーク接続を必要とする。このコマンドは以下の追加パラメータをサポートする:
+</para>
+
+<itemizedlist>
+
+<!-- Samba-4.15.0
+<listitem><para><replaceable>DOMAIN</replaceable> can be a NetBIOS domain name (also known as short domain name) or a DNS domain name for Active Directory Domains. The <replaceable>DOMAIN</replaceable> parameter cannot be NULL.</para></listitem>
+
+<listitem><para><replaceable>MACHINE_NAME</replaceable> defines the machine account name that will be provisioned in AD. The <replaceable>MACHINE_NAME</replaceable> parameter cannot be NULL.</para></listitem>
+
+<listitem><para><replaceable>MACHINE_ACCOUNT_OU</replaceable> can be set to a RFC 1779 LDAP DN, like <emphasis>ou=mymachines,cn=Users,dc=example,dc=com</emphasis> in order to create the machine account in a non-default LDAP container. This optional parameter is only supported when joining Active Directory Domains.</para></listitem>
+
+<listitem><para><replaceable>DCNAME</replaceable> defines a specific domain controller for creating the machine account in AD.</para></listitem>
+
+<listitem><para><replaceable>DEFPWD</replaceable> is an optional parameter that can be set to enforce using the default machine account password. The use of this parameter is not recommended as the default machine account password can be easily guessed. </para></listitem>
+
+<listitem><para><replaceable>REUSE</replaceable> is an optional parameter that can be set to enforce reusing an exisiting machine account in AD.</para></listitem>
+
+<listitem><para><replaceable>SAVEFILE</replaceable> is an optional parameter to store the generated provisioning data on disk.</para></listitem>
+
+<listitem><para><replaceable>PRINTBLOB</replaceable> is an optional parameter to print the generated provisioning data on stdout.</para></listitem>
+ -->
+<listitem><para><replaceable>DOMAIN</replaceable> は、Active Directory ドメインの、NetBIOS ドメイン名 (ショートドメイン名としても知られている) あるいは DNS ドメイン名でもよい。 <replaceable>DOMAIN</replaceable> パラメータは NULL であってはならない。</para></listitem>
+
+<listitem><para><replaceable>MACHINE_NAME</replaceable> は、AD 内でプロビジョンされる マシンアカウント名を定義する。<replaceable>MACHINE_NAME</replaceable> パラメータは NULL であってはならない。</para></listitem>
+
+<listitem><para><replaceable>MACHINE_ACCOUNT_OU</replaceable> は、 既定でない LDAP コンテナ中で マシンアカウントを作成するために、<emphasis>ou=mymachines,cn=Users,dc=example,dc=com</emphasis> のように、RFC 1779 LDAP DN に設定できる。このオプションパラメータは、Active Directory ドメインに join するときのみサポートされる。</para></listitem>
+
+<listitem><para><replaceable>DCNAME</replaceable> は、AD 内でマシンアカウントを作成するときに、特定のドメインコントローラを定義する。</para></listitem>
+
+<listitem><para><replaceable>DEFPWD</replaceable> はオプションのパラメータで、既定のマシンアカウントパスワード使用を強制する。このパラメータの使用は、既定のマシンアカウントパスワードが容易に推測されるため、推奨されない。 </para></listitem>
+
+<listitem><para><replaceable>REUSE</replaceable> はオプションのパラメータで、AD 内の既存のマシンアカウントを再使用するように強制する。</para></listitem>
+
+<listitem><para><replaceable>SAVEFILE</replaceable> はオプションのパラメータで、生成されたプロビジョニングデータをディレクトリに格納する。</para></listitem>
+
+<listitem><para><replaceable>PRINTBLOB</replaceable> はオプションのパラメータで、生成されたプロビジョニングデータを標準出力に出力する。</para></listitem>
+
+</itemizedlist>
+
+<para>
+	例:
+	net offlinejoin provision -U administrator%secret domain=MYDOM machine_name=MYHOST savefile=provisioning.txt
+</para>
+</refsect3>
+
+<refsect3>
+	<title>OFFLINEJOIN REQUESTODJ <replaceable>loadfile=FILENAME</replaceable></title>
+
+<!-- Samba-4.15.0
+<para>
+Requests an offline domain join by providing file-based provisioning data. This command supports the following additional parameters:
+</para>
+-->
+<para>
+ファイルベースのプロビジョニングデータによって offline join を要求する。このコマンドは以下の追加パラメータをサポートする:
+</para>
+
+<itemizedlist>
+
+<!-- Samba-4.15.0
+<listitem><para><replaceable>LOADFILE</replaceable> is a required parameter to load the provisioning from a file.</para></listitem>
+-->
+<listitem><para><replaceable>LOADFILE</replaceable> は、ファイルからプロビジョニングをロードするために必要なパラメータである。</para></listitem>
+
+</itemizedlist>
+
+<para>
+	例:
+	net offlinejoin requestodj -U administrator%secret loadfile=provisioning.txt
+</para>
+
+</refsect3>
+
+</refsect2>
+
+
 <refsect2>
 <title>HELP [COMMAND]</title>
 
@@ -4437,7 +5047,7 @@ Dump the locking table of a certain global lock.
 </refsect1>
 <refsect1>
 	<title>日本語訳</title>
-	<para>このマニュアルページは Samba 4.6.2 - 4.7.6 に対応する。</para>
+	<para>このマニュアルページは Samba 4.15.0 - 4.16.0 に対応する。</para>
 
         <para>このドキュメントの Samba 3.0.0 対応の翻訳は
 	<itemizedlist>
@@ -4447,7 +5057,7 @@ Dump the locking table of a certain global lock.
        によって行なわれた。</para>
 
 	<para>Samba 3.0.23 - Samba 3.0.24 対応の翻訳は、たかはしもとのぶ (monyo@samba.gr.jp) によって行なわれた。</para>
-	<para>Samba 3.2.4 - 4.7.6 対応の翻訳は、
+	<para>Samba 3.2.4 - 4.16.0 対応の翻訳は、
 	  <itemizedlist>
 	    <listitem><para>太田俊哉 (ribbon@samba.gr.jp)</para></listitem>
 	    <listitem><para>matsuand(michio_matsuyama@yahoo.co.jp)</para></listitem>

@@ -7,13 +7,13 @@
 	<manvolnum>1</manvolnum>
 	<refmiscinfo class="source">Samba</refmiscinfo>
 	<refmiscinfo class="manual">ユーザーコマンド</refmiscinfo>
-	<refmiscinfo class="version">4.6</refmiscinfo>
+	<refmiscinfo class="version">&doc.version;</refmiscinfo>
 </refmeta>
 
 
 <refnamediv>
 	<refname>wbinfo</refname>
-	<refpurpose>winbind デーモンから情報を問い合わせる</refpurpose>
+	<refpurpose>winbind デーモンから情報を問い合わせ</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -24,24 +24,24 @@
 		<arg choice="opt">--allocate-gid</arg>
 		<arg choice="opt">--allocate-uid</arg>
                 <arg choice="opt">-c</arg>
-                <arg choide="opt">--ccache-save</arg>
-                <arg choide="opt">--change-user-password</arg>
+                <arg choice="opt">--ccache-save</arg>
+                <arg choice="opt">--change-user-password</arg>
 		<arg choice="opt">-D domain</arg>
 		<arg choice="opt">--dc-info domain</arg>
 		<arg choice="opt">--domain domain</arg>
-                <arg choide="opt">--dsgetdcname domain</arg>
+                <arg choice="opt">--dsgetdcname domain</arg>
 		<arg choice="opt">-g</arg>
 		<arg choice="opt">--getdcname domain</arg>
 		<arg choice="opt">--get-auth-user</arg>
 		<arg choice="opt">-G gid</arg>
-                <arg choide="opt">--gid-info group</arg>
-                <arg choide="opt">--group-info group</arg>
+                <arg choice="opt">--gid-info group</arg>
+                <arg choice="opt">--group-info group</arg>
                 <arg choice="opt">--help|-?</arg>
 		<arg choice="opt">-i user</arg>
 		<arg choice="opt">-I ip</arg>
 		<arg choice="opt">-K user%password</arg>
 		<arg choice="opt">--krb5ccname cctype</arg>
-                <arg choide="opt">--lanman</arg>
+                <arg choice="opt">--lanman</arg>
 		<arg choice="opt">--logoff</arg>
 		<arg choice="opt">--logoff-uid uid</arg>
 		<arg choice="opt">--logoff-user username</arg>
@@ -50,14 +50,14 @@
 		<arg choice="opt">-n name</arg>
 		<arg choice="opt">-N netbios-name</arg>
 		<arg choice="opt">--ntlmv1</arg>
-                <arg choide="opt">--ntlmv2</arg>
-                <arg choide="opt">--online-status</arg>
+                <arg choice="opt">--ntlmv2</arg>
+                <arg choice="opt">--online-status</arg>
 		<arg choice="opt">--own-domain</arg>
 		<arg choice="opt">-p</arg>
                 <arg choice="opt">-P|--ping-dc</arg>
 		<arg choice="opt">--pam-logon user%password</arg>
 		<arg choice="opt">-r user</arg>
-                <arg choide="opt">-R|--lookup-rids</arg>
+                <arg choice="opt">-R|--lookup-rids</arg>
 		<arg choice="opt">--remove-gid-mapping gid,sid</arg>
 		<arg choice="opt">--remove-uid-mapping uid,sid</arg>
 		<arg choice="opt">-s sid</arg>
@@ -67,13 +67,13 @@
 		<arg choice="opt">--set-gid-mapping gid,sid</arg>
 		<arg choice="opt">--set-uid-mapping uid,sid</arg>
 		<arg choice="opt">-S sid</arg>
-                <arg choide="opt">--sid-aliases sid</arg>
-                <arg choide="opt">--sid-to-fullname sid</arg>
+                <arg choice="opt">--sid-aliases sid</arg>
+                <arg choice="opt">--sid-to-fullname sid</arg>
 		<arg choice="opt">--sids-to-unix-ids sidlist</arg>
 		<arg choice="opt">-t</arg>
 		<arg choice="opt">-u</arg>
 		<arg choice="opt">--uid-info uid</arg>
-                <arg choide="opt">--usage</arg>
+                <arg choice="opt">--usage</arg>
 		<arg choice="opt">--user-domgroups sid</arg>
 		<arg choice="opt">--user-sidinfo sid</arg>
 		<arg choice="opt">--user-sids sid</arg>
@@ -342,8 +342,15 @@
 
                 <varlistentry>
                 <term>--online-status <replaceable>domain</replaceable></term>
-                <listitem><para>ドメインがオンライン化オフラインかのどちらかに
-		マークされているかを表示する。オプションのdomain引数は、与えられた
+<!-- Samba-4.9.0
+		<listitem><para>Display whether winbind currently maintains an
+				active connection or not. An optional domain
+				argument limits the output to the online status
+				of a given domain.
+		</para></listitem>
+-->
+                <listitem><para>winbind が現在有効な接続をメンテナンスしているか
+		否かを表示する。オプションの domain 引数は、指定された
 		ドメインのオンラインステータスのみに出力を制限する。
                 </para></listitem>
                 </varlistentry>
@@ -379,9 +386,63 @@
 
 		<varlistentry>
 		<term>-r|--user-groups <replaceable>username</replaceable></term>
-		<listitem><para>ユーザーが所属する UNIX の group ids 一覧を表示しようとする。
-		これはドメインコントローラーに登録されているユーザーにのみ動作する。
-		</para></listitem>
+<!-- Samba-4.9.0
+		<listitem>
+			<para>
+			Try to obtain the list of UNIX group ids to which the
+			user belongs.  This only works for users defined on a
+			Domain Controller.
+			</para>
+
+			<para>There are two scenaries:</para>
+			<orderedlist>
+				<listitem>
+				<para>
+				User authenticated: When the user has been
+				authenticated, the access token for the user is
+				cached. The correct group memberships are then
+				returned from the cached user token (which can
+				be outdated).
+				</para>
+				</listitem>
+
+				<listitem>
+				<para>
+				User *NOT* authenticated: The information is
+				queries from the domain controller using the
+				machine account credentials which have limited
+				permissions. The result is normally incomplete
+				and can be also incorrect.
+				</para></listitem>
+			</orderedlist>
+		</listitem>
+-->		    
+		<listitem>
+			<para>
+			ユーザが所属している UNIX グループの ID 一覧を
+			取得する。これは、ユーザがドメインコントローラ上で定義
+			されている場合にのみ動作する。
+			</para>
+
+			<para>2つのパターンがある:</para>
+			<orderedlist>
+				<listitem>
+				<para>
+				ユーザが認証済みの場合: ユーザが認証済みの場合は、
+				ユーザのアクセストークンはキャッシュされる。
+				キャッシュされたユーザトークンから(期間満了になっていても)、
+				正しいグループメンバシップが返る。
+				</para>
+				</listitem>
+
+				<listitem>
+				<para>
+				ユーザが認証されていない場合: 制限されたパーミッションを持つ
+				マシンアカウント資格情報を使用する、ドメインコントローラ
+				からのクエリである。結果は通常完了せず、不正確である。
+				</para></listitem>
+			</orderedlist>
+		</listitem>
 		</varlistentry>
 
                 <varlistentry>
@@ -569,8 +630,8 @@
                     新規に作成するか、既存のものを変更する。</para></listitem>
 		</varlistentry>
 
-		&stdarg.version;
-		&stdarg.help;
+                &cmdline.version;
+                &popt.autohelp;
 
 	</variablelist>
 </refsect1>
@@ -589,7 +650,7 @@
 <refsect1>
 	<title>バージョン</title>
 
-	<para>この man ページは、Samba システムのバージョン 3(訳注 4.x?) 用である。</para>
+	<para>この マニュアルページは、Samba バージョン &doc.version; 用である。</para>
 </refsect1>
 
 <refsect1>
@@ -618,11 +679,11 @@
 
 <refsect1>
 	<title>日本語訳</title>
-	<para>このマニュアルページは Samba 4.6.2 - 4.7.6 に対応する。</para>
+	<para>このマニュアルページは Samba 4.15.0 - 4.16.0 に対応する。</para>
         <para>このドキュメントの Samba 3.0.0 対応の翻訳は
 山田 史朗 (shiro@miraclelinux.com)
 	によって行なわれた。</para>
-        <para>このドキュメントの Samba 3.2.4 - 4.7.6 対応の翻訳は 太田俊哉(ribbon@samba.gr.jp)によって行われた。</para>
+        <para>このドキュメントの Samba 3.2.4 - 4.16.0 対応の翻訳は 太田俊哉(ribbon@samba.gr.jp)によって行われた。</para>
 </refsect1>
 
 </refentry>

@@ -1,6 +1,7 @@
 <samba:parameter name="username map"
                  context="G"
 		 type="string"
+		 substitution="1"
                  xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
 <description>
     <para>このオプションにより、クライアント上とサーバー上でのユーザー名のマッピング
@@ -51,9 +52,22 @@
 
     <para>username map のファイル中には幾つのマッピングの設定を行なっても構わない。</para>
 
-    <para>システムが NIS の NETGROUP オプションをサポートしている場合、
-    グループ名の一致処理を行なう際には、 <filename moreinfo="none">/etc/group</filename> データベースより先にネットグループのデータベースが調べられる。
-    </para>
+<!-- Samba 4.16.2
+     <para>
+       If your system supports the NIS NETGROUP option then the netgroup database is checked before the <filename
+       moreinfo="none">/etc/group </filename> database for matching groups.
+       </para>
+
+    <para>
+-->
+     <para>
+       使用するシステムが NIS NETGROUP オプションをサポートしている場合は、グループが
+       一致しているかを調べるため、netgroup データベースは
+       <filename moreinfo="none">/etc/group </filename> データベースを検査する前に検査される。
+       </para>
+
+    <para>
+
 
     <para>空白を含む Windows のユーザー名は、
     ダブルクォートで両側を括って記述する。たとえば、
