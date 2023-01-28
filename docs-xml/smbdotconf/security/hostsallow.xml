@@ -41,7 +41,8 @@
 
     <para><command moreinfo="none">hosts allow = lapland, arvidsjaur</command></para>
 
-    <para>Example 4: NISネットグループの「foonet」に含まれるホストからのアクセスを原則として許可するが、あるホストからのアクセスについては拒否する。</para>
+    <para>Example 4: NIS ネットグループ netgroup &quot;foonet&quot; 中のホストは許可するが、
+    特定のホストはアクセスを拒否する</para>
 
     <para><command moreinfo="none">hosts allow = @foonet</command></para>
 

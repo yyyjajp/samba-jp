@@ -10,7 +10,7 @@
 	<refmiscinfo class="manual">System Administration tools</refmiscinfo>
 -->
 	<refmiscinfo class="manual">システム管理ツール</refmiscinfo>
-	<refmiscinfo class="version">4.7</refmiscinfo>
+	<refmiscinfo class="version">&doc.version;</refmiscinfo>
 </refmeta>
 
 
@@ -19,7 +19,7 @@
 <!-- 原文 samba-4.6.6
 	<refpurpose>Enhanced OS X and Netatalk interoperability</refpurpose>
 -->
-	<refpurpose>OS X と Netatalk との相互運用性を強化する</refpurpose>
+	<refpurpose>OS X と Netatalk との相互運用性を強化</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -137,8 +137,8 @@
 	を設定することにより、Netatalk AFP 共有モードに対して
 	チェックすることもできる。</para>
 
-<!-- 原文 samba-4.6.6
-	<para>This module is not stackable other then described in
+<!-- 原文 samba-4.8.0
+	<para>This module is not stackable other than described in
 	this manpage.</para>
 -->
 	<para>このモジュールは、このマニュアルページで言及されている
@@ -176,12 +176,12 @@
 	      いくつかの足らない機能を補う:</para>
 
 	      <itemizedlist>
-<!-- 原文 samba-4.6.6
+<!-- 原文 samba-4.8.0
 		<listitem><para>directory enumeration is enriched with
 		Mac relevant filesystem metadata (UNIX mode,
 		FinderInfo, resource fork size and effective
 		permission), as a result the Mac client doesn't need
-		to fetch this metadata individuallly per directory
+		to fetch this metadata individually per directory
 		entry resulting in an often tremendous performance
 		increase.</para></listitem>
 -->
@@ -255,27 +255,27 @@
 	  <varlistentry>
 	    <term>fruit:zero_file_id = yes | no</term>
 	    <listitem>
-<!-- 原文 samba-4.6.6
-	      <para>A <emphasis>global</emphasis> option whether to return
-	      zero to queries of on-disk file identifier, if the client
-	      has negotiated AAPL.</para>
-	      <para>Mac applications and / or the Mac SMB
-	      client code expect the on-disk file identifier to have the
-	      semantics of HFS+ Catalog Node Identifier (CNID). Samba
-	      doesn't provide those semantics, and that occasionally cause
-	      usability issues or even data loss. Returning a file identifier
-	      of zero causes the Mac client to stop using and trusting the
-	      file id returned from the server.</para>
-	      <para>The default is <emphasis>yes</emphasis>.</para>
+<!-- Samba 4.17.0
+              <para>Whether to return zero to queries of on-disk file
+              identifier if the client has negotiated AAPL.</para>
+              <para>Mac applications and / or the Mac SMB client code expect the
+              on-disk file identifier to have the semantics of HFS+ Catalog Node
+              Identifier (CNID). Samba provides File-IDs based on a file's inode
+              number which gets recycled across file creation and deletion and
+              can therefor not be used for Mac client. Returning a file identifier of
+              zero causes the Mac client to stop using and trusting the file id
+              returned from the server.</para>
+              <para>The default is <emphasis>yes</emphasis>.</para>
 -->
-	      <para>グローバルオプション。クライアントによる AAPL ネゴシエート
+	      <para>クライアントによる AAPL ネゴシエート
               後に、ディスク上のファイル識別子の問い合わせに対してゼロを返すか
               どうかを指定する。</para>
 	      <para>Mac アプリケーションや Mac SMB クライアントコードは、
 	      ディスク上のファイル識別子が HFS+ カタログノード識別子（HFS+
-	      Catalog Node Identifier; CNID）として機能することを想定しているが、
-	      Samba はこうした機能を提供していない。これは利便性の問題を
-	      引き起こすだけでなく、データ損失を引き起こすことすらある。
+	      Catalog Node Identifier; CNID）として機能することを想定している。
+	      Samba は、ファイルの i ノード番号に由来する File-ID を生成するが、
+	      これは、ファイルの作成と削除を通して再利用されるので、 Mac
+	      クライアントでは使用できない。
 	      ファイル識別子としてゼロが返ると、Mac クライアントはサーバーから
 	      返るファイル識別子を信用しなくなり、使わなくなる。</para>
 	      <para>既定値は <emphasis>yes</emphasis> である。</para>
@@ -363,13 +363,13 @@
 		Solaris と Solaris 派生プラットフォームの ZFS が必須である。
 		</para></listitem>
 
-<!-- 原文 samba-4.6.6
+<!-- 原文 samba-4.12.0
 		<listitem><para><command>stream (experimental)</command> - pass
 		the stream on to the next module in the VFS stack.
 		<emphasis>Warning: </emphasis> this option should not be used
 		with the <emphasis>streams_xattr</emphasis> module due to the
 		extended attributes size limitations of most
-		filesytems.</para></listitem>
+		filesystems.</para></listitem>
 -->
 		<listitem><para><command>stream (実験的)</command> - 
 		VFS スタック内において、ストリームを次のモジュールに渡す。
@@ -382,6 +382,88 @@
 	    </listitem>
 	  </varlistentry>
 
+          <varlistentry>
+            <term>fruit:time machine = [ yes | no ]</term>
+            <listitem>
+<!-- Samba-4.8.0
+              <para>Controls if Time Machine support via the FULLSYNC volume
+              capability is advertised to clients.</para>
+-->
+              <para>FULLSYNC ボリュームケーパビリティによる Time Machine 機能が
+              クライアントに対して広告されるかを制御する。</para>
+
+              <itemizedlist>
+<!-- Samba-4.8.0
+                <listitem><para><command>yes</command> - Enables Time Machine
+                support for this share. Also registers the share with mDNS in
+                case Samba is built with mDNS support.</para></listitem>
+
+                <listitem><para><command>no (default)</command> Disables
+                advertising Time Machine support.</para></listitem>
+-->
+                <listitem><para><command>yes</command> - この共有に対して
+                Time Machine サポートを有効にする。また、Samba が mDNS を
+		サポートするようにビルドされている場合は、mDNS に
+		共有を登録する。</para></listitem>
+
+                <listitem><para><command>no (デフォルト)</command> 
+                Time Machine support の広告を行わない。</para></listitem>
+
+              </itemizedlist>
+
+<!-- Samba-4.8.0
+              <para>This option enforces the following settings per share (or
+              for all shares if enabled globally):</para>
+-->
+              <para>このオプションは共有ごとに(あるいは、グローバルに有効に
+	      なっている場合はすべての共有に対して)、以下の設定を有効に
+              する:</para>
+              <itemizedlist>
+                <listitem><para><command>durable handles = yes</command></para></listitem>
+                <listitem><para><command>kernel oplocks = no</command></para></listitem>
+                <listitem><para><command>kernel share modes = no</command></para></listitem>
+                <listitem><para><command>posix locking = no</command></para></listitem>
+              </itemizedlist>
+
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term>fruit:time machine max size = SIZE [K|M|G|T|P]</term>
+            <listitem>
+<!-- Samba-4.8.0
+              <para>Useful for Time Machine: limits the reported disksize, thus
+              preventing Time Machine from using the whole real disk space for
+              backup. The option takes a number plus an optional unit.</para>
+-->
+              <para>Time Machine に便利である: レポートされるディスクサイズを
+              制限するため、Time Machine が、バックアップ時に、実ディスク
+	      領域すべてを使ってしまうことを防ぐ。オプションには、数字と、それに続く
+              単位を指定する。.</para>
+<!-- Samba-4.12.0
+              <para><emphasis>IMPORTANT</emphasis>: This is an approximated
+              calculation that only takes into account the contents of Time
+              Machine sparsebundle images. Therefore you <emphasis>MUST
+              NOT</emphasis> use this volume to store other content when using
+              this option, because it would NOT be accounted.</para>
+-->
+              <para><emphasis>重要</emphasis>: これは、Time Machin の
+              スパースバンドル イメージの内容のみを勘定に入れた概算である。
+              そのため、このオプションを使う時には、
+	      勘定に入らないという理由により、このボリュームには<emphasis>
+	      他のコンテンツを格納してはいけない。</emphasis></para>
+<!-- Samba-4.8.0
+              <para>The calculation works by reading the band size from the
+              Info.plist XML file of the sparsebundle, reading the bands/
+              directory counting the number of band files, and then multiplying
+              one with the other.</para>
+-->
+              <para>計算は、スパースバンドル の Info.plist XML ファイルの
+              バンドサイズを読み、band ファイルの数を数える、bands/
+	      を読み、それぞれの結果をを乗算することで行われる。</para>
+            </listitem>
+          </varlistentry>
+	  
 	  <varlistentry>
 	    <term>fruit:metadata = [ stream | netatalk ]</term>
 	    <listitem>
@@ -518,10 +600,21 @@
 	    防止するため、._ AppleDouble ファイルを見せなくするかどうかの指定。</para>
         -->
 
-<!-- 原文 samba-4.6.6
+<!-- 原文 samba-4.10.0
 	      <para>Vetoing ._ files may break some applications, eg
 	      extracting Mac ZIP archives from Mac clients failes,
 	      because they contain ._ files. Setting this option to
+	      false will fix this, but the abstraction leak of
+	      exposing the internally created ._ files may have other
+	      unknown side effects.</para>
+	      <para>The default is <emphasis>yes</emphasis>.</para>
+      	      <para>Vetoing ._ files may break some applications, e.g.
+	      extracting Mac ZIP archives from Mac clients fails,
+	      because they contain ._ files. <command>rsync</command> will
+	      also be unable to sync files beginning with underscores, as
+	      the temporary files it uses for these will start with ._ and
+	      so cannot be created.</para>
+	      <para>Setting this option to
 	      false will fix this, but the abstraction leak of
 	      exposing the internally created ._ files may have other
 	      unknown side effects.</para>
@@ -531,18 +624,13 @@
 	      誤動作を引き起こすことがある。たとえば、Mac クライアントから
 	      Mac ZIP アーカイブのを展開すると、アーカイブ中に ._ ファイルが
 	      含まれているために失敗する。
-	      このオプションを false にすることでこの問題を回避できるが、
+	      <command>rsync</command> も同様に、下線で始まるファイルの
+	      同期ができないが、これは、一時ファイルが、._ で始まるファイルを
+	      使うが、それが作成できないという理由による。</para>
+	      <para>このオプションを false にすることでこの問題を回避できるが、
 	      内部向けに作成された ._ ファイルが露見してしまうことで
               未知の副作用を引き起こすかもしれない。</para>
 	      <para>既定値は <emphasis>yes</emphasis> である。</para>
-	<!-- 4.4系で重複していた訳: 一時的保存
-	    <para> ._ ファイルを見せなくすると、いくつかのアプリケーションが動かなくなる
-	    ことがある。たとえば、 ._ ファイルを含むため、Mac クライアントからの Mac ZIP
-	    の回答は失敗する。このオプションを false に設定すると、これを修正するが、
-	    内部的に作成された ._ ファイルの露出をリークする概念は、他の不明な
-	    副作用を引き起こすかもしれない。</para>
-	    <para>既定値は <emphasis>yes</emphasis> である。</para>
-	-->
 	  </listitem>
 	  </varlistentry>
 
@@ -606,6 +694,49 @@
 	    </listitem>
 	  </varlistentry>
 
+	  <varlistentry>
+	    <term>fruit:wipe_intentionally_left_blank_rfork = yes | no</term>
+	    <listitem>
+<!-- Samba-4.9.2
+              <para>Whether to wipe Resource Fork data that matches the special
+	      286 bytes sized placeholder blob that macOS client create on
+	      occasion. The blob contains a string <quote>This resource fork
+	      intentionally left blank</quote>, the remaining bytes being mostly
+	      zero. There being no one use of this data, it is probably safe to
+	      discard it. When this option is enabled, this module truncates the
+	      Resource Fork stream to 0 bytes.</para>
+	      <para>The default is <emphasis>no</emphasis>.</para>
+-->
+              <para>MacOS クライアントが時折作成する、特殊な内容の 286 バイトの
+	      リソースフォークを削除するかを制御する。その内容は
+	      <quote>This resource fork intentionally left blank</quote>という
+	      文字列と、残りはほぼゼロで埋められている。
+	      このデータは使われることがないため、おそらく削除しても問題ない。
+	      このオプションを有効にすると、このモジュールは、リソースフォーク
+	      ストリームを切り捨て、 0 バイトにする。</para>
+	      <para>既定値は<emphasis>no</emphasis>である。</para>
+	    </listitem>
+	  </varlistentry>
+
+	  <varlistentry>
+	    <term>fruit:delete_empty_adfiles = yes | no</term>
+	    <listitem>
+<!-- Samba-4.9.2
+	      <para>Whether to delete empty AppleDouble files. Empty means that
+	      the resource fork entry in the AppleDouble files is of size 0, or
+	      the size is exactly 286 bytes and the content matches a special
+	      boilerplate resource fork created my macOS.</para>
+	      <para>The default is <emphasis>no</emphasis>.</para>
+-->	      
+	      <para>空の、AppleDouble ファイルを削除するかを制御する。空とは
+	      AppleDouble ファイル中のリソースフォークエントリのサイズが 0 か、
+	      MacOS が作成するある特殊な内容の  286 バイトの
+	      リソースフォークの場合である。</para>
+	      <para>既定値は<emphasis>no</emphasis>である。</para>
+	    </listitem>
+	  </varlistentry>
+	  
+	  
 	</variablelist>
 </refsect1>
 
@@ -648,8 +779,8 @@
 </refsect1>
 <refsect1>
     <title>日本語訳</title>
-    <para>このマニュアルページは Samba 4.7.0 - 4.7.6 に対応する。</para>
-    <para>このドキュメントの Samba 4.2.0 - 4.7.6 対応の翻訳は
+    <para>このマニュアルページは Samba 4.17.0 - 4.17.0 に対応する。</para>
+    <para>このドキュメントの翻訳は
     <itemizedlist>
         <listitem><para>太田俊哉 (ribbon@samba.gr.jp)</para></listitem>
     </itemizedlist>
