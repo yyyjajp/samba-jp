@@ -47,7 +47,7 @@
 
 <!-- 原文 samba-4.7.0
 	<para>
-	NOTE: The idmap_rid backend can NOT bet used as the default backend.
+	NOTE: The idmap_rid backend can NOT be used as the default backend.
 	One usually needs to define a writeable default idmap range, using
 	a backend like <parameter>tdb</parameter> or <parameter>ldap</parameter>
 	that can create unix ids, in order to be able to map the BUILTIN sids
@@ -191,6 +191,7 @@
 
         idmap config TRUSTED : backend  = rid
         idmap config TRUSTED : range    = 50000 - 99999
+	idmap config TRUSTED : base_rid = 500000
 	</programlisting>
 </refsect1>
 
@@ -218,8 +219,8 @@
 
 <refsect1>
 	<title>日本語訳</title>
-	<para>このマニュアルページは Samba 4.2.1 - 4.18.0に対応する。</para>
-	<para>このドキュメントの Samba 3.4.0 - 4.18.0 対応の翻訳は
+	<para>このマニュアルページは Samba 4.19.0 - 4.19.0に対応する。</para>
+	<para>このドキュメントの Samba 3.4.0 - 4.19.0 対応の翻訳は
 	<itemizedlist>
 	<listitem><para>堀田 倫英(hotta@net-newbie.com)</para></listitem>
 	<listitem><para>太田俊哉(ribbon@samba.gr.jp)</para></listitem>
