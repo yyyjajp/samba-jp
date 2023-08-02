@@ -7,7 +7,7 @@
 	<manvolnum>1</manvolnum>
 	<refmiscinfo class="source">Samba</refmiscinfo>
 	<refmiscinfo class="manual">ユーザーコマンド</refmiscinfo>
-	<refmiscinfo class="version">4.7</refmiscinfo>
+	<refmiscinfo class="version">&doc.version;</refmiscinfo>
 </refmeta>
 
 
@@ -19,10 +19,19 @@
 <refsynopsisdiv>
 	<cmdsynopsis>
 		<command>vfstest</command>
-		<arg choice="opt">-d debuglevel</arg>
-		<arg choice="opt">-c command</arg>
-		<arg choice="opt">-l logdir</arg>
-		<arg choice="opt">-h</arg>
+                <arg choice="opt">-?|--help</arg>
+                <arg choice="opt">--usage</arg>
+                <arg choice="opt">-f|--file=STRING</arg>
+                <arg choice="opt">-c|--command=STRING</arg>
+                <arg choice="opt">-m|--memreport=INT</arg>
+                <arg choice="opt">-d|--debuglevel=DEBUGLEVEL</arg>
+                <arg choice="opt">--debug-stdout</arg>
+                <arg choice="opt">--configfile=CONFIGFILE</arg>
+                <arg choice="opt">--option=name=value</arg>
+                <arg choice="opt">-l|--log-basename=LOGFILEBASE</arg>
+                <arg choice="opt">--leak-report</arg>
+                <arg choice="opt">--leak-report-full</arg>
+                <arg choice="opt">-V|--version</arg>
 	</cmdsynopsis>
 </refsynopsisdiv>
 
@@ -50,18 +59,8 @@
 		</para> </listitem>
 		</varlistentry>
 
-		&stdarg.help;
-
-		<varlistentry>
-		<term>-l|--logfile=logbasename</term>
-		<listitem><para>log/debug ファイル名を指定する。拡張子として
-		<constant>'.client'</constant>が付加される。ログファイルはクライアントによって削除されることはない。
-		</para></listitem>
-		</varlistentry>
-
-		&stdarg.server.debug;
-		&popt.common.samba;
-
+                &popt.autohelp;
+                &cmdline.common.samba.client;
 	</variablelist>
 </refsect1>
 
@@ -121,8 +120,6 @@
 		<listitem><para><command>get_nt_acl</command> - VFS get_nt_acl()</para></listitem>
 		<listitem><para><command>fset_nt_acl</command> - VFS fset_nt_acl()</para></listitem>
 		<listitem><para><command>set_nt_acl</command> - VFS open() and fset_nt_acl()</para></listitem>
-		<listitem><para><command>fchmod_acl</command> - VFS fchmod_acl()</para></listitem>
-		<listitem><para><command>chmod_acl</command> - VFS chmod_acl()</para></listitem>
 		<listitem><para><command>sys_acl_get_file</command> - VFS sys_acl_get_file()</para></listitem>
 		<listitem><para><command>sys_acl_get_fd</command> - VFS sys_acl_get_fd()</para></listitem>
 		<listitem><para><command>sys_acl_blob_get_file</command> - VFS sys_acl_blob_get_file()</para></listitem>
@@ -150,7 +147,7 @@
 <refsect1>
 	<title>バージョン</title>
 
-	<para>このマニュアルページは Samba システムバージョン3と4に対応している</para>
+	<para>このマニュアルページは Samba システム &doc.version; 用である。</para>
 </refsect1>
 
 <refsect1>
@@ -166,8 +163,8 @@
 </refsect1>
 <refsect1>
 	<title>日本語訳</title>
-	<para>このマニュアルページは Samba 4.1.0 - 4.7.6 に対応する。</para>
-        <para>このドキュメントの Samba 3.2.4 - 4.7.6 対応の翻訳は
+	<para>このマニュアルページは Samba 4.15.0 - 4.18.0 に対応する。</para>
+        <para>このドキュメントの Samba 3.2.4 - 4.18.0 対応の翻訳は
 	<itemizedlist>
 		<listitem><para>平田祥司 (shouji@microft.co.jp)</para></listitem>
 		<listitem><para>太田俊哉 (ribbon@samba.gr.jp)</para></listitem>

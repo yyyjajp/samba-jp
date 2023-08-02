@@ -14,12 +14,12 @@
 	UNIX 上の DOS 非互換のファイル名を DOS 互換の名前（「短縮名」）に短縮してアクセス可能にするか、
 	単純に無視するかどうかを制御する。</para>
 
-<!-- 原文 samba-4.7.0
-	<para>See the section on <smbconfoption name="name mangling"/> for 
+<!-- 原文 samba-4.18.0
+	<para>See the section on <link linkend="NAMEMANGLINGSECT">name mangling</link> for 
 	details on how to control the mangling process.</para>
 -->
 	<para>短縮処理がどのように行なわれているかについての詳細は、
-	<smbconfoption name="name mangling"/> セクションを参照のこと。</para>
+	<link linkend="NAMEMANGLINGSECT">name mangling</link> セクションを参照のこと。</para>
 
 <!-- 原文 samba-4.7.0
 	<para>Possible option settings are</para>
@@ -27,12 +27,12 @@
 	<para>オプションとして設定できるのは以下のものである。</para>
 
 	<itemizedlist>
-<!-- 原文 samba-4.7.0
-		<listitem><para><emphasis>yes (default)</emphasis> -
+<!-- 原文 samba-4.12.0
+		<listitem><para><emphasis>yes</emphasis> -
 		enables name mangling for all not DOS 8.3 conforming
 		names.</para></listitem>
 -->
-		<listitem><para><emphasis>yes（既定値）</emphasis> -
+		<listitem><para><emphasis>yes</emphasis> -
 		DOS 8.3 形式に従っていないファイル名に対して、名前の
 		短縮を行う。</para></listitem>
 
@@ -43,13 +43,13 @@
 		<listitem><para><emphasis>no</emphasis> - 名前の短縮を
 		行わない。</para></listitem>
 
-<!-- 原文 samba-4.7.0
-		<listitem><para><emphasis>illegal</emphasis> - does
+<!-- 原文 samba-4.12.0
+		<listitem><para><emphasis>illegal (default)</emphasis> - does
 		mangling for names with illegal NTFS characters. This
 		is the most sensible setting for modern clients that
 		don't use the shortname anymore.</para></listitem>
 -->
-		<listitem><para><emphasis>illegal</emphasis> -
+		<listitem><para><emphasis>illegal (既定値)</emphasis> -
 		NTFS では扱えない文字を含んだファイル名に対して、名前の
 		短縮を行う。短縮名を利用しなくなった最近のクライアント
 		に対しては、これがもっとも適切な設定である。
@@ -144,6 +144,6 @@
 	なお、セッションが異なっても短縮名は変化しない。 
 	</para>
 </description>
-<value type="default">yes</value>
 <value type="example">illegal</value>
+<value type="default">no</value>
 </samba:parameter>

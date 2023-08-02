@@ -7,7 +7,7 @@
 	<manvolnum>8</manvolnum>
 	<refmiscinfo class="source">Samba</refmiscinfo>
 	<refmiscinfo class="manual">システム管理ツール</refmiscinfo>
-	<refmiscinfo class="version">4.7</refmiscinfo>
+	<refmiscinfo class="version">&doc.version;</refmiscinfo>
 </refmeta>
 
 
@@ -18,15 +18,19 @@
 
 <refsynopsisdiv>
 	<cmdsynopsis>
-		<command>winbindd</command>
-		<arg choice="opt">-D|--daemon</arg>
-		<arg choice="opt">-F|--foreground</arg>
-		<arg choice="opt">-S|--stdout</arg>
-		<arg choice="opt">-i|--interactive</arg>
-		<arg choice="opt">-d &lt;debug level&gt;</arg>
-		<arg choice="opt">-s &lt;smb config file&gt;</arg>
-		<arg choice="opt">-n|--no-caching</arg>
-		<arg choice="opt">--no-process-group</arg>
+                <arg choice="opt">-D|--daemon</arg>
+                <arg choice="opt">-i|--interactive</arg>
+                <arg choice="opt">-F|--foreground</arg>
+                <arg choice="opt">--no-process-group</arg>
+                <arg choice="opt">-n|--no-caching</arg>
+                <arg choice="opt">-d &lt;debug level&gt;</arg>
+                <arg choice="opt">--debug-stdout</arg>
+                <arg choice="opt">--configfile=&lt;configuration file&gt;</arg>
+                <arg choice="opt">--option=&lt;name&gt;=&lt;value&gt;</arg>
+                <arg choice="opt">-l|--log-basename &lt;log directory&gt;</arg>
+                <arg choice="opt">--leak-report</arg>
+                <arg choice="opt">--leak-report-full</arg>
+                <arg choice="opt">-V|--version</arg>
 	</cmdsynopsis>
 </refsynopsisdiv>
 
@@ -153,6 +157,19 @@ hosts:		files wins
 		</varlistentry>
 
 		<varlistentry>
+		<term>-i|--interactive</term>
+		<listitem><para>
+		<command>winbindd</command>
+		にデーモンとしての動作と端末からの切り離しを行なわないように指示する。
+		このオプションは、
+		<command>winbindd</command>
+		の対話的なデバッグが必要な開発者のためのものである。
+		この際、<command>-S</command>
+		パラメーターが指定されたときと同じく、ログは標準出力に出力される。
+		</para></listitem>
+		</varlistentry>
+
+		<varlistentry>
 		<term>-F|--foreground</term>
 		<listitem><para>
 		このパラメーターを指定すると、
@@ -174,28 +191,8 @@ hosts:		files wins
 		</varlistentry>
 
 		<varlistentry>
-		<term>-S|--stdout</term>
-		<listitem><para>
-		このパラメーターを指定すると、
-		<command>winbindd</command>
-		はファイルの代わりに標準出力にログを出力するようになる。
-		</para></listitem>
-		</varlistentry>
-
-		&stdarg.server.debug;
-		&popt.common.samba;
-		&popt.autohelp;
-
-		<varlistentry>
-		<term>-i|--interactive</term>
-		<listitem><para>
-		<command>winbindd</command>
-		にデーモンとしての動作と端末からの切り離しを行なわないように指示する。
-		このオプションは、
-		<command>winbindd</command>
-		の対話的なデバッグが必要な開発者のためのものである。
-		この際、<command>-S</command>
-		パラメーターが指定されたときと同じく、ログは標準出力に出力される。
+		<term>--no-process-group</term>
+		<listitem><para>winbinddのために、新しいプロセスグループを作成しない。
 		</para></listitem>
 		</varlistentry>
 
@@ -212,11 +209,39 @@ hosts:		files wins
 		</para></listitem>
 		</varlistentry>
 
-		<varlistentry>
-		<term>--no-process-group</term>
-		<listitem><para>winbinddのために、新しいプロセスグループを作成しない。
-		</para></listitem>
-		</varlistentry>
+                &cmdline.common.debug.server;
+                &cmdline.common.config.server;
+                &cmdline.common.option;
+
+<!-- Samba 4.15.1
+                <varlistentry>
+                        <term>-l|- -log-basename=logdirectory</term>
+                        <listitem>
+                                <para>
+                                        Base directory name for log/debug files. The parent process
+                                        uses filename log.winbindd, the child process uses filename
+                                        log.wb-&lt;name>. The log file is never removed by winbindd.
+                                </para>
+                        </listitem>
+                </varlistentry>
+-->
+                <varlistentry>
+                        <term>-l|--log-basename=logdirectory</term>
+                        <listitem>
+                                <para>
+                                        log/debug ファイルのベースディレクトリ名。親プロセスは
+                                        ファイル名 log.winbindd を使い、子プロセスはファイル名
+                                        log.wb-&lt;name> を使う。ログファイルは winbindd によって
+					削除されることは決してない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+
+                &cmdline.common.samba.leakreport;
+                &cmdline.common.samba.leakreportfull;
+		&cmdline.version;
+
+                &popt.autohelp;
 
 	</variablelist>
 </refsect1>
@@ -392,13 +417,6 @@ auth  required    /lib/security/pam_unix.so \
 	</para>
 
 	<para>
-	<command>winbindd</command>
-	が機能するには、同じマシン上で
-	<citerefentry><refentrytitle>nmbd</refentrytitle><manvolnum>8</manvolnum></citerefentry>
-	を実行していなければならない。
-	</para>
-
-	<para>
 	PAM は非常に設定ミスを犯しやすい。
 	PAM の設定ファイルを変更する際は、
 	何を行なっているかをきちんと確認すること。
@@ -440,7 +458,19 @@ auth  required    /lib/security/pam_unix.so \
 		このシグナルにより、
 		ユーザー情報とグループ情報のキャッシュもクリアされる。
 		また、winbindd が信頼するドメインの一覧も再取得される。
-		</para></listitem>
+	      </para>
+<!-- Samba-4.13.2
+        <para>Instead of sending a SIGHUP signal, a request to reload configuration
+        file may be sent using <citerefentry><refentrytitle>smbcontrol</refentrytitle>
+        <manvolnum>1</manvolnum></citerefentry> program.
+        </para>
+-->
+	<para>SIGHUP シグナルを送る代わりに、
+	<citerefentry><refentrytitle>smbcontrol</refentrytitle>
+	<manvolnum>1</manvolnum></citerefentry> プログラムを使う事で、
+	設定ファイルの再読み込み要求を送ることが出来る。
+	</para>
+		</listitem>
 		</varlistentry>
 
 		<varlistentry>
@@ -468,21 +498,24 @@ auth  required    /lib/security/pam_unix.so \
 		</varlistentry>
 	
 		<varlistentry>
-		<term>/tmp/.winbindd/pipe</term>
+		<term>&pathconfig.WINBINDD_SOCKET_DIR;/pipe</term>
 		<listitem><para>
 		クライアントが
 		<command>winbindd</command>
 		と通信するための UNIX パイプ。
 		セキュリティ上の理由で、
-		<filename>/tmp/.winbindd</filename> ディレクトリと
-		<filename>/tmp/.winbindd/pipe</filename>
+		<filename>&pathconfig.WINBINDD_SOCKET_DIR;</filename> ディレクトリと
+		<filename>&pathconfig.WINBINDD_SOCKET_DIR;/pipe</filename>
 		ファイルの両方の所有者が root 以外の場合、クライアントは
 		winbindd デーモンとの接続を行なわない。
 		</para></listitem>
 		</varlistentry>
 
+		<para><smbconfoption name="winbindd socket directory"/>
+                は、この既定値を上書きする。</para>
+
 		<varlistentry>
-		<term>$LOCKDIR/winbindd_privileged/pipe</term>
+		<term>$STATEDIR/winbindd_privileged/pipe</term>
 	        <listitem><para>
 		winbind の「特権」クライアントが
 		<command>winbindd</command>
@@ -493,14 +526,17 @@ auth  required    /lib/security/pam_unix.so \
 		へのアクセスは制限されており、
 		デフォルトでは、
 		「root」グループに属するユーザーだけがアクセスできる。
-		管理者が $LOCKDIR/winbindd_privileged
+		管理者が $STATEDIR/winbindd_privileged
 		のグループパーミッションを変更することで、
 		「squid」などのプログラムが ntlm_auth を利用できるようにすることなどが可能である。
-		<filename>$LOCKDIR/winbindd_privileged</filename> ディレクトリと
-		<filename>$LOCKDIR/winbindd_privileged/pipe</filename>
+		<filename>$STATEDIR/winbindd_privileged</filename> ディレクトリと
+		<filename>$STATEDIR/winbindd_privileged/pipe</filename>
 		ファイルの両方の所有者が root 以外の場合、winbindクライアントは
 		winbindd デーモンとの接続を行なわない事に注意。
-		</para></listitem>
+	        </para>
+	        <para><smbconfoption name="state dir"/> は、どのように
+                $STATEDIR が参照するかを制御する。</para>
+		</listitem>
 		</varlistentry>
 
 		<varlistentry>
@@ -510,15 +546,16 @@ auth  required    /lib/security/pam_unix.so \
 		</varlistentry>
 	
 		<varlistentry>
-		<term>$LOCKDIR/winbindd_idmap.tdb</term>
+		<term>$STATEDIR/winbindd_idmap.tdb</term>
 		<listitem><para>
 		Windows NT の RID から
 		UNIX の ユーザー/グループ ID へのマッピング情報の保管場所。
-		ロックディレクトリは、Samba のコンパイル時に
-		<parameter>--with-lockdir</parameter>
+		ディレクトリは、Samba のコンパイル時に
+		<parameter>--with-statedir</parameter> または
+		<smbconfoption name="state dir"/>
 		オプションを用いて指定する。
 		このディレクトリの既定値は
-		<filename>/usr/local/samba/var/locks</filename>
+		<filename>&pathconfig.STATEDIR;</filename>
 		である。
 		</para></listitem>
 		</varlistentry>
@@ -535,7 +572,7 @@ auth  required    /lib/security/pam_unix.so \
 <refsect1>
 	<title>バージョン</title>
 
-	<para>このマニュアルは、Samba システムのバージョン 3 (訳注 4.x?)に適用される。</para>
+	<para>このマニュアルは、Samba バージョン &doc.version; 用である。</para>
 </refsect1>
 
 <refsect1>
@@ -571,14 +608,15 @@ auth  required    /lib/security/pam_unix.so \
 </refsect1>
 <refsect1>
 	<title>日本語訳</title>
-	<para>このマニュアルページは Samba 4.1.4 - 4.7.6に対応する。</para>
+	<para>このマニュアルページは Samba 4.17.0 - 4.18.0 に対応する。</para>
         <para>このドキュメントの Samba 3.0.24 対応の翻訳は
 	<itemizedlist>
 	<para>たかはしもとのぶ (monyo@samba.gr.jp)</para>
 	<para>さとうふみやす</para>
 	</itemizedlist>
         によって行なわれた。</para>
-        <para>このドキュメントの Samba 3.2.4 - 4.7.6 対応の翻訳は 太田俊哉(ribbon@samba.gr.jp)によって行われた。</para>
+        <para>このドキュメントの Samba 3.2.4 - 4.18.0 対応の翻訳は
+	太田俊哉(ribbon@samba.gr.jp)によって行われた。</para>
 
 </refsect1>
 

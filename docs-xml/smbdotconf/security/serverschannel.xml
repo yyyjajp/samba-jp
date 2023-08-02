@@ -2,22 +2,183 @@
                  context="G"
 		 type="enum"
 		 enumlist="enum_bool_auto"
+		 deprecated="1"
 		 xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
 <description>
-    <para>このパラメーターは、サーバーが netlogon のセキュアチャネルを提供するかどうかを制御する。
-    <smbconfoption name="server schannel">no</smbconfoption>
-    の場合、セキュアチャネルは提供されない。
-    <smbconfoption name="server schannel">auto</smbconfoption>
-    の場合セキュアチャネルが提供されるが強制はされない。
-    <smbconfoption name="server schannel">yes</smbconfoption>
-    の場合、クライアントが netlogon のセキュアチャネルを認識できない場合は接続が拒否される。
-    これに該当するのは Windows NT 4.0 SP4 以前のみである。</para>
-
-    <para>このパラメーターを <literal>no</literal> に設定した場合、
-    Windows XP マシンには Samba アーカイブの docs/Registry サブディレクトリ中にある
-    <filename>WinXP_SignOrSeal.reg</filename> ファイルを適用してレジストリを修正する必要があることに注意。
+<!-- Samba-4.18.0
+    <para>
+        This option is deprecated and will be removed in future,
+        as it is a security problem if not set to "yes" (which will be
+        the hardcoded behavior in future).
     </para>
+
+    <para><emphasis>Avoid using this option!</emphasis> Use explicit '<smbconfoption name="server require schannel:COMPUTERACCOUNT">no</smbconfoption>' instead!
+    </para>
+
+    <para>
+       Samba will log an error in the log files at log level 0
+       if legacy a client is rejected or allowed without an explicit,
+       '<smbconfoption name="server require schannel:COMPUTERACCOUNT">no</smbconfoption>' option
+       for the client. The message will indicate
+       the explicit '<smbconfoption name="server require schannel:COMPUTERACCOUNT">no</smbconfoption>'
+       line to be added, if the legacy client software requires it. (The log level can be adjusted with
+       '<smbconfoption name="CVE_2020_1472:error_debug_level">1</smbconfoption>'
+       in order to complain only at a higher log level).
+    </para>
+
+    <para>
+       This allows admins to use "auto" only for a short grace period,
+       in order to collect the explicit
+       '<smbconfoption name="server require schannel:COMPUTERACCOUNT">no</smbconfoption>' options.
+    </para>
+
+    <para>
+       See <ulink url="https://www.samba.org/samba/security/CVE-2020-1472.html">CVE-2020-1472(ZeroLogon)</ulink>,
+       <ulink url="https://bugzilla.samba.org/show_bug.cgi?id=14497">https://bugzilla.samba.org/show_bug.cgi?id=14497</ulink>.
+     </para>
+
+    <para>This option is over-ridden by the <smbconfoption name="server require schannel:COMPUTERACCOUNT"/> option.</para>
+
+    <para>This option is over-ridden by the effective value of 'yes' from
+    the '<smbconfoption name="server schannel require seal:COMPUTERACCOUNT"/>'
+    and/or '<smbconfoption name="server schannel require seal"/>' options.</para>
+-->
+    <para>
+       このオプションは非推奨で将来廃止される予定であり、
+       (将来ハードコードされた動作となる) "yes" に設定しない場合、
+       セキュリティ上の問題が存在する。
+    </para>
+
+    <para>
+      <emphasis>このオプションを使わないこと!</emphasis> そのかわりに明示的に
+      '<smbconfoption name="server require schannel:COMPUTERACCOUNT">no</smbconfoption>'
+      を使うこと!
+    </para>
+
+    <para>
+        Samba は ログレベル 0 で、クライアントに対して、旧来の(レガシーの)クライアントが
+        拒否されたか、明示的に
+        '<smbconfoption name="server require schannel:COMPUTERACCOUNT">no</smbconfoption>'
+        オプションなしで許可された場合、ログファイルにエラーを記録する。メッセージは
+        旧来の(レガシーの)クライアントソフトウェアがそれを必要とする場合、
+        明示的に
+        '<smbconfoption name="server require schannel:COMPUTERACCOUNT">no</smbconfoption>'
+        行が追加されることを示す。(ログレベルは
+        '<smbconfoption name="CVE_2020_1472:error_debug_level">1</smbconfoption>'
+        オプションで、より高いレベルだけで表示するように調整することが可能である。)
+    </para>
+	 
+    <para>
+       これにより、明示的な
+       '<smbconfoption name="server require schannel:COMPUTERACCOUNT">no</smbconfoption>'
+       オプションを収集するために、管理者は短い猶予期間にのみ「auto」を使うことが
+       できる。
+    </para>
+    
+    <para>
+       <ulink url="https://www.samba.org/samba/security/CVE-2020-1472.html">CVE-2020-1472(ZeroLogon)</ulink> と
+       <ulink url="https://bugzilla.samba.org/show_bug.cgi?id=14497">https://bugzilla.samba.org/show_bug.cgi?id=14497</ulink> を参照のこと。
+     </para>
+
+     <para>このオプションは<smbconfoption name="server require schannel:COMPUTERACCOUNT"/>
+    オプションによって上書きされる。</para>
+
+    <para>このオプションは
+    '<smbconfoption name="server schannel require seal:COMPUTERACCOUNT"/>'
+    又は '<smbconfoption name="server schannel require seal"/>' オプションの
+    有効な値が 'yes' の場合に上書きされる。</para>
+
 </description>
-<value type="default">auto</value>
-<value type="example">yes</value>
+
+<value type="default">yes</value>
+</samba:parameter>
+
+<samba:parameter name="server require schannel:COMPUTERACCOUNT"
+                 context="G"
+                 type="string"
+                 xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
+<description>
+<!-- Samba-4.18.0
+    <para>If you still have legacy domain members, which required "server schannel = auto" before,
+        it is possible to specify explicit expection per computer account
+        by using 'server require schannel:COMPUTERACCOUNT = no' as option.
+        Note that COMPUTERACCOUNT has to be the sAMAccountName value of
+        the computer account (including the trailing '$' sign).
+    </para>
+
+    <para>
+        Samba will complain in the log files at log level 0,
+        about the security problem if the option is not set to "no",
+        but the related computer is actually using the netlogon
+        secure channel (schannel) feature.
+        (The log level can be adjusted with
+        '<smbconfoption name="CVE_2020_1472:warn_about_unused_debug_level">1</smbconfoption>'
+        in order to complain only at a higher log level).
+    </para>
+
+    <para>
+        Samba will warn in the log files at log level 5,
+        if a setting is still needed for the specified computer account.
+    </para>
+
+    <para>
+        See CVE-2020-1472(ZeroLogon) https://bugzilla.samba.org/show_bug.cgi?id=14497
+    </para>
+
+    <para>This option overrides the <smbconfoption name="server schannel"/> option.</para>
+
+    <para>This option is over-ridden by the effective value of 'yes' from
+    the '<smbconfoption name="server schannel require seal:COMPUTERACCOUNT"/>'
+    and/or '<smbconfoption name="server schannel require seal"/>' options.</para>
+    <para>Which means '<smbconfoption name="server require schannel:COMPUTERACCOUNT">no</smbconfoption>'
+    is only useful in combination with '<smbconfoption name="server schannel require seal:COMPUTERACCOUNT">no</smbconfoption>'</para>
+-->
+    <para>"server schannel = auto" を必要とした、旧来のドメインメンバが、まだ残っている場合、
+        'server require schannel:COMPUTERACCOUNT = no' をオプションとして使う事で、
+	コンピュータアカウント毎に、明示的に例外として指定することが出来る。
+	COMPUTERACCOUNT は、コンピュータアカウント(末尾に '$' 記号を含む)の
+	sAMAccountName の値でなければならないことに注意すること。
+    </para>
+
+    <para>
+	オプションが "no" に設定されていない場合に、セキュリティ上の
+        問題があることについて、Samba はログレベル 0 で、ログファイルに
+        警告を記録するが、関連するコンピュータは、実際には netlogon
+	secure channel (schannel) 機能を使う。
+	(ログレベルは
+        '<smbconfoption name="CVE_2020_1472:warn_about_unused_debug_level">1</smbconfoption>'
+        オプションで、より高いレベルだけで表示するように調整することが可能である。)
+    </para>
+
+    <para>
+	指定されたコンピュータアカウントで引き続き設定が必要な場合、
+	Samba はログレベル 5 でログファイルに警告を記録する。
+    </para>
+
+    <para>
+      <ulink url="https://www.samba.org/samba/security/CVE-2020-1472.html">CVE-2020-1472(ZeroLogon)</ulink> と
+      <ulink url="https://bugzilla.samba.org/show_bug.cgi?id=14497">https://bugzilla.samba.org/show_bug.cgi?id=14497</ulink> オプションを参照のこと。
+    </para>
+
+    <para>このオプションは<smbconfoption name="server schannel"/> オプションを上書きする。</para>~
+
+    <para>このオプションは
+    '<smbconfoption name="server schannel require seal:COMPUTERACCOUNT"/>'
+    又は '<smbconfoption name="server schannel require seal"/>' オプションの
+    有効な値が 'yes' の場合に上書きされる。</para>
+    <para>このことは、
+    <smbconfoption name="server require schannel:COMPUTERACCOUNT">no</smbconfoption>' が
+    '<smbconfoption name="server schannel require seal:COMPUTERACCOUNT">no</smbconfoption>'
+    オプションと同時に使う時のみ有効であることを意味する。
+    </para>
+    <programlisting>
+       server require schannel:LEGACYCOMPUTER1$ = no
+       server require schannel seal:LEGACYCOMPUTER1$ = no
+       server require schannel:NASBOX$ = no
+       server require schannel seal:NASBOX$ = no
+       server require schannel:LEGACYCOMPUTER2$ = no
+       server require schannel seal:LEGACYCOMPUTER2$ = no
+    </programlisting>
+</description>
+
 </samba:parameter>

@@ -7,7 +7,7 @@
 	<manvolnum>8</manvolnum>
 	<refmiscinfo class="source">Samba</refmiscinfo>
 	<refmiscinfo class="manual">システム管理ツール</refmiscinfo>
-	<refmiscinfo class="version">4.7</refmiscinfo>
+	<refmiscinfo class="version">&doc.version;</refmiscinfo>
 </refmeta>
 
 
@@ -19,21 +19,21 @@
 <refsynopsisdiv>
 	<cmdsynopsis>
 		<command>samba</command>
-		<arg choice="opt">-D</arg>
-		<arg choice="opt">-i</arg>
-		<arg choice="opt">-M &lt;model&gt;</arg>
-		<arg choice="opt">--maximum-runtime=&lt;seconds&gt;</arg>
-		<arg choice="opt">-b</arg>
-		<arg choice="opt">--help</arg>
-		<arg choice="opt">--usage</arg>
-		<arg choice="opt">-d &lt;debug level&gt;</arg>
-		<arg choice="opt">--debug-stderr</arg>
-		<arg choice="opt">-s &lt;configuration file&gt;</arg>
-		<arg choice="opt">--option=&lt;smb_conf_param&gt;=&lt;value&gt;</arg>
-		<arg choice="opt">-l &lt;log directory&gt;</arg>
-		<arg choice="opt">--leak-report</arg>
-		<arg choice="opt">--leak-report-full</arg>
-		<arg choice="opt">-V</arg>
+                <arg choice="opt">-D|--daemon</arg>
+                <arg choice="opt">-F|--foreground</arg>
+                <arg choice="opt">-i|--interactive</arg>
+                <arg choice="opt">-M|--model=MODEL</arg>
+                <arg choice="opt">--maximum-runtime=seconds</arg>
+                <arg choice="opt">-b|--show-build</arg>
+                <arg choice="opt">--no-process-group</arg>
+                <arg choice="opt">-d|--debuglevel=DEBUGLEVEL</arg>
+                <arg choice="opt">--debug-stdout</arg>
+                <arg choice="opt">--configfile=CONFIGFILE</arg>
+                <arg choice="opt">--option=name=value</arg>
+                <arg choice="opt">-l|--log-basename=LOGFILEBASE</arg>
+                <arg choice="opt">--leak-report</arg>
+                <arg choice="opt">--leak-report-full</arg>
+                <arg choice="opt">-V|--version</arg>
 	</cmdsynopsis>
 </refsynopsisdiv>
 
@@ -84,6 +84,23 @@
 		</para></listitem>
 		</varlistentry>
 
+<!-- Samba-4.15.0
+                <varlistentry>
+                <term>-F|- -foreground</term>
+                <listitem><para>If specified, this parameter causes
+                the <command>samba</command> process to not daemonize,
+                i.e. double-fork and disassociate with the terminal.
+                </para></listitem>
+                </varlistentry>
+ -->
+                <varlistentry>
+                <term>-F|--foreground</term>
+                <listitem><para>指定された場合、このパラメータは
+                <command>samba</command> プロセスをデーモンにしない。
+                すなわち、2重フォークし、ターミナルとの関連付けを解除する。
+                </para></listitem>
+                </varlistentry>
+
 		<varlistentry>
 		<term>-i|--interactive</term>
 		<listitem><para>指定された場合、シェルのコマンドラインからサーバーが
@@ -96,13 +113,82 @@
 		</varlistentry>
 
 		<varlistentry>
-		<term>-M model</term>
+		<term>-M model|--model</term>
 		<listitem><para>このパラメーターはSambaが使う&quot;プロセスモデル&quot;
 		を指定するのに使われる。これは、どのようにクライアントの同時処理を
 		行うかを決める。有効なプロセスモードには、<emphasis>single</emphasis>
 		(すべてを単一プロセスで)、<emphasis>standard</emphasis>
 		(Samba3と同様な動作)、<emphasis>thread</emphasis>
 		(単一プロセスで異なるスレッド)が含まれている。
+		モデルは以下の通り:
+<!-- Samba-4.11.0
+		<itemizedlist>
+			<listitem><para><emphasis>single</emphasis></para>
+			<para>All Samba services run in a single process. This is
+			not recommended for production configurations.
+			</para></listitem>
+
+			<listitem><para><emphasis>standard</emphasis></para>
+			<para>A process is created for each Samba service,
+			and for those services that support it (currently only
+			LDAP and NETLOGON) a new processes is started
+			for each new client connection.</para>
+
+                        <para>Historically, this was the 'standard' way Samba behaved
+                        up until v4.10. Note that this model can be resource intensive
+                        if you have a large number of client connections.</para>
+                        </listitem>
+			
+			<listitem><para><emphasis>prefork</emphasis></para>
+			<para>The default. A process is started for each Samba service,
+			and a fixed number of worker processes are started for those
+			services that support it (currently only LDAP, NETLOGON, and KDC).
+			The client connections are then shared amongst the worker
+			processes.
+			Requests for services not supporting prefork are handled
+			by a single process for that service.</para>
+			<para>The number of prefork worker processes started is
+			controlled by the
+			<citerefentry><refentrytitle>smb.conf</refentrytitle>
+			<manvolnum>5</manvolnum></citerefentry> parameter
+		        <smbconfoption name="prefork children"/>,
+			which defaults to 4.
+			</para></listitem>
+		</itemizedlist>
+-->
+		<itemizedlist>
+			<listitem><para><emphasis>single</emphasis></para>
+			<para>すべてのSamba プロセスをシングルプロセスで動作させる。 
+			この設定は、運用時には非推奨である。
+			</para></listitem>
+
+			<listitem><para><emphasis>standard</emphasis></para>
+			<para>個々の Samba サービスごとにプロセスが生成され、
+			(現時点では LDAP と NETLOGON のみをサポートする)各サービスは、
+			新しいクライアントからの接続ごとに新しいプロセスが開始される。
+			</para>
+
+                        <para>バージョン 4.10 まで、この方法は Samba の標準的な
+                        動作であった。このモデルは、クライアントからの大量の接続が
+			あった場合、リソースを大量に消費する可能性があることに注意。
+			</para>
+                        </listitem>
+			
+			<listitem><para><emphasis>prefork</emphasis></para>
+			<para>既定値。個々の Samba サービスごとにプロセスが開始され、
+			(現時点では LDAP、NETLOGONとKDCのみをサポートする)一定数の worker プロ
+			セスが開始される。
+			その後、クライアント接続は worker プロセス間で共有される。
+			prefork をサポートしないサービスに対する要求は、
+			そのサービスに対応する単一のプロセスにより処理される。</para>
+			<para>起動時の prefork worker プロセス数は
+			<citerefentry><refentrytitle>smb.conf</refentrytitle>
+			<manvolnum>5</manvolnum></citerefentry> パラメータ
+		        <smbconfoption name="prefork children"/> で制御され、
+			既定値は 4 である。
+			</para></listitem>
+		</itemizedlist>
+
 		</para></listitem>
 		</varlistentry>
 
@@ -119,28 +205,7 @@
 		</para></listitem>
 		</varlistentry>
 
-		<varlistentry>
-		<term>--usage</term>
-		<listitem><para>簡単な使い方を表示する。</para></listitem>
-		</varlistentry>
-
-		<varlistentry>
-		<term>--debug-stderr</term>
-		<listitem><para>標準出力にデバッグ情報を出力する。</para></listitem>
-		</varlistentry>
-
-		<varlistentry>
-		<term>--leak-report</term>
-		<listitem><para>終了時におけるtallocのリークレポートを有効にする。
-		</para></listitem>
-		</varlistentry>
-
-		<varlistentry>
-		<term>--leak-report-full</term>
-		<listitem><para>終了時におけるtallocの完全リークレポートを有効にする。
-		</para></listitem>
-		</varlistentry>
-                &popt.common.samba.server;
+		&cmdline.common.samba.server;
                 &popt.autohelp;
 
 	</variablelist>
@@ -209,7 +274,7 @@
 <refsect1>
 	<title>バージョン</title>
 
-	<para>このマニュアルページは、Samba システムのバージョン 4 用である。</para>
+	<para>このマニュアルページは、Samba バージョン &doc.version; 用である。</para>
 </refsect1>
 
 <refsect1>
@@ -241,8 +306,8 @@
 
 <refsect1>
 	<title>日本語訳</title>
-	<para>このマニュアルページは Samba 4.1.4 - 4.7.6 に対応する。</para>
-	<para>このマニュアルページの Samba 4.0.0 - 4.7.6 対応の翻訳は、太田俊哉 (ribbon@samba.gr.jp) によって行なわれた。</para>
+	<para>このマニュアルページは Samba 4.15.0 - 4.18.0 に対応する。</para>
+	<para>このマニュアルページの Samba 4.0.0 - 4.18.0 対応の翻訳は、太田俊哉 (ribbon@samba.gr.jp) によって行なわれた。</para>
 
 </refsect1>
 

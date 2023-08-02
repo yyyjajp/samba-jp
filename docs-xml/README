@@ -1,6 +1,6 @@
 		Sambaドキュメントの日本語訳版について
 
-						2018/03/27
+						2023/03/18
 						日本Sambaユーザー会
 
 
@@ -15,6 +15,8 @@
 Samba-JP MLとsugj-tech MLのメンバーのご協力のもとに、多くの修正を行ない
 ましたが、訳についてはまだまだ不十分なところが多数あります。そのことを
 ご理解の上、ご利用ください。
+なお、4.16.0の和訳から、翻訳作業の支援として、みんなの自動翻訳＠TexTra を
+使用しています。
 
 1.2 リリース形式
 ----------------------------------------------------------------------
@@ -46,10 +48,10 @@ COPYINGファイルを参照してください。
 原則として、オリジナルSambaが更新対象となっているものについて
 翻訳を行います。
 
-・4.5.x系列以前:	翻訳終了
-・4.6.x系列:		翻訳中
-・4.7.x系列:		翻訳中
-・4.8.x系列:		翻訳中
+・4.15.x系列以前:	翻訳終了
+・4.16.x系列:		翻訳中
+・4.17.x系列:		翻訳中
+・4.18.x系列:		翻訳中
 
 
 Sambaのバージョンが変更になってもドキュメントの修正がない場合には、
@@ -77,7 +79,8 @@ HTML形式、およびman形式のファイル両方ともUTF-8でエンコー�
 
 Sambaドキュメント（日本語訳版）をビルドするためには、最小でも以下の
 パッケージが必要となります。事前にインストールしてください。
-  make, autoconf, docbook-xml, docbook-xsl, xsltproc(または libxslt),
+  make, autoconf, docbook-xml, docbook-xsl(または
+  docbook-xsl-stylesheets(openSUSEの場合), xsltproc(または libxslt),
   inkscape
 
 ・パッケージ名は一般的な名称で示しています。ディストリビューション
@@ -119,42 +122,41 @@ manpages、html、htmlman が実行可能になります。これ以外にも ma
   $ make clean
   $ make manpages (manpagesの作成)
   $ make htmlman  (html化したmanpagesの作成)
-  $ make html     (Samba3-HOWTO等のhtml文書の作成)
+  $ make html     (Samba関連のhtml文書の作成)
 
 
 5. 変更履歴
 ======================================================================
-2018/03/27 Ver 4.8.0-1 4.8.0 対応
-	   &doc.version; 対応(全マニュアルページ)。
-	   findsmb.1.xml,idmap_nss.8.xml
-	  
+XMLのパラメータのみの修正(翻訳に影響なし)については、記載を省略しています。
 
-	   idmap_rid.8.xml,idmap_rfc2307.8.xml,net.8.xml,samba-tool.8.xml,
-	   smbcacls.1.xml,smbclient.1.xml,smbcontrol.1.xml,vfs_catia.8.xml,
-	   vfs_fruit.8.xml,vfs_glusterfs.8.xml,vfs_gpfs.8.xml,
-	   vfs_media_harmony.8.xml,vfs_shadow_copy2.8.xml,
-	   vfs_syncops.8.xml,vfs_tsmsm.8.xml,vfs_zfsacl.8.xml,
-	   filename/manglednames.xml,
-	   logging/logging.xml,logging/loglevel.xml,
-	   logon/autheventnotification.xml,
-	   misc/allowunsafeclusterupgrade.xml,
-	   misc/ctdblocktimewarnthreshold.xml,
-	   protocol/clientmaxprotocol.xml,protocol/easupport.xml,
-	   protocol/lsaovernetlogon.xml,protocol/smb2maxread.xml,
-	   protocol/nameresolveorder.xml,protocol/profileacls.xml,
-	   protocol/rpcserverport.xml,protocol/smb2maxcredits.xml,
-	   rpc/rpcserverdynamicportrange.xml,
-	   security/authmethods.xml,security/lanmanauth.xml,
-	   security/mapuntrustedtodomain.xml,
-	   security/mitkdccommand.xml,security/ntlmauth.xml,
-	   security/passwordhashgpgkeyids.xml,
-	   security/passwordhashuserpasswordschemes.xml,
-	   vfs/msdfsshufflereferrals.xml,
-	   tuning/strictsync.xml,getwdcache.xml,
-	   winbind/idmapconfig.xml,
-	   winbind/winbinddsocketdirectory.xml,
-	   winbind/winbindignoredomains.xml 変更
-	   winbind/winbinddprivilegedsocketdirectory.xml 削除
+2023/02/25 Ver 4.18.0-1 4.18.0 対応
+	   samba-tool.8.xml,smbget.1.xml,
+	   vfs_acl_xattr.8.xml,vfs_full_audit.8.xml,vfs_gpfs.8.xml,
+	   wbinfo.1.xml,
+	   browse/server_addresses.xml,filename/casesensitive.xml,
+	   filename/defaultcase.xml,filename/manglednames.xml,
+	   filename/manglingchar.xml,filename/mapreadonly.xml,
+	   locking/lockspintime.xml,locking/smb2leases.xml,
+	   logon/allownt4crypto.xml,logon/rejectmd5clients.xml,
+	   misc/defaultservice.xml,printing/loadprinters.xml,
+	   protocol/disablenetbios.xml,protocol/easupport.xml,
+	   protocol/mapaclinherit.xml,protocol/ntaclsupport.xml,
+	   security/allowdcerpcauthlevelconnect.xml,
+	   security/clientschannel.xml,security/inheritacls.xml,
+	   security/inheritowner.xml,
+	   security/kerberosencryptiontypes.xml,
+	   security/rootdirectory.xml,security/security.xml,
+	   security/serverrole.xml,security/serverschannel.xml,
+	   tuning/aioreadsize.xml,tuning/aiowritesize.xml,
+	   winbind/rejectmd5servers.xml,
+	   winbind/requirestrongkey.xml
+	   変更
+	   protocol/smb3unixextensions.xml,
+	   security/kdcdefaultdomainsupportedenctypes.xml,
+	   security/kdcforceenablerc4weaksessionkeys.xml,
+	   security/kdcsupportedenctypes.xml,
+	   security/serverschannelrequireseal.xml
+	   追加
 
 ======================================================================
 
