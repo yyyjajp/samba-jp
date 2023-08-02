@@ -176,6 +176,66 @@
 		<para>既定値: no</para>
                 </listitem>
                </varlistentry>
+                <varlistentry>
+                <term>deny ous</term>
+<!-- Samba-4.19.0
+                <listitem><para>This parameter is a list of OUs from
+                which objects will not be mapped via the ad idmap
+                module. If <parameter>deny ous</parameter> is set but
+                <parameter>allow ous</parameter> is not set, every
+                object outside the OUs listed in <parameter>deny
+                ous</parameter> is allowed.
+                </para>
+                <para>Default: none</para>
+                </listitem>
+-->
+                <listitem><para>このパラメータは、ad idmap モジュール経由で
+		マップされないオブジェクトからの OU のリストである。
+		<parameter>deny ous</parameter> が設定されたが、
+		<parameter>allow ous</parameter> が設定されない場合、
+		<parameter>deny ous</parameter>中にリストされた OU 外の
+		各オブジェクトは許可される。
+                </para>
+                <para>既定値: none</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>allow ous</term>
+<!-- Samba-4.19.0
+                <listitem><para>This parameter is a list of OUs from
+                which objects will be mapped via the ad idmap
+                module. If <parameter>allow ous</parameter> is set but
+                <parameter>deny ous</parameter> is not set, every
+                object outside the OUs <parameter>allow
+                ous</parameter> is denied.
+                </para>
+                <para>
+                If both <parameter>allow ous</parameter> and
+                <parameter>deny ous</parameter> are set,
+                <parameter>deny ous</parameter> is evaluated first,
+                then <parameter>allow ous</parameter> is looked at. If
+                an AD object matches neither, it is denied.
+                </para>
+                <para>Default: none</para>
+                </listitem>
+-->
+                <listitem><para>このパラメータは、ad idmap モジュール経由で
+                マップされるオブジェクトからの OU のリストである。
+                <parameter>allow ous</parameter> が設定されたが、
+                <parameter>deny ous</parameter> が設定されない場合、
+                <parameter>allow ous</parameter>中にリストされた OU 外の
+                各オブジェクトは拒否される。
+                </para>
+                <para>
+                <parameter>allow ous</parameter> と
+                <parameter>deny ous</parameter> が設定された場合、
+                <parameter>deny ous</parameter> が先に評価され、次に
+                <parameter>allow ous</parameter>が参照される。
+		AD オブジェクトが一致しない場合は拒否される。
+                </para>
+                <para>既定値: none</para>
+                </listitem>
+               </varlistentry>
 	</variablelist>
 </refsect1>
 
