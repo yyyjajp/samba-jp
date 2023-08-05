@@ -1118,6 +1118,687 @@
 	<para>ドメイン DB をバックアップファイルからリストアする。</para>
 </refsect3>
 
+<!-- samba-4.19.0
+<refsect3>
+        <title>domain auth policy list</title>
+        <para>List authentication policies on the domain.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--json</term>
+                        <listitem><para>
+                                View authentication policies as JSON instead of a list.
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+
+<refsect3>
+        <title>domain auth policy view</title>
+        <para>View an authentication policy on the domain.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                Name of the authentication policy to view (required).
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+-->
+<refsect3>
+        <title>domain auth policy list</title>
+        <para>ドメイン上の認証ポリシを一覧表示する。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--json</term>
+                        <listitem><para>
+                                一覧の代わりに認証ポリシを一覧で表示する。
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+
+<refsect3>
+        <title>domain auth policy view</title>
+        <para>ドメイン上の認証ポリシを表示する。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                表示すべき認証ポリシの名前(必須)。
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+
+<!-- samba-4.19.0
+<refsect3>
+        <title>domain auth policy create</title>
+        <para>Create authentication policies on the domain.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                Name of the authentication policy (required).
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--description</term>
+                        <listitem><para>
+                                Optional description for the authentication policy.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--protect</term>
+                        <listitem>
+                                <para>
+                                        Protect authentication policy from accidental deletion.
+                                </para>
+                                <para>
+                                        Cannot be used together with --unprotect.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--unprotect</term>
+                        <listitem>
+                                <para>
+                                        Unprotect authentication policy from accidental deletion.
+                                </para>
+                                <para>
+                                        Cannot be used together with --protect.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--audit</term>
+                        <listitem>
+                                <para>
+                                        Only audit authentication policy.
+                                </para>
+                                <para>
+                                        Cannot be used together with --enforce.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--enforce</term>
+                        <listitem>
+                                <para>
+                                        Enforce authentication policy.
+                                </para>
+                                <para>
+                                        Cannot be used together with --audit.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--strong-ntlm-policy</term>
+                        <listitem>
+                                <para>
+                                        Strong NTLM Policy (Disabled, Optional, Required).
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--user-tgt-lifetime</term>
+                        <listitem>
+                                <para>
+                                        Ticket-Granting-Ticket lifetime for user accounts.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--user-allow-ntlm-auth</term>
+                        <listitem>
+                                <para>
+                                        Allow NTLM network authentication when user
+                                        is restricted to selected devices.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--service-tgt-lifetime</term>
+                        <listitem>
+                                <para>
+                                        Ticket-Granting-Ticket lifetime for service accounts.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--service-allow-ntlm-auth</term>
+                        <listitem>
+                                <para>
+                                        Allow NTLM network authentication when service
+                                        is restricted to selected devices.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--computer-tgt-lifetime</term>
+                        <listitem>
+                                <para>
+                                        Ticket-Granting-Ticket lifetime for computer accounts.
+                                </para>
+                        </listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+-->
+<refsect3>
+        <title>domain auth policy create</title>
+        <para>ドメイン上の認証ポリシを作成する。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                認証ポリシの名前(必須)。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--description</term>
+                        <listitem><para>
+                                認証ポリシに対するオプションの説明。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--protect</term>
+                        <listitem>
+                                <para>
+                                        誤操作による削除から認証ポリシを保護する。
+                                </para>
+                                <para>
+                                        --unprotect と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--unprotect</term>
+                        <listitem>
+                                <para>
+                                        誤操作による削除から認証ポリシを保護しない。
+                                </para>
+                                <para>
+                                        --protect と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--audit</term>
+                        <listitem>
+                                <para>
+                                        監査認証ポリシーのみ。
+                                </para>
+                                <para>
+                                        --enforce と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--enforce</term>
+                        <listitem>
+                                <para>
+                                        認証ポリシを強制。
+                                </para>
+                                <para>
+                                        --audit と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--strong-ntlm-policy</term>
+                        <listitem>
+                                <para>
+                                        強力な NTLM ポリシ (無効、オプション、必須)。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--user-tgt-lifetime</term>
+                        <listitem>
+                                <para>
+                                        ユーザアカウントの Ticket-Granting-Ticket 生存時間。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--user-allow-ntlm-auth</term>
+                        <listitem>
+                                <para>
+                                ユーザーが選択したデバイスに制限されている場合、
+				NTLM ネットワーク認証を許可する。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--service-tgt-lifetime</term>
+                        <listitem>
+                                <para>
+                                        サービスアカウントの Ticket-Granting-Ticket 生存時間。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--service-allow-ntlm-auth</term>
+                        <listitem>
+                                <para>
+                                サービスが選択したデバイスに制限されている場合、
+				NTLMネットワーク認証を許可する。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--computer-tgt-lifetime</term>
+                        <listitem>
+                                <para>
+                                コンピュータアカウントの Ticket-Granting-Ticket 生存時間。
+                                </para>
+                        </listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+<!-- samba-4.19.0
+<refsect3>
+        <title>domain auth policy modify</title>
+        <para>Modify authentication policies on the domain.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                Name of the authentication policy (required).
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--description</term>
+                        <listitem><para>
+                                Optional description for the authentication policy.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--protect</term>
+                        <listitem>
+                                <para>
+                                        Protect authentication policy from accidental deletion.
+                                </para>
+                                <para>
+                                        Cannot be used together with --unprotect.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--unprotect</term>
+                        <listitem>
+                                <para>
+                                        Unprotect authentication policy from accidental deletion.
+                                </para>
+                                <para>
+                                        Cannot be used together with --protect.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--audit</term>
+                        <listitem>
+                                <para>
+                                        Only audit authentication policy.
+                                </para>
+                                <para>
+                                        Cannot be used together with --enforce.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--enforce</term>
+                        <listitem>
+                                <para>
+                                        Enforce authentication policy.
+                                </para>
+                                <para>
+                                        Cannot be used together with --audit.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--strong-ntlm-policy</term>
+                        <listitem>
+                                <para>
+                                        Strong NTLM Policy (Disabled, Optional, Required).
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--user-tgt-lifetime</term>
+                        <listitem>
+                                <para>
+                                        Ticket-Granting-Ticket lifetime for user accounts.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--user-allow-ntlm-auth</term>
+                        <listitem>
+                                <para>
+                                        Allow NTLM network authentication when user
+                                        is restricted to selected devices.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--service-tgt-lifetime</term>
+                        <listitem>
+                                <para>
+                                        Ticket-Granting-Ticket lifetime for service accounts.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--service-allow-ntlm-auth</term>
+                        <listitem>
+                                <para>
+                                        Allow NTLM network authentication when service
+                                        is restricted to selected devices.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--computer-tgt-lifetime</term>
+                        <listitem>
+                                <para>
+                                        Ticket-Granting-Ticket lifetime for computer accounts.
+                                </para>
+                        </listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+-->
+<refsect3>
+        <title>domain auth policy modify</title>
+        <para>ドメイン上の認証ポリシを変更する。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                認証ポリシの名前(必須)。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--description</term>
+                        <listitem><para>
+                                認証ポリシに対するオプションの説明。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--protect</term>
+                        <listitem>
+                                <para>
+                                        誤操作による削除から認証ポリシを保護する。
+                                </para>
+                                <para>
+                                        --unprotect と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--unprotect</term>
+                        <listitem>
+                                <para>
+                                        誤操作による削除から認証ポリシを保護しない。
+                                </para>
+                                <para>
+                                        --protect と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--audit</term>
+                        <listitem>
+                                <para>
+                                        監査認証ポリシーのみ。
+                                </para>
+                                <para>
+                                        --enforce と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--enforce</term>
+                        <listitem>
+                                <para>
+                                        認証ポリシを強制。
+                                </para>
+                                <para>
+                                        --audit と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--strong-ntlm-policy</term>
+                        <listitem>
+                                <para>
+                                        強力な NTLM ポリシ (無効、オプション、必須)。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--user-tgt-lifetime</term>
+                        <listitem>
+                                <para>
+                                        ユーザアカウントの Ticket-Granting-Ticket 生存時間。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--user-allow-ntlm-auth</term>
+                        <listitem>
+                                <para>
+                                        ユーザーが選択したデバイスに制限されている場合、
+                                        NTLM ネットワーク認証を許可する。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--service-tgt-lifetime</term>
+                        <listitem>
+                                <para>
+                                        サービスアカウントの Ticket-Granting-Ticket 生存時間。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--service-allow-ntlm-auth</term>
+                        <listitem>
+                                <para>
+                                        サービスが選択したデバイスに制限されている場合、
+                                        NTLMネットワーク認証を許可する。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--computer-tgt-lifetime</term>
+                        <listitem>
+                                <para>
+                                        コンピュータアカウントの Ticket-Granting-Ticket 生存時間。
+                                </para>
+                        </listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+<!-- Samba-4.19.0
+<refsect3>
+        <title>domain auth policy delete</title>
+        <para>Delete authentication policies on the domain.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                Name of authentication policy to delete (required).
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--force</term>
+                        <listitem><para>
+                                Force authentication policy delete even if it is protected.
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+-->
+<refsect3>
+        <title>domain auth policy delete</title>
+        <para>ドメイン上の認証ポリシを削除する。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                認証ポリシの名前(必須)。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--force</term>
+                        <listitem><para>
+                                保護されていたとしても強制的に認証ポリシを削除する。
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+
+<!-- Samba-4.19.0
+<refsect3>
+        <title>domain auth silo list</title>
+        <para>List authentication silos on the domain.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--json</term>
+                        <listitem><para>
+                                View authentication silos as JSON instead of a list.
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+-->
+<refsect3>
+        <title>domain auth silo list</title>
+        <para>ドメイン上の認証サイロ を一覧表示する。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--json</term>
+                        <listitem><para>
+                                一覧表示の代わりに JSON で認証サイロを表示する。
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+<!-- samba-4.19.0
+<refsect3>
+        <title>domain auth silo view</title>
+        <para>View an authentication silo on the domain.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                Name of the authentication silo to view (required).
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+	</refsect3>
+-->
+<refsect3>
+        <title>domain auth silo view</title>
+        <para>ドメイン上の認証サイロを表示する。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                表示すべき認証サイロの名前(必須)。
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+
 <refsect3>
 	<title>domain classicupgrade [options] <replaceable>classic_smb_conf</replaceable></title>
 <!-- 原文 samba-4.7.0
