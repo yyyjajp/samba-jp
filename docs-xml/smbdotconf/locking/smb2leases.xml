@@ -15,9 +15,6 @@
 	<smbconfoption name="kernel oplocks">no</smbconfoption> の時にのみ有効である。
 	</para>
 
-	<para>smb2 書き込みリースが設定されているファイルハンドルに対しては、
-	書き込みキャッシュは使われないことに注意。</para>
-
 </description>
 
 <related>oplocks</related>
