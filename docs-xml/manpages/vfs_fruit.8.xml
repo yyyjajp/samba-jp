@@ -302,7 +302,34 @@
               <para>既定値は<emphasis>MacSamba</emphasis>である。</para>
             </listitem>
           </varlistentry>
-	  
+
+<!-- samba-4.19.0
+          <varlistentry>
+            <term>fruit:convert_adouble = yes | no</term>
+            <listitem>
+              <para>Whether an attempt shall be made to convert ._ AppleDouble
+              sidecar files to native streams (xattrs when using
+              vfs_streams_xattr). The main use case for this conversion is
+              transparent migration from a server config without streams support
+              where the macOS client created those AppleDouble sidecar
+              files.</para>
+              <para>The default is <emphasis>yes</emphasis>.</para>
+            </listitem>
+          </varlistentry>
+-->
+          <varlistentry>
+            <term>fruit:convert_adouble = yes | no</term>
+            <listitem>
+              <para>._ AppleDouble sidecar ファイルをネイティブストリーム
+	      (vfs_streams_xattr を使用している場合は xattrs) に変換しようと
+	      するかどうか。この変換の主な使用例は、macOSクライアントが
+	      これらの AppleDouble sidecar ファイルを作成した
+	      ストリームサポートのないサーバ設定からの透過的な移行である。
+              </para>
+              <para>既定値は<emphasis>yes</emphasis>である。</para>
+            </listitem>
+          </varlistentry>
+
 	</variablelist>
 </refsect1>
 
@@ -779,7 +806,7 @@
 </refsect1>
 <refsect1>
     <title>日本語訳</title>
-    <para>このマニュアルページは Samba 4.17.0 - 4.18.0 に対応する。</para>
+    <para>このマニュアルページは Samba 4.19.0 - 4.19.0 に対応する。</para>
     <para>このドキュメントの翻訳は
     <itemizedlist>
         <listitem><para>太田俊哉 (ribbon@samba.gr.jp)</para></listitem>
