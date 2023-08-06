@@ -18,25 +18,23 @@
 	</para>
 	
 	<para>
-	このオプションは、(たとえば Windows 2000 SP3 またはそれ以降の)署名された
-	LDAP 接続を使うことを強制するドメインコントローラーの場合に必要である。
-	LDAP 署名と暗号化 LDAP 接続は、Windows サーバー側のレジストリキー
-	"<literal>HKLM\System\CurrentControlSet\Services\</literal>
-	<literal>NTDS\Parameters\LDAPServerIntegrity</literal>"
-	によって制御する事が出来る。
+	  このオプションは、特にユーザからの、パスワードの新規作成又はリセットなど、
+	  <command>samba-tool</command>からの管理接続のプライバシーを保護するために
+	  最初に必要である。このため、既定値は<emphasis>seal</emphasis>である。
 	</para>
 
 	<para>
-	使用する KRB5 ライブラリ(MITと古いバージョンの Heimdal )に依存するが、
-	メッセージ "integrity only" はサポートされないことが可能である。この場合、
-	<emphasis>sign</emphasis>は
-	<emphasis>seal</emphasis>のための単なる別名である。
+	  さらに、<command>winbindd</command>および<command>net</command>ツールは LDAP を
+	  使用してドメインコントローラと通信できるため、このオプションはこれらの接続の
+	  プライバシーのレベルも制御する。サポートされているすべての AD DC バージョンは、
+	  既定で少なくとも署名付きの LDAP 接続の使用を強制するため、実際には少なくとも
+	  <emphasis>sign</emphasis>の値が必要である。
 	</para>
 
 	<para>
-	既定値は<emphasis>sign</emphasis>である。これは、<emphasis>Kerberos</emphasis>
+	既定値は<emphasis>seal</emphasis>である。これは、<emphasis>Kerberos</emphasis>
 	を使う場合においては、KDC との時刻同期があることをを暗黙的に示している。
 	</para>
 </description>
-<value type="default">sign</value>
+<value type="default">seal</value>
 </samba:parameter>
