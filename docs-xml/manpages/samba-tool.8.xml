@@ -4182,7 +4182,7 @@
 	<varlistentry>
 	<term>- -force-subtree-delete</term>
 	<listitem><para>
-	Delete organizational unit and all children reclusively.
+	Delete organizational unit and all children recursively.
 	</para></listitem>
 	</varlistentry>
 	</variablelist>
@@ -4372,7 +4372,32 @@
 	<para>オブジェクトクラススキーマ定義の表示。</para>
 </refsect3>
 
-
+<!-- samba-4.19.0
+<refsect3>
+        <title>sites list [options]</title>
+        <para>List sites.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>--json</term>
+                        <listitem><para>
+                                Output as JSON instead of a list
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+-->
+<refsect3>
+        <title>sites list [options]</title>
+        <para>サイトを一覧表示する。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>--json</term>
+                        <listitem><para>
+                                一覧表示の代わりに JSON で出力
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
 
 
 <refsect2>
@@ -4397,6 +4422,73 @@
 	<para>Delete an existing site.</para>
 -->
 	<para>存在するサイトを削除する。</para>
+</refsect3>
+
+<!-- samba-4.19.0
+<refsect3>
+        <title>sites subnet list <replaceable>site</replaceable> [options]</title>
+        <para>List subnets for a site.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>--json</term>
+                        <listitem><para>
+                                Output as JSON instead of a list
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+
+<refsect3>
+        <title>sites subnet view <replaceable>subnet</replaceable> [options]</title>
+        <para>View subnet details.</para>
+</refsect3>
+
+<refsect3>
+        <title>sites subnet create <replaceable>subnet</replaceable> <replaceable>site-of-subnet</replaceable> [options]</title>
+        <para>Create a new subnet.</para>
+</refsect3>
+
+<refsect3>
+        <title>sites subnet remove <replaceable>subnet</replaceable> [options]</title>
+        <para>Delete an existing subnet.</para>
+</refsect3>
+
+<refsect3>
+        <title>sites subnet set-site <replaceable>subnet</replaceable> <replaceable>site-of-subnet</replaceable> [options]</title>
+        <para>Assign a subnet to a site.</para>
+</refsect3>
+-->
+<refsect3>
+        <title>sites subnet list <replaceable>site</replaceable> [options]</title>
+        <para>サイトのサブネットを一覧表示する。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>--json</term>
+                        <listitem><para>
+                                一覧表示の代わりに JSON で出力
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+
+<refsect3>
+        <title>sites subnet view <replaceable>subnet</replaceable> [options]</title>
+        <para>サブネットの詳細を表示する。</para>
+</refsect3>
+
+<refsect3>
+        <title>sites subnet create <replaceable>subnet</replaceable> <replaceable>site-of-subnet</replaceable> [options]</title>
+        <para>新しいサブネットを作成する。</para>
+</refsect3>
+
+<refsect3>
+        <title>sites subnet remove <replaceable>subnet</replaceable> [options]</title>
+        <para>既存のサブネットを削除する。</para>
+</refsect3>
+
+<refsect3>
+        <title>sites subnet set-site <replaceable>subnet</replaceable> <replaceable>site-of-subnet</replaceable> [options]</title>
+        <para>サブネットをサイトに割り当てる。</para>
 </refsect3>
 
 <refsect2>
