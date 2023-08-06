@@ -1799,6 +1799,1117 @@
         </variablelist>
 </refsect3>
 
+<!-- samba-4.19.0
+<refsect3>
+        <title>domain auth silo create</title>
+        <para>Create authentication silos on the domain.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                Name of the authentication silo (required).
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--description</term>
+                        <listitem><para>
+                                Optional description for the authentication silo.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--policy</term>
+                        <listitem><para>
+                                Use single policy for all principals in this silo.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--user-policy</term>
+                        <listitem><para>
+                                User account policy.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--service-policy</term>
+                        <listitem><para>
+                                Managed Service Account policy.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--computer-policy</term>
+                        <listitem><para>
+                                Computer Account policy.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--protect</term>
+                        <listitem>
+                                <para>
+                                        Protect authentication silo from accidental deletion.
+                                </para>
+                                <para>
+                                        Cannot be used together with --unprotect.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--unprotect</term>
+                        <listitem>
+                                <para>
+                                        Unprotect authentication silo from accidental deletion.
+                                </para>
+                                <para>
+                                        Cannot be used together with --protect.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--audit</term>
+                        <listitem>
+                                <para>
+                                        Only audit silo policies.
+                                </para>
+                                <para>
+                                        Cannot be used together with --enforce.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--enforce</term>
+                        <listitem>
+                                <para>
+                                        Enforce silo policies.
+                                </para>
+                                <para>
+                                        Cannot be used together with --audit.
+                                </para>
+                        </listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+-->
+<refsect3>
+        <title>domain auth silo create</title>
+        <para>ドメン上の認証サイロを作成する。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                認証サイロの名前(必須)。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--description</term>
+                        <listitem><para>
+                                認証サイロに対するオプションの説明。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--policy</term>
+                        <listitem><para>
+                                このサイロ中のすべてのプリンシパルに対してシングルポリシを使用。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--user-policy</term>
+                        <listitem><para>
+                                ユーザアカウントポリシ。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--service-policy</term>
+                        <listitem><para>
+                                管理されたサーアビスアカウントポリシ。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--computer-policy</term>
+                        <listitem><para>
+                                コンピュータアカウントポリシ。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--protect</term>
+                        <listitem>
+                                <para>
+                                        誤操作による削除から認証サイロを保護する。
+                                </para>
+                                <para>
+                                        --unprotect と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--unprotect</term>
+                        <listitem>
+                                <para>
+                                        誤操作による削除から認証サイロを保護しない。
+                                </para>
+                                <para>
+                                        --protect と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--audit</term>
+                        <listitem>
+                                <para>
+                                        監査サイロポリシーのみ。
+                                </para>
+                                <para>
+                                        --enforce と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--enforce</term>
+                        <listitem>
+                                <para>
+                                        サイロポリシを強制。
+                                </para>
+                                <para>
+                                        --audit と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+<!-- samba-4.19.0
+<refsect3>
+        <title>domain auth silo modify</title>
+        <para>Modify authentication silos on the domain.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                Name of the authentication silo (required).
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--description</term>
+                        <listitem><para>
+                                Optional description for the authentication silo.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--policy</term>
+                        <listitem><para>
+                                Use single policy for all principals in this silo.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--user-policy</term>
+                        <listitem><para>
+                                User account policy.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--service-policy</term>
+                        <listitem><para>
+                                Managed Service Account policy.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--computer-policy</term>
+                        <listitem><para>
+                                Computer Account policy.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--protect</term>
+                        <listitem>
+                                <para>
+                                        Protect authentication silo from accidental deletion.
+                                </para>
+                                <para>
+                                        Cannot be used together with --unprotect.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--unprotect</term>
+                        <listitem>
+                                <para>
+                                        Unprotect authentication silo from accidental deletion.
+                                </para>
+                                <para>
+                                        Cannot be used together with --protect.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--audit</term>
+                        <listitem>
+                                <para>
+                                        Only audit silo policies.
+                                </para>
+                                <para>
+                                        Cannot be used together with --enforce.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--enforce</term>
+                        <listitem>
+                                <para>
+                                        Enforce silo policies.
+                                </para>
+                                <para>
+                                        Cannot be used together with --audit.
+                                </para>
+                        </listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+-->
+<refsect3>
+        <title>domain auth silo modify</title>
+        <para>このドメイン上の認証サイロを修正する。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                認証サイロの名前(必須)。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--description</term>
+                        <listitem><para>
+                                認証サイロに対するオプションの説明。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--policy</term>
+                        <listitem><para>
+                                このサイロ中のすべてのプリンシパルに対してシングルポリシを使用。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--user-policy</term>
+                        <listitem><para>
+                                ユーザアカウントポリシ。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--service-policy</term>
+                        <listitem><para>
+                                管理されたサービスアカウントポリシ。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--computer-policy</term>
+                        <listitem><para>
+                                コンピュータアカウントポリシ。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--protect</term>
+                        <listitem>
+                                <para>
+                                        誤操作による削除から認証サイロを保護する。
+                                </para>
+                                <para>
+                                        --unprotect と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--unprotect</term>
+                        <listitem>
+                                <para>
+                                        誤操作による削除から認証サイロを保護しない。
+                                </para>
+                                <para>
+                                        --protect と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--audit</term>
+                        <listitem>
+                                <para>
+                                        監査サイロポリシーのみ。
+                                </para>
+                                <para>
+                                        --enforce と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--enforce</term>
+                        <listitem>
+                                <para>
+                                        サイロポリシーを強制。
+                                </para>
+                                <para>
+                                        --audit と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+<!-- samba-4.19.0
+<refsect3>
+        <title>domain auth silo delete</title>
+        <para>Delete authentication silos on the domain.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                Name of authentication silo to delete (required).
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--force</term>
+                        <listitem><para>
+                                Force authentication silo delete even if it is protected.
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+-->
+<refsect3>
+        <title>domain auth silo delete</title>
+        <para>このドメイン上の認証サイロを削除。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                削除する認証サイロの名前(必須)。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--force</term>
+                        <listitem><para>
+                                保護されていたとしても強制的に認証サイロを削除。
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+<!-- samba-4.19.0
+<refsect3>
+        <title>domain auth silo member add</title>
+        <para>Add a member to an authentication silo.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                Name of authentication silo (required).
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--member</term>
+                        <listitem><para>
+                                Member to add to the silo (DN or account name).
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+-->
+<refsect3>
+        <title>domain auth silo member add</title>
+        <para>認証サイロにメンバを追加。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                認証サイロの名前(必須)。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--member</term>
+                        <listitem><para>
+                                このサイロに追加するメンバ(DN 又はアカウント名)。
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+<!-- samba-4.19.0
+<refsect3>
+        <title>domain auth silo member list</title>
+        <para>List members in an authentication silo.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                Name of authentication silo (required).
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--json</term>
+                        <listitem><para>
+                                View members as JSON instead of a list.
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+-->
+<refsect3>
+        <title>domain auth silo member list</title>
+        <para>認証サイロ中のメンバの一覧表示。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                認証サイロの名前(必須)。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--json</term>
+                        <listitem><para>
+                                一覧表示の代わりにメンバを JSON で表示。
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+<!-- samba-4.19.0
+<refsect3>
+        <title>domain auth silo member remove</title>
+        <para>Remove a member from an authentication silo.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                Name of authentication silo (required).
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--member</term>
+                        <listitem><para>
+                                Member to remove from the silo (DN or account name).
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+-->     
+<refsect3>
+        <title>domain auth silo member remove</title>
+        <para>認証サイロからメンバを削除。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                認証サイロの名前(必須)。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--member</term>
+                        <listitem><para>
+                                サイロから削除するメンバ(DN 又はアカウント名)。
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+<!-- samba-4.19.0
+<refsect3>
+        <title>domain claim claim-type list</title>
+        <para>List claim types on the domain.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--json</term>
+                        <listitem><para>
+                                View claim types as JSON instead of a list.
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+-->
+<refsect3>
+        <title>domain claim claim-type list</title>
+        <para>ドメイン上のクレームタイプの一覧表示。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--json</term>
+                        <listitem><para>
+                                一覧表示の代わりにクレームタイプを JSON でメンバを表示。
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+<!-- samba-4.19.0
+<refsect3>
+        <title>domain claim claim-type view</title>
+        <para>View a single claim type on the domain.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                Display name of claim type to view (required).
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+-->
+<refsect3>
+        <title>domain claim claim-type view</title>
+        <para>ドメイン上の単一のクレームタイプを表示。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                表示するクレームタイプの名前(必須)。
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+
+<!-- samba-4.19.0
+<refsect3>
+        <title>domain claim claim-type create</title>
+        <para>Create claim types on the domain.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--attribute</term>
+                        <listitem><para>
+                                Attribute of claim type to create (required).
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--class</term>
+                        <listitem>
+                                <para>
+                                        Object classes to set claim type to.
+                                </para>
+                                <para>
+                                        Example: --class=user --class=computer
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                Optional display name or use attribute name.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--description</term>
+                        <listitem><para>
+                                Optional description or use from attribute.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--enable</term>
+                        <listitem>
+                                <para>
+                                        Enable claim type.
+                                </para>
+                                <para>
+                                        Cannot be used together with --disable.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--disable</term>
+                        <listitem>
+                                <para>
+                                        Disable claim type.
+                                </para>
+                                <para>
+                                        Cannot be used together with --enable.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--protect</term>
+                        <listitem>
+                                <para>
+                                        Protect claim type from accidental deletion.
+                                </para>
+                                <para>
+                                        Cannot be used together with --unprotect.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--unprotect</term>
+                        <listitem>
+                                <para>
+                                        Unprotect claim type from accidental deletion.
+                                </para>
+                                <para>
+                                        Cannot be used together with --protect.
+                                </para>
+                        </listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+-->
+<refsect3>
+        <title>domain claim claim-type create</title>
+        <para>このドメイン上のクレームタイプを作成。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--attribute</term>
+                        <listitem><para>
+                                作成するクレームタイプの属性(必須)。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--class</term>
+                        <listitem>
+                                <para>
+                                        クレームタイプを設定するオブジェクトクラス。
+                                </para>
+                                <para>
+                                        例: --class=user --class=computer
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                オプションの表示名又は属性名を使用。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--description</term>
+                        <listitem><para>
+                                オプションの説明又は from 属性を使用。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--enable</term>
+                        <listitem>
+                                <para>
+                                        クレームタイプを有効にする。
+                                </para>
+                                <para>
+                                        --disable と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--disable</term>
+                        <listitem>
+                                <para>
+                                        クレームタイプを無効にする。
+                                </para>
+                                <para>
+                                        --enable と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--protect</term>
+                        <listitem>
+                                <para>
+                                        誤操作による削除からクレームタイプを保護する。
+                                </para>
+                                <para>
+                                        --unprotect と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--unprotect</term>
+                        <listitem>
+                                <para>
+                                        誤操作による削除からクレームタイプを保護しない。
+                                </para>
+                                <para>
+                                        --protect と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+
+<!-- samba-4.19.0
+<refsect3>
+        <title>domain claim claim-type modify</title>
+        <para>Modify claim types on the domain.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                Display name of claim type to modify (required).
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--class</term>
+                        <listitem>
+                                <para>
+                                        Object classes to set claim type to.
+                                </para>
+                                <para>
+                                        Example: --class=user --class=computer
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--description</term>
+                        <listitem><para>
+                                Set the claim type description.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--enable</term>
+                        <listitem>
+                                <para>
+                                        Enable claim type.
+                                </para>
+                                <para>
+                                        Cannot be used together with --disable.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--disable</term>
+                        <listitem>
+                                <para>
+                                        Disable claim type.
+                                </para>
+                                <para>
+                                        Cannot be used together with --enable.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--protect</term>
+                        <listitem>
+                                <para>
+                                        Protect claim type from accidental deletion.
+                                </para>
+                                <para>
+                                        Cannot be used together with --unprotect.
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--unprotect</term>
+                        <listitem>
+                                <para>
+                                        Unprotect claim type from accidental deletion.
+                                </para>
+                                <para>
+                                        Cannot be used together with --protect.
+                                </para>
+                        </listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+-->
+<refsect3>
+        <title>domain claim claim-type modify</title>
+        <para>ドメイン上のクレームタイプを変更する。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                変更するクレームタイプの属性(必須)。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--class</term>
+                        <listitem>
+                                <para>
+                                        クレームタイプを設定するオブジェクトクラス。
+                                </para>
+                                <para>
+                                        例: --class=user --class=computer
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--description</term>
+                        <listitem><para>
+                                クレームタイプの説明を設定。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--enable</term>
+                        <listitem>
+                                <para>
+                                        クレームタイプを有効にする。
+                                </para>
+                                <para>
+                                        --disable と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--disable</term>
+                        <listitem>
+                                <para>
+                                        クレームタイプを無効にする。
+                                </para>
+                                <para>
+                                        --enable と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--protect</term>
+                        <listitem>
+                                <para>
+                                        誤操作による削除からクレームタイプを保護する。
+                                </para>
+                                <para>
+                                        --unprotect と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--unprotect</term>
+                        <listitem>
+                                <para>
+                                        誤操作による削除からクレームタイプを保護しない。
+                                </para>
+                                <para>
+                                        --protect と共には使えない。
+                                </para>
+                        </listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+
+<!-- samba-4.19.0
+<refsect3>
+        <title>domain claim claim-type delete</title>
+        <para>Delete claim types on the domain.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                Display name of claim type to delete (required).
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--force</term>
+                        <listitem><para>
+                                Force claim type delete even if it is protected.
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+-->
+<refsect3>
+        <title>domain claim claim-type delete</title>
+        <para>ドメイン上のクレームタイプを削除</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                削除するクレームタイプの名前(必須)。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--force</term>
+                        <listitem><para>
+                                保護されていたとしても強制的にクレームタイプを削除。
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+
+<!-- samba-4.19.0
+<refsect3>
+        <title>domain claim value-type list</title>
+        <para>List claim value types on the domain.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--json</term>
+                        <listitem><para>
+                                View claim value types as JSON instead of a list.
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+-->
+<refsect3>
+        <title>domain claim value-type list</title>
+        <para>ドメイン上のクレームバリュータイプを一覧表示する。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--json</term>
+                        <listitem><para>
+                                一覧の代わりに JSON でクレームバリュータイプを表示。
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+
+<!-- samba-4.19.0
+<refsect3>
+        <title>domain claim value-type view</title>
+        <para>View a single claim value type on the domain.</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                LDB URL for database or target server.
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                Display name of claim value type to view (required).
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+-->
+<refsect3>
+        <title>domain claim value-type view</title>
+        <para>ドメイン上の単一のクレームバリュータイプを表示する。</para>
+        <variablelist>
+                <varlistentry>
+                        <term>-H, --URL</term>
+                        <listitem><para>
+                                データベース又はターゲットサーバの LDB URL。
+                        </para></listitem>
+                </varlistentry>
+                <varlistentry>
+                        <term>--name</term>
+                        <listitem><para>
+                                表示するクレームバリュータイプの表示名(必須)。
+                        </para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect3>
+
+
 <refsect3>
 	<title>domain classicupgrade [options] <replaceable>classic_smb_conf</replaceable></title>
 <!-- 原文 samba-4.7.0
