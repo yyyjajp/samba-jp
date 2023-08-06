@@ -1,6 +1,6 @@
 		Sambaドキュメントの日本語訳版について
 
-						2023/03/18
+						2023/08/06
 						日本Sambaユーザー会
 
 
@@ -48,10 +48,10 @@ COPYINGファイルを参照してください。
 原則として、オリジナルSambaが更新対象となっているものについて
 翻訳を行います。
 
-・4.15.x系列以前:	翻訳終了
-・4.16.x系列:		翻訳中
+・4.16.x系列以前:	翻訳終了
 ・4.17.x系列:		翻訳中
 ・4.18.x系列:		翻訳中
+・4.19.x系列:		翻訳中
 
 
 Sambaのバージョンが変更になってもドキュメントの修正がない場合には、
@@ -129,11 +129,13 @@ manpages、html、htmlman が実行可能になります。これ以外にも ma
 ======================================================================
 XMLのパラメータのみの修正(翻訳に影響なし)については、記載を省略しています。
 
-2023/02/25 Ver 4.18.0-1 4.18.0 対応
-	   samba-tool.8.xml,smbget.1.xml,
-	   vfs_acl_xattr.8.xml,vfs_full_audit.8.xml,vfs_gpfs.8.xml,
-	   wbinfo.1.xml,
-	   browse/server_addresses.xml,filename/casesensitive.xml,
+2023/08/06 Ver 4.19.0-1 4.19.0 対応
+	   idmap_ad.8.xml,idmap_autorid.8.xml,idmap_rid.8.xml,
+	   idmap_script.8.xml,net.8.xml,samba-tool.8.xml,
+	   smbcontrol.1.xml,smbget.1.xml,vfs_ceph.8.xml,
+	   vfs_fruit.8.xml,vfs_full_audit.8.xml,
+
+browse/server_addresses.xml,filename/casesensitive.xml,
 	   filename/defaultcase.xml,filename/manglednames.xml,
 	   filename/manglingchar.xml,filename/mapreadonly.xml,
 	   locking/lockspintime.xml,locking/smb2leases.xml,
@@ -151,12 +153,10 @@ XMLのパラメータのみの修正(翻訳に影響なし)については、記
 	   winbind/rejectmd5servers.xml,
 	   winbind/requirestrongkey.xml
 	   変更
-	   protocol/smb3unixextensions.xml,
-	   security/kdcdefaultdomainsupportedenctypes.xml,
-	   security/kdcforceenablerc4weaksessionkeys.xml,
-	   security/kdcsupportedenctypes.xml,
-	   security/serverschannelrequireseal.xml
+	   samba-log-parser.1.xml
 	   追加
+	   smbgetrc.5.xml
+	   削除
 
 ======================================================================
 
