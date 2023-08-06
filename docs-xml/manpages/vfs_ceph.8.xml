@@ -169,17 +169,17 @@
 		<varlistentry>
 		<term>ceph:user_id = name</term>
 		<listitem>
-<!-- 原文 samba-4.7.0
+<!-- 原文 samba-4.19.0
 		<para>
-			Allows one to explicitly set the client ID used for the
-			CephFS mount handle. Empty by default (CephFS uses the
-			process id).
+                        Allows one to explicitly set the client ID used for the
+                        CephFS mount handle. Empty by default (use the libcephfs
+                        client default).
 		</para>
 -->
 		<para>
 			CephFS マウントハンドルに用いられるクライアント ID を
-			明示的に設定する。既定値は空である（このとき CephFS は
-			プロセス ID を用いる）。
+			明示的に設定する。既定値は空である（既定で libcephfs
+			クライアントを使用）。
 		</para>
 <!-- 原文 samba-4.7.0
 		<para>
@@ -190,7 +190,38 @@
 			例: ceph:user_id = samba
 		</para>
 		</listitem>
-		</varlistentry>
+                </varlistentry>
+
+<!-- samba-4.19.0
+                <varlistentry>
+                <term>ceph:filesystem = fs_name</term>
+                <listitem>
+                <para>
+                        Allows one to explicitly select the CephFS file system
+                        to use when the Ceph cluster supports more than one
+                        file system. Empty by default (use the default file system
+                        of the Ceph cluster).
+                </para>
+                <para>
+                        Example: ceph:filesystem = myfs2
+                </para>
+                </listitem>
+                </varlistentry>
+
+-->
+                <varlistentry>
+                <term>ceph:filesystem = fs_name</term>
+                <listitem>
+                <para>
+		  Ceph クラスタが複数のファイルシステムをサポートする場合に、
+		  使用する CephFS ファイルシステムを明示的に選択できる。既定では
+		  空である(Ceph クラスタの既定のファイルシステムを使用する)。
+                </para>
+                <para>
+                        例: ceph:filesystem = myfs2
+                </para>
+                </listitem>
+                </varlistentry>
 
 	</variablelist>
 
@@ -232,7 +263,7 @@
 </refsect1>
 <refsect1>
 	<title>日本語訳</title>
-	<para>このドキュメントは、Samba 4.10.4 - 4.18.0 に対応する。</para>
+	<para>このドキュメントは、Samba 4.19.0 - 4.19.0 に対応する。</para>
 	<para>このドキュメントの翻訳は
 		<itemizedlist>
 			<listitem><para>太田俊哉 (ribbon@samba.gr.jp)</para></listitem>
