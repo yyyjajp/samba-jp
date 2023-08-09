@@ -1,0 +1,63 @@
+<samba:parameter name="ad dc functional level"
+                 context="G"
+                 type="enum"
+                 function="ad_dc_functional_level"
+                 enumlist="enum_ad_functional_level"
+                 xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
+<description>
+    <para>このパラメータの値(文字列)は、このドメインコントローラがサポートを要求する
+    Active Directory の機能レベルである。
+    </para>
+
+    <para>取り得る値は以下の通り :</para>
+    <itemizedlist>
+	<listitem>
+	    <para><constant>2008_R2</constant>: Windows
+	    2008 R2 機能レベルと同等</para>
+	</listitem>
+	<listitem>
+	    <para><constant>2012</constant>: Windows
+	    2012 機能レベルと同等</para>
+	</listitem>
+	<listitem>
+	    <para><constant>2012_R2</constant>: Windows
+	    2012 R2 機能レベルと同等</para>
+	</listitem>
+	<listitem>
+	    <para><constant>2016</constant>: Windows
+	    2016 機能レベルと同等</para>
+	</listitem>
+    </itemizedlist>
+
+    <para>通常 Samb aは Samba Active Directory ドメインコントローラのリリース
+    された機能に従って動作するため、このオプションは設定すべきでない。
+    </para>
+
+    <para>ただし、ドメイン機能レベル 2016 の不完全な機能にアクセスするには、
+    ドメイン機能レベルをアップグレードする前にこの値を設定すると便利な場合がある。
+    </para>
+
+    <para>これを手動で設定すると、ドメインコントローラ間の機能の不一致に対する保護が
+    軽減されるため、すべてのドメインコントローラで同じバージョンの Samba を実行して、
+    どの DC に接続してもクライアントから見た動作が同じになるようにする必要がある。
+    </para>
+
+    <para>これを<constant>2016</constant> に設定すると、
+    <command>samba-tool domain level raise --domain-level=2016</command>で
+    ドメインの機能レベルを上げることができ、Samba の Kerberos Claims および
+    Dynamic Access Control 機能へのアクセスが提供される。
+    </para>
+
+    <warning><para><constant>2016</constant> で有効にした Samba の
+    Kerberos Claims と Dynamic Access Control 機能は
+    Samba 4.19 では不完全である。  </para></warning>
+
+
+</description>
+
+<!-- DO NOT MODIFY without discussion: take care to only update this
+     default once Samba implements the core aspects of Active
+     Directory Domain and Forest Functional Level 2016 -->
+<value type="default">2008_R2</value>
+<value type="example">2016</value>
+</samba:parameter>
