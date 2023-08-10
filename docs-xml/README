@@ -1,6 +1,6 @@
 		Sambaドキュメントの日本語訳版について
 
-						2023/08/06
+						2023/08/10
 						日本Sambaユーザー会
 
 
@@ -129,33 +129,19 @@ manpages、html、htmlman が実行可能になります。これ以外にも ma
 ======================================================================
 XMLのパラメータのみの修正(翻訳に影響なし)については、記載を省略しています。
 
-2023/08/06 Ver 4.19.0-1 4.19.0 対応
+2023/08/10 Ver 4.19.0-1 4.19.0 対応
 	   idmap_ad.8.xml,idmap_autorid.8.xml,idmap_rid.8.xml,
 	   idmap_script.8.xml,net.8.xml,samba-tool.8.xml,
 	   smbcontrol.1.xml,smbget.1.xml,vfs_ceph.8.xml,
 	   vfs_fruit.8.xml,vfs_full_audit.8.xml,
-
-browse/server_addresses.xml,filename/casesensitive.xml,
-	   filename/defaultcase.xml,filename/manglednames.xml,
-	   filename/manglingchar.xml,filename/mapreadonly.xml,
-	   locking/lockspintime.xml,locking/smb2leases.xml,
-	   logon/allownt4crypto.xml,logon/rejectmd5clients.xml,
-	   misc/defaultservice.xml,printing/loadprinters.xml,
-	   protocol/disablenetbios.xml,protocol/easupport.xml,
-	   protocol/mapaclinherit.xml,protocol/ntaclsupport.xml,
-	   security/allowdcerpcauthlevelconnect.xml,
-	   security/clientschannel.xml,security/inheritacls.xml,
-	   security/inheritowner.xml,
-	   security/kerberosencryptiontypes.xml,
-	   security/rootdirectory.xml,security/security.xml,
-	   security/serverrole.xml,security/serverschannel.xml,
-	   tuning/aioreadsize.xml,tuning/aiowritesize.xml,
-	   winbind/rejectmd5servers.xml,
-	   winbind/requirestrongkey.xml
+	   ldap/clientldapsaslwrapping.xml,
+	   locking/smb2leases.xml,
+	   logging/debugsyslogformat.xml,
+	   tuning/aioreadsize.xml,tuning/aiowritesize.xml
 	   変更
-	   samba-log-parser.1.xml
+	   samba-log-parser.1.xml,protocol/addcfunctionallevel.xml
 	   追加
-	   smbgetrc.5.xml
+	   smbgetrc.5.xml,misc/directorynamecachesize.xml
 	   削除
 
 ======================================================================
